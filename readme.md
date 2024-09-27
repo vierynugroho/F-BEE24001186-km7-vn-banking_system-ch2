@@ -2,6 +2,10 @@
   Chapter 2 - Basic-Banking-System
 </h1>
 
+<div id='image' align='center'>
+<img src='./assets/flowchart-ch2-bejs.png' alt='flowchart' title='flowchart banking_system - Viery Nugroho'>
+</div>
+
 # HOW TO RUNNING THIS PROJECT
 
 1. ` node bank_account.js`

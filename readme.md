@@ -5,7 +5,7 @@
 # Flowchart
 <div id='image' align='center'>
 <img src='./assets/flowchart-ch2-bejs.png' alt='flowchart' title='flowchart banking_system - Viery Nugroho'>
-/div>
+</div>
 
 1. **START**
 2. program dimulai maka akan menampilkan menu dengan 4 pilihan/kode menu (deposit, withdraw, log transaction, exit)

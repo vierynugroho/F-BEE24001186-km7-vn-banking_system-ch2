@@ -25,9 +25,15 @@
    2. jika menekan y || Y maka akan mengakhiri sistem, jika selain y || Y akan kembali ke menu
 7. **FINISH**
 
-# HOW TO RUNNING THIS PROJECT
+# (BANKING SYSTEM) HOW TO RUNNING
 
 1. ` node bank_system.js`
+
+# (DATABASE) HOW TO MIGRATE
+
+1. migrate customers
+2. migrate accounts
+3. migrate transactions
 
 # Data Diri
 

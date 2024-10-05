@@ -1,0 +1,10 @@
+CREATE TYPE TRANSACTION_TYPE AS ENUM ('DEPOSIT', 'WITHDRAWAL', 'TRANSFER');
+
+CREATE TABLE "transactions" (
+  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "account_id" BIGSERIAL NOT NULL REFERENCES accounts(id),
+  "type" TRANSACTION_TYPE NOT NULL,
+  "transaction_at" DATE NOT NULL,
+  "amount" NUMERIC(10, 2) NOT NULL,
+  "description" TEXT
+);

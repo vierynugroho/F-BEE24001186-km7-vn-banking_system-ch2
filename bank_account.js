@@ -118,7 +118,7 @@ class BankAccount {
 	}
 
 	async showLog() {
-		this._printTransactionHistory();
+		console.log('show transaction history...');
 	}
 
 	_printTransactionHistory() {
@@ -128,8 +128,18 @@ class BankAccount {
 	}
 }
 
+class Account extends BankAccount {
+	constructor(saldo) {
+		super(saldo);
+	}
+
+	async showLog() {
+		this._printTransactionHistory();
+	}
+}
+
 module.exports = {
 	Terminal,
-	BankAccount,
+	Account,
 	Validation,
 };

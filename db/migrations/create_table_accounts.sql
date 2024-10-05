@@ -1,4 +1,4 @@
-CREATE TABLE "accounts" (
+CREATE TABLE IF NOT EXISTS "accounts" (
   "id" BIGSERIAL NOT NULL PRIMARY KEY,
   "customer_id" BIGSERIAL NOT NULL REFERENCES customers(id),
   "email" VARCHAR(255) NOT NULL CONSTRAINT "unique_accounts_email" UNIQUE,

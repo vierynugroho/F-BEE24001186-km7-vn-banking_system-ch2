@@ -1,7 +1,7 @@
-const { BankAccount, Terminal, Validation } = require('./bank_account');
+const { Account, Terminal, Validation } = require('./bank_account');
 
 const menu = async () => {
-	const account = new BankAccount(0);
+	const account = new Account(0);
 
 	while (true) {
 		try {

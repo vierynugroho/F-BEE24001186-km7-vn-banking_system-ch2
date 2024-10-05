@@ -55,10 +55,10 @@ class BankAccount {
 	constructor(saldo) {
 		this.saldo = saldo;
 		this.transactionLog = [];
-		this.log('✔ Account created', saldo);
+		this.#log('✔ Account created', saldo);
 	}
 
-	log(action, amount) {
+	#log(action, amount) {
 		const timestamp = `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`;
 		const logEntry = `${timestamp}: ${action}: Rp. ${amount} \t Balance: Rp. ${this.saldo}`;
 		this.transactionLog.push(logEntry);
@@ -73,7 +73,7 @@ class BankAccount {
 
 			setTimeout(() => {
 				this.saldo += amount;
-				this.log('➕ Deposit', amount);
+				this.#log('➕ Deposit', amount);
 
 				Terminal.clear();
 				Terminal.output(`✔ Deposit successful! New balance: Rp. ${this.saldo}`);
@@ -94,7 +94,7 @@ class BankAccount {
 
 			setTimeout(() => {
 				if (amount > this.saldo) {
-					this.log('⛔ Insufficient funds Withdraw attempt', amount);
+					this.#log('⛔ Insufficient funds Withdraw attempt', amount);
 
 					Terminal.clear();
 					Terminal.output('⛔ Your remaining balance is insufficient!');
@@ -104,7 +104,7 @@ class BankAccount {
 					}, 2000);
 				} else {
 					this.saldo -= amount;
-					this.log('➖ Withdraw', amount);
+					this.#log('➖ Withdraw', amount);
 
 					Terminal.clear();
 					Terminal.output(`✔ Withdraw successful! New Balance: Rp. ${this.saldo}`);
@@ -118,10 +118,10 @@ class BankAccount {
 	}
 
 	async showLog() {
-		this.printTransactionHistory();
+		this._printTransactionHistory();
 	}
 
-	printTransactionHistory() {
+	_printTransactionHistory() {
 		Terminal.clear();
 		Terminal.output('========== Log Transaction =========');
 		Terminal.output(this.transactionLog.join('\n'));

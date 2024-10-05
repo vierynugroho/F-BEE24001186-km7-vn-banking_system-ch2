@@ -31,9 +31,14 @@
 
 # (DATABASE) HOW TO MIGRATE
 
+```
 1. migrate customers
 2. migrate accounts
 3. migrate transactions
+4. seed data customer
+5. seed data account
+6. seed data transaction
+```
 
 # Data Diri
 

@@ -8,7 +8,7 @@ END
 $$;
 
 CREATE TABLE IF NOT EXISTS "transactions" (
-  "id" BIGSERIAL NOT NULL PRIMARY KEY,
+  "id" UUID NOT NULL PRIMARY KEY,
   "account_id" BIGSERIAL NOT NULL REFERENCES accounts(id),
   "type" TRANSACTION_TYPE NOT NULL,
   "transaction_at" DATE NOT NULL,

@@ -51,7 +51,7 @@ class Validation {
 	}
 }
 
-class BankingSystem {
+class BankAccount {
 	constructor(saldo) {
 		this.saldo = saldo;
 		this.transactionLog = [];
@@ -130,6 +130,6 @@ class BankingSystem {
 
 module.exports = {
 	Terminal,
-	BankingSystem,
+	BankAccount,
 	Validation,
 };

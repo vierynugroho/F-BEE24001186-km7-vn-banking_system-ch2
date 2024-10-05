@@ -117,6 +117,10 @@ class BankAccount {
 		});
 	}
 
+	async showLog() {
+		this._printTransactionHistory();
+	}
+
 	_printTransactionHistory() {
 		Terminal.clear();
 		Terminal.output('========== Log Transaction =========');

@@ -1,135 +1,48 @@
-const readline = require('readline');
-const r_interface = readline.createInterface({ input: process.stdin, output: process.stdout });
+const { BankingSystem, Terminal, Validation } = require('./bank_account');
 
-class AmountError extends TypeError {
-	constructor(message) {
-		super(message);
-		this.name = '⛔ AMOUNT ERROR';
-		this.code = 400;
-	}
-}
+const menu = async () => {
+	const account = new BankingSystem(0);
 
-class Terminal {
-	static input(prompt) {
-		return new Promise((resolve) => {
-			r_interface.question(prompt, (input) => {
-				resolve(input);
-			});
-		});
-	}
-
-	static output(output) {
-		console.log(output);
-	}
-
-	static clear() {
-		process.stdout.write('\x1b[2J\x1b[H');
-	}
-
-	static end() {
-		r_interface.close();
-		process.exit(0);
-	}
-}
-
-class Validation {
-	static amountValidation(amount) {
+	while (true) {
 		try {
-			if (isNaN(amount)) {
-				throw new AmountError(`Amount value is invalid`);
-			} else if (!isNaN(amount) && amount < 0) {
-				throw new AmountError('Amount value cannot be negative');
-			} else {
-				return amount;
+			const menuValue = await Terminal.input(
+				`=========== Bank Account ==========\nyour balance: Rp. ${account.saldo}\n1. deposit\n2. withdraw\n3. log transaction\n4. exit\n===============================\nselect menu: \t`
+			);
+
+			switch (menuValue) {
+				case '1':
+					Terminal.clear();
+
+					const depositValue = parseInt(await Terminal.input(`=========== DEPOSIT ==========\nyour balance: Rp. ${account.saldo}\nRp. `));
+					await account.deposit(Validation.amountValidation(depositValue));
+					break;
+				case '2':
+					Terminal.clear();
+
+					const withdrawValue = parseInt(await Terminal.input(`=========== WITHDRAW ==========\nyour balance: Rp. ${account.saldo}\nRp. `));
+					await account.withdraw(Validation.amountValidation(withdrawValue));
+					break;
+				case '3':
+					await account.showLog();
+					break;
+				case '4':
+					const confirmation = await Terminal.input('⚠ Are you sure you want to exit? (y/n)\t');
+					if (confirmation === 'y' || confirmation === 'Y') {
+						Terminal.output('😎 Thank You!\n\n');
+						Terminal.end();
+					} else {
+						Terminal.clear();
+						Terminal.output('Option canceled\n\n');
+					}
+					break;
+				default:
+					Terminal.output('\n\n⛔ Invalid input.\nPlease select a valid option.\n\n');
+					break;
 			}
 		} catch (error) {
-			Terminal.clear();
-			Terminal.output('\n\n====== something went wrong! ======');
-			Terminal.output(`${error.name}: ${error.message}\n`);
-			return null;
+			Terminal.output(`${error.name}: ${error.message}`);
 		}
 	}
-}
-
-class BankingSystem {
-	constructor(saldo) {
-		this.saldo = saldo;
-		this.transactionLog = [];
-		this.log('✔ Account created', saldo);
-	}
-
-	log(action, amount) {
-		const timestamp = `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`;
-		const logEntry = `${timestamp}: ${action}: Rp. ${amount} \t Balance: Rp. ${this.saldo}`;
-		this.transactionLog.push(logEntry);
-	}
-
-	async deposit(amount) {
-		if (amount === null) return; // so as not to return any value if validation fails on the Validation.amountValidation
-
-		return new Promise((resolve, reject) => {
-			Terminal.clear();
-			console.log('Loading...');
-
-			setTimeout(() => {
-				this.saldo += amount;
-				this.log('➕ Deposit', amount);
-
-				Terminal.clear();
-				Terminal.output(`✔ Deposit successful! New balance: Rp. ${this.saldo}`);
-
-				setTimeout(() => {
-					resolve(Terminal.clear());
-				}, 2000);
-			}, 2000);
-		});
-	}
-
-	async withdraw(amount) {
-		if (amount === null) return;
-
-		return new Promise((resolve, reject) => {
-			Terminal.clear();
-			console.log('Loading...');
-
-			setTimeout(() => {
-				if (amount > this.saldo) {
-					this.log('⛔ Insufficient funds Withdraw attempt', amount);
-
-					Terminal.clear();
-					Terminal.output('⛔ Your remaining balance is insufficient!');
-
-					setTimeout(() => {
-						resolve(Terminal.clear()); // Resolve to continue the program even on insufficient funds and keep data from being lost
-					}, 2000);
-				} else {
-					this.saldo -= amount;
-					this.log('➖ Withdraw', amount);
-
-					Terminal.clear();
-					Terminal.output(`✔ Withdraw successful! New Balance: Rp. ${this.saldo}`);
-
-					setTimeout(() => {
-						resolve(Terminal.clear());
-					}, 2000);
-				}
-			}, 2000);
-		});
-	}
-
-	async showLog() {
-		this.printTransactionHistory();
-	}
-
-	printTransactionHistory() {
-		Terminal.clear();
-		Terminal.output('========== Log Transaction =========');
-		Terminal.output(this.transactionLog.join('\n'));
-	}
-}
-
-module.exports = {
-	Terminal,
-	BankingSystem,
-	Validation,
 };
+
+menu();

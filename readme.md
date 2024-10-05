@@ -3,6 +3,7 @@
 </h1>
 
 # Flowchart
+
 <div id='image' align='center'>
 <img src='./assets/flowchart-ch2-bejs.png' alt='flowchart' title='flowchart banking_system - Viery Nugroho'>
 </div>
@@ -24,10 +25,9 @@
    2. jika menekan y || Y maka akan mengakhiri sistem, jika selain y || Y akan kembali ke menu
 7. **FINISH**
 
-
 # HOW TO RUNNING THIS PROJECT
 
-1. ` node bank_account.js`
+1. ` node bank_system.js`
 
 # Data Diri
 

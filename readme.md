@@ -25,6 +25,12 @@
    2. jika menekan y || Y maka akan mengakhiri sistem, jika selain y || Y akan kembali ke menu
 7. **FINISH**
 
+# ERD
+
+<div id='image' align='center'>
+<img src='./assets/erd_ch3.png' alt='ERD' title='ERD banking_system CH 3 - Viery Nugroho'>
+</div>
+
 # (BANKING SYSTEM) HOW TO RUNNING
 
 1. ` node bank_system.js`

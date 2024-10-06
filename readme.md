@@ -67,3 +67,29 @@
 | -------------------- |
 | **Catatan**          |
 | Submission Chapter 2 |
+
+### TODO LIST
+
+APPROVED ✅
+
+- CTE ✅
+
+TRANSFER ✅
+
+- CTE ✅
+- Stored Procedure ✅
+- Validasi ✅
+
+DEPOSIT ❌
+
+- Main Function ✅
+- CTE
+- Stored Procedure ✅
+- Validasi ✅
+
+WITHDRAWAL ❌
+
+- Main Function ✅
+- CTE
+- Stored Procedure ✅
+- Validasi ✅

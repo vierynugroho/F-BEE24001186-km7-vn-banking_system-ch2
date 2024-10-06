@@ -12,12 +12,13 @@ SELECT
 FROM generate_series(1, 100);
 
 -- insert accounts data
-INSERT INTO accounts (customer_id, email, password, type, balance, created_at, updated_at)
+INSERT INTO accounts (customer_id, email, password, approved,type, balance, created_at, updated_at)
 SELECT
   c.id AS customer_id,
   c.name || '@example.com' AS email,
   md5(c.name || c.address)::text AS password,
   CASE WHEN random() < 0.5 THEN 'GIRO' ELSE 'SAVINGS' END::ACCOUNT_TYPE AS type,
+  CASE WHEN random() < 0.5 THEN TRUE ELSE FALSE AS approved,
   (random() * 100000)::numeric(10, 2) AS balance,
   CURRENT_TIMESTAMP AS created_at,
   CURRENT_TIMESTAMP AS updated_at

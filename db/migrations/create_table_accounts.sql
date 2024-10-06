@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS "accounts" (
   "customer_id" BIGSERIAL NOT NULL REFERENCES customers(id),
   "email" VARCHAR(255) NOT NULL CONSTRAINT "unique_accounts_email" UNIQUE,
   "password" VARCHAR(255) NOT NULL,
+  "approved" BOOLEAN NOT NULL DEFAULT FALSE,
   "type" ACCOUNT_TYPE NOT NULL,
   "balance" NUMERIC(10, 2) NOT NULL DEFAULT 0,
   "created_at" DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,

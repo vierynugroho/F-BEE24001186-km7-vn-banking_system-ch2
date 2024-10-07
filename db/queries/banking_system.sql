@@ -26,7 +26,7 @@ CREATE OR REPLACE PROCEDURE transfer(
 AS $$
     DECLARE
         sender_balance DECIMAL;
-        transaction_id UUID; 
+        transaction_id UUID;
     BEGIN
         IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = sender AND approved = TRUE) THEN
             RAISE EXCEPTION 'Transfer failed: Sender account with ID % is not approved.', sender;
@@ -37,10 +37,14 @@ AS $$
         END IF;
 
         IF amount <= 0 THEN
-						RAISE EXCEPTION 'Transfer failed: Transfer amount must be greater than 0';
-				END IF;
+			RAISE EXCEPTION 'Transfer failed: Transfer amount must be greater than 0';
+		END IF;
+
+        SELECT balance INTO sender_balance 
+        FROM accounts 
+        WHERE id = sender;
 				
-				IF sender_balance < amount THEN
+		IF sender_balance < amount THEN
             RAISE EXCEPTION 'Transfer failed: Insufficient balance for sender with ID %.', sender;
         END IF;
 
@@ -71,7 +75,7 @@ AS $$
 		
 $$;
 
-CALL transfer(1, 2, 0);
+CALL transfer(1, 2, 999990);
 
 --! DEPOSIT
 CREATE OR REPLACE PROCEDURE deposit(
@@ -85,14 +89,14 @@ AS $$
     END IF;
 		
     IF amount <= 0 THEN
-				RAISE EXCEPTION 'Transfer failed: Transfer amount must be greater than 0';
-		END IF;
+		RAISE EXCEPTION 'Transfer failed: Transfer amount must be greater than 0';
+	END IF;
 	
-		UPDATE accounts 
-			SET balance = balance + amount 
-			WHERE id = account_id;
+	UPDATE accounts 
+		SET balance = balance + amount 
+		WHERE id = account_id;
 
-			COMMIT;
+		COMMIT;
 	END;
 $$;
 

@@ -1,5 +1,5 @@
 <h1 align="center">
-  Chapter 2 - Basic-Banking-System
+  Chapter 2 & 3 - Banking System
 </h1>
 
 # Flowchart
@@ -25,9 +25,42 @@
    2. jika menekan y || Y maka akan mengakhiri sistem, jika selain y || Y akan kembali ke menu
 7. **FINISH**
 
-# HOW TO RUNNING THIS PROJECT
+# ERD
+
+<div id='image' align='center'>
+<img src='./assets/erd_ch3.png' alt='ERD' title='ERD banking_system CH 3 - Viery Nugroho'>
+</div>
+
+# (BANKING SYSTEM) HOW TO RUNNING
 
 1. ` node bank_system.js`
+
+# (DATABASE) HOW TO MIGRATE & RUNNING THE QUERIES
+
+```
+1. migrate customers
+2. migrate accounts
+3. migrate transactions
+4. seed data customer
+5. seed data account
+6. seed data transaction
+7. banking_system queries 'playground'
+8. indexing on tbl_transaction at db/migration/create_table_transactions.sql
+```
+
+### INDEXING TESTING
+
+#### Without Indexing
+
+<div id='image' align='center'>
+<img src='./assets/without_idx.png' alt='Without Indexing' title='Without Indexing - banking_system CH 3 - Viery Nugroho'>
+</div>
+
+#### With Indexing
+
+<div id='image' align='center'>
+<img src='./assets/idx_transactions_type.png' alt='With Indexing' title='With Indexing - banking_system CH 3 - Viery Nugroho'>
+</div>
 
 # Data Diri
 
@@ -46,7 +79,7 @@
 
 ### KM x Binar Academy Batch 7
 
-|                      |
-| -------------------- |
-| **Catatan**          |
-| Submission Chapter 2 |
+|                        |
+| ---------------------- |
+| **Catatan**            |
+| Submission Per Chapter |

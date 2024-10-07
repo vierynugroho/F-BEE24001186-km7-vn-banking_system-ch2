@@ -1,4 +1,4 @@
--- ACCOUNT APPROVAL
+--! ACCOUNT APPROVAL
 CREATE OR REPLACE PROCEDURE approved ( 
 	approved_account_id  INTEGER 
 ) LANGUAGE plpgsql 
@@ -8,6 +8,10 @@ AS $$
 			RAISE EXCEPTION 'Account with ID % not found!', approved_account_id;
 		END IF;
 		
+		IF (SELECT approved FROM accounts WHERE id = approved_account_id) = TRUE THEN
+			RAISE EXCEPTION 'Account with ID % is already approved!', approved_account_id;
+		END IF;
+		
 		UPDATE accounts
 		SET approved = TRUE,
 				updated_at = CURRENT_TIMESTAMP
@@ -15,7 +19,7 @@ AS $$
 	END;
 $$;
 
-CALL approved(1111);
+CALL approved(9);
 
 --! TRANSFER 
 CREATE OR REPLACE PROCEDURE transfer(

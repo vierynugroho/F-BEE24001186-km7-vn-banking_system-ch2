@@ -72,11 +72,11 @@
 
 APPROVED ✅
 
-- CTE ✅
+- CTE
 
 TRANSFER ✅
 
-- CTE ✅
+- CTE
 - Stored Procedure ✅
 - Validasi ✅
 

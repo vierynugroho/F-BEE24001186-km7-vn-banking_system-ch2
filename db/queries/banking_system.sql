@@ -1,4 +1,4 @@
---! ACCOUNT APPROVAL
+-- ACCOUNT APPROVAL
 CREATE OR REPLACE PROCEDURE approved ( 
 	approved_account_id  INTEGER 
 ) LANGUAGE plpgsql 
@@ -13,9 +13,9 @@ AS $$
 		END IF;
 		
 		UPDATE accounts
-		SET approved = TRUE,
-				updated_at = CURRENT_TIMESTAMP
-		WHERE id = approved_account_id;
+		    SET approved = TRUE,
+			    updated_at = CURRENT_TIMESTAMP
+		    WHERE id = approved_account_id;
 	END;
 $$;
 
@@ -32,6 +32,14 @@ AS $$
         sender_balance DECIMAL;
         transaction_id UUID;
     BEGIN
+		IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = sender) THEN
+			RAISE EXCEPTION 'Sender with ID % not found!', sender;
+		END IF;
+		
+		IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = receiver) THEN
+			RAISE EXCEPTION 'Receiver with ID % not found!', receiver;
+		END IF;
+        
         IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = sender AND approved = TRUE) THEN
             RAISE EXCEPTION 'Transfer failed: Sender account with ID % is not approved.', sender;
         END IF;
@@ -45,8 +53,8 @@ AS $$
 		END IF;
 
         SELECT balance INTO sender_balance 
-        FROM accounts 
-        WHERE id = sender;
+            FROM accounts 
+            WHERE id = sender;
 				
 		IF sender_balance < amount THEN
             RAISE EXCEPTION 'Transfer failed: Insufficient balance for sender with ID %.', sender;
@@ -88,23 +96,27 @@ CREATE OR REPLACE PROCEDURE deposit(
 ) LANGUAGE plpgsql 
 AS $$
 	BEGIN
-		IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = account_id AND approved = TRUE) THEN
-        RAISE EXCEPTION 'Deposit failed: account with ID % is not approved.', account_id;
-    END IF;
-		
-    IF amount <= 0 THEN
-		RAISE EXCEPTION 'Transfer failed: Transfer amount must be greater than 0';
-	END IF;
-	
-	UPDATE accounts 
-		SET balance = balance + amount 
-		WHERE id = account_id;
+		IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = account_id) THEN
+			RAISE EXCEPTION 'Account with ID % not found!', account_id;
+		END IF;
 
-		COMMIT;
+		IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = account_id AND approved = TRUE) THEN
+            RAISE EXCEPTION 'Deposit failed: account with ID % is not approved.', account_id;
+        END IF;
+		
+        IF amount <= 0 THEN
+			RAISE EXCEPTION 'Transfer failed: Transfer amount must be greater than 0';
+		END IF;
+	
+		UPDATE accounts 
+			SET balance = balance + amount 
+			WHERE id = account_id;
+
+			COMMIT;
 	END;
 $$;
 
-CALL deposit(10000,-10000);
+CALL deposit(1000990,-10000);
 
 -- WITHDRAWAL
 CREATE OR REPLACE PROCEDURE withdrawal(
@@ -115,6 +127,10 @@ AS $$
     DECLARE
         account_balance DECIMAL;
     BEGIN
+		IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = account_id) THEN
+			RAISE EXCEPTION 'Account with ID % not found!', account_id;
+		END IF;
+		
         IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = account_id AND approved = TRUE) THEN
             RAISE EXCEPTION 'Withdrawal failed: Account with ID % is not approved.', account_id;
         END IF;

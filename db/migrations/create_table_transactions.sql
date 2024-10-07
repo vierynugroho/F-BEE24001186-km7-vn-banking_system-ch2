@@ -15,3 +15,10 @@ CREATE TABLE IF NOT EXISTS "transactions" (
   "amount" NUMERIC(10, 2) NOT NULL,
   "description" TEXT
 );
+
+-- CREATE INDEX idx_transactions_type ON transactions(type);
+-- DROP INDEX idx_transactions_type;
+
+-- EXPLAIN ANALYZE SELECT * FROM transactions WHERE type = 'DEPOSIT'::TRANSACTION_TYPE AND amount < 5000; -- no index: planning time: 0.139ms | exc time: 337.748ms
+
+-- EXPLAIN ANALYZE SELECT * FROM transactions WHERE type = 'DEPOSIT'::TRANSACTION_TYPE AND amount < 5000; -- index: | planning time: 0.127ms | exc time: 132.977ms

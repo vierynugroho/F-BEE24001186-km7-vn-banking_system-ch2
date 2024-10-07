@@ -45,7 +45,22 @@
 5. seed data account
 6. seed data transaction
 7. banking_system queries 'playground'
+8. indexing on tbl_transaction at db/migration/create_table_transactions.sql
 ```
+
+### INDEXING TESTING
+
+#### Without Indexing
+
+<div id='image' align='center'>
+<img src='./assets/without_idx.png' alt='Without Indexing' title='Without Indexing - banking_system CH 3 - Viery Nugroho'>
+</div>
+
+#### With Indexing
+
+<div id='image' align='center'>
+<img src='./assets/idx_transactions_type.png' alt='With Indexing' title='With Indexing - banking_system CH 3 - Viery Nugroho'>
+</div>
 
 # Data Diri
 

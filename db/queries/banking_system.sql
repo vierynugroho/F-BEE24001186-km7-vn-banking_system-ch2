@@ -3,20 +3,15 @@ CREATE OR REPLACE PROCEDURE approved (
 	approved_account_id  INTEGER 
 ) LANGUAGE plpgsql 
 AS $$
-	BEGIN
-		WITH account_check AS (
-			SELECT 1 FROM accounts WHERE id = approved_account_id
-		)
-		
-		IF NOT EXISTS (SELECT 1 FROM account_check) THEN
+	BEGIN		
+		IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = approved_account_id) THEN
 			RAISE EXCEPTION 'Account with ID % not found!', approved_account_id;
 		END IF;
 		
 		UPDATE accounts
 		SET approved = TRUE,
 				updated_at = CURRENT_TIMESTAMP
-		WHERE id = approved_account_id
-		AND EXISTS (SELECT 1 FROM account_check);
+		WHERE id = approved_account_id;
 	END;
 $$;
 
@@ -42,10 +37,10 @@ AS $$
         END IF;
 
         IF amount <= 0 THEN
-			RAISE EXCEPTION 'Transfer failed: Transfer amount must be greater than 0';
-		END IF;
+						RAISE EXCEPTION 'Transfer failed: Transfer amount must be greater than 0';
+				END IF;
 				
-		IF sender_balance < amount THEN
+				IF sender_balance < amount THEN
             RAISE EXCEPTION 'Transfer failed: Insufficient balance for sender with ID %.', sender;
         END IF;
 
@@ -78,7 +73,32 @@ $$;
 
 CALL transfer(1, 2, 0);
 
---! WITHDRAWAL
+--! DEPOSIT
+CREATE OR REPLACE PROCEDURE deposit(
+   account_id INTEGER,
+   amount DECIMAL
+) LANGUAGE plpgsql 
+AS $$
+	BEGIN
+		IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = account_id AND approved = TRUE) THEN
+        RAISE EXCEPTION 'Deposit failed: account with ID % is not approved.', account_id;
+    END IF;
+		
+    IF amount <= 0 THEN
+				RAISE EXCEPTION 'Transfer failed: Transfer amount must be greater than 0';
+		END IF;
+	
+		UPDATE accounts 
+			SET balance = balance + amount 
+			WHERE id = account_id;
+
+			COMMIT;
+	END;
+$$;
+
+CALL deposit(10000,-10000);
+
+-- WITHDRAWAL
 CREATE OR REPLACE PROCEDURE withdrawal(
    account_id INTEGER,
    amount DECIMAL
@@ -110,28 +130,3 @@ AS $$
 $$;
 
 CALL withdrawal(1, 900000000);
-
---! DEPOSIT
-CREATE OR REPLACE PROCEDURE deposit(
-   account_id INTEGER,
-   amount DECIMAL
-) LANGUAGE plpgsql 
-AS $$
-	BEGIN
-		IF NOT EXISTS (SELECT 1 FROM accounts WHERE id = account_id AND approved = TRUE) THEN
-        RAISE EXCEPTION 'Deposit failed: account with ID % is not approved.', account_id;
-    END IF;
-		
-    IF amount <= 0 THEN
-				RAISE EXCEPTION 'Transfer failed: Transfer amount must be greater than 0';
-		END IF;
-	
-		UPDATE accounts 
-			SET balance = balance + amount 
-			WHERE id = account_id;
-
-			COMMIT;
-	END;
-$$;
-
-CALL deposit(10000,-10000);

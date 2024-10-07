@@ -5,3 +5,8 @@ CREATE TABLE IF NOT EXISTS "customers" (
   "job" VARCHAR(255),
   "income" NUMERIC(10, 2) NOT NULL,
 );
+
+-- DROP TABLE customers
+
+-- ALTER TABLE customers ADD deleted_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- ALTER TABLE customers DROP deleted_at

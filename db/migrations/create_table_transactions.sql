@@ -16,6 +16,11 @@ CREATE TABLE IF NOT EXISTS "transactions" (
   "description" TEXT
 );
 
+-- DROP TABLE transactions
+
+-- ALTER TABLE transactions ADD deleted_at DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- ALTER TABLE transactions DROP deleted_at
+
 -- CREATE INDEX idx_transactions_type ON transactions(type);
 -- DROP INDEX idx_transactions_type;
 

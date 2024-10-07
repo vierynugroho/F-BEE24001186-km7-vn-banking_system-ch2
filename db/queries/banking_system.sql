@@ -1,4 +1,4 @@
--- ACCOUNT APPROVAL
+--! ACCOUNT APPROVAL
 CREATE OR REPLACE PROCEDURE approved ( 
 	approved_account_id  INTEGER 
 ) LANGUAGE plpgsql 
@@ -118,7 +118,7 @@ $$;
 
 CALL deposit(1000990,-10000);
 
--- WITHDRAWAL
+--! WITHDRAWAL
 CREATE OR REPLACE PROCEDURE withdrawal(
    account_id INTEGER,
    amount DECIMAL
@@ -154,3 +154,30 @@ AS $$
 $$;
 
 CALL withdrawal(1, 900000000);
+
+
+--! LOG TRANSACTIONS
+WITH transaction_log AS (
+    SELECT 
+        trx.transaction_at AS transaction_at, 
+        cust.name AS customer_name, 
+				a.type AS accounts_type,
+        SUM(trx.amount) AS trx_amount,
+        ARRAY_AGG(trx.amount || ' at ' || trx.transaction_at::text) AS trx_details,
+        trx.type AS transaction_type
+    FROM 
+        transactions trx 
+    JOIN 
+        accounts a ON trx.account_id = a.id
+    JOIN 
+        customers cust ON a.customer_id = cust.id
+    WHERE 
+        cust.id = 1 -- change id to get log trx by customers
+    GROUP BY 
+        a.type, trx.type, trx.transaction_at, cust.name 
+    HAVING 
+        SUM(trx.amount) > 0 
+)
+SELECT * 
+FROM transaction_log
+ORDER BY transaction_at DESC;

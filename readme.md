@@ -1,5 +1,5 @@
 <h1 align="center">
-  Chapter 2 - Basic-Banking-System
+  Chapter 2 & 3 - Banking System
 </h1>
 
 # Flowchart
@@ -35,7 +35,7 @@
 
 1. ` node bank_system.js`
 
-# (DATABASE) HOW TO MIGRATE
+# (DATABASE) HOW TO MIGRATE & RUNNING THE QUERIES
 
 ```
 1. migrate customers
@@ -44,6 +44,7 @@
 4. seed data customer
 5. seed data account
 6. seed data transaction
+7. banking_system queries 'playground'
 ```
 
 # Data Diri
@@ -63,33 +64,7 @@
 
 ### KM x Binar Academy Batch 7
 
-|                      |
-| -------------------- |
-| **Catatan**          |
-| Submission Chapter 2 |
-
-### TODO LIST
-
-APPROVED ✅
-
-- CTE
-
-TRANSFER ✅
-
-- CTE
-- Stored Procedure ✅
-- Validasi ✅
-
-DEPOSIT ❌
-
-- Main Function ✅
-- CTE
-- Stored Procedure ✅
-- Validasi ✅
-
-WITHDRAWAL ❌
-
-- Main Function ✅
-- CTE
-- Stored Procedure ✅
-- Validasi ✅
+|                        |
+| ---------------------- |
+| **Catatan**            |
+| Submission Per Chapter |

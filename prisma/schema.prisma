@@ -13,56 +13,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum ACCOUNT_TYPE {
+enum USER_TYPE {
   GIRO
   SAVING
 }
 
-enum TRANSACTION_TYPE {
-  DEPOSIT
-  WITHDRAWAL
-  TRANSFER
+model Users {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+
+  Profiles      Profiles?
+  Bank_Accounts Bank_Accounts[]
+
+  @@map("users")
 }
 
-model Customers {
-  id         Int      @id @default(autoincrement())
-  name       String
-  address    String
-  zipcode    String?
-  job        String
-  income     Float
-  created_at DateTime @default(now())
-  updated_at DateTime
+model Bank_Accounts {
+  id                  Int    @id @default(autoincrement())
+  bank_name           String @unique
+  bank_account_number String @unique
+  balance             Float
+  user_id             Int
 
-  Accounts Accounts[]
+  users_id Users @relation(fields: [user_id], references: [id])
 
-  @@map("customers")
+  @@map("bank_accounts")
 }
 
-model Accounts {
-  id         Int          @id @default(autoincrement())
-  email      String       @unique
-  password   String
-  approved   Boolean      @default(false)
-  type       ACCOUNT_TYPE
-  balance    Float
-  created_at DateTime     @default(now())
-  updated_at DateTime
+model Profiles {
+  id              Int       @id @default(autoincrement())
+  identity_type   USER_TYPE
+  identity_number String
+  address         String
+  user_id         Int       @unique
 
-  customerID  Customers @relation(fields: [customersId], references: [id])
-  customersId Int
+  users_id Users @relation(fields: [user_id], references: [id])
 
-  Transactions Transactions[]
+  @@map("profiles")
 }
 
 model Transactions {
-  id          Int              @id @default(autoincrement())
-  type        TRANSACTION_TYPE
-  amount      Float
-  description String
-  created_at  DateTime         @default(now())
-  deleted_at  DateTime
+  id                     Int   @id @default(autoincrement())
+  source_account_id      Int
+  destination_account_id Int
+  amount                 Float
 
-  accountID  Accounts @relation(fields: [accountsId], references: [id])
-  accountsId Int
+  @@index(fields: [source_account_id])
+  @@map("transactions")
 }

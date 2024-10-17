@@ -4,10 +4,9 @@ import logger from 'morgan';
 import cors from 'cors';
 import {} from 'dotenv/config';
 import router from './routes/index.js';
-import errorMiddleware from './middlewares/error.js';
+import { errorMiddleware } from './middlewares/error.js';
 
 const app = express();
-
 
 app.use(
   cors({

@@ -1,4 +1,4 @@
-import { ErrorHandler } from './errorHandler.js';
+import { ErrorHandler } from '../middlewares/error.js';
 
 export default (schema) => {
   return async (req, res, next) => {
@@ -7,7 +7,7 @@ export default (schema) => {
       req.body = validated;
       next();
     } catch (error) {
-      if (error.isJoi) return next(new ErrorHandler(error.message, 422));
+      if (error.isJoi) return next(new ErrorHandler(422, error.message));
     }
   };
 };

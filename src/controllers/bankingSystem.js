@@ -1,5 +1,5 @@
+import { ErrorHandler } from '../middlewares/error.js';
 import { BankingSystemService } from '../services/bankingSystem.js';
-import { ErrorHandler } from '../utils/errorHandler.js';
 import { formatRupiah } from '../utils/formatRupiah.js';
 
 export class BankingSystemController {
@@ -8,7 +8,7 @@ export class BankingSystemController {
       const accountID = req.params.id;
 
       if (!accountID) {
-        return next(new ErrorHandler(`account ID is required`, 400));
+        throw new ErrorHandler(400, `account ID is required`);
       }
 
       const balance = await formatRupiah(
@@ -22,7 +22,7 @@ export class BankingSystemController {
         data: balance,
       });
     } catch (error) {
-      next(new ErrorHandler(error.message, error.statusCode));
+      next(error);
     }
   }
 
@@ -32,11 +32,11 @@ export class BankingSystemController {
       const amount = parseFloat(req.body.amount);
 
       if (!accountID) {
-        return next(new ErrorHandler(`account ID is required`, 400));
+        throw new ErrorHandler(400, `account ID is required`);
       }
 
       if (!amount) {
-        return next(new ErrorHandler(`amount is required`, 400));
+        throw new ErrorHandler(400, `amount is required`);
       }
 
       const deposit = await BankingSystemService.deposit(accountID, amount);
@@ -48,7 +48,7 @@ export class BankingSystemController {
         data: deposit,
       });
     } catch (error) {
-      next(new ErrorHandler(error.message, error.statusCode));
+      next(error);
     }
   }
 
@@ -58,11 +58,11 @@ export class BankingSystemController {
       const amount = parseFloat(req.body.amount);
 
       if (!accountID) {
-        return next(new ErrorHandler(`account ID is required`, 400));
+        throw new ErrorHandler(400, `account ID is required`);
       }
 
       if (!amount) {
-        return next(new ErrorHandler(`amount is required`, 400));
+        throw new ErrorHandler(400, `amount is required`);
       }
 
       const withdrawal = await BankingSystemService.withdrawal(
@@ -77,7 +77,7 @@ export class BankingSystemController {
         data: withdrawal,
       });
     } catch (error) {
-      next(new ErrorHandler(error.message, error.statusCode));
+      next(error);
     }
   }
 
@@ -90,15 +90,15 @@ export class BankingSystemController {
       console.log(senderID, receiverID, amount);
 
       if (!senderID) {
-        return next(new ErrorHandler(`sender ID is required`, 400));
+        throw new ErrorHandler(400, `sender ID is required`);
       }
 
       if (!receiverID) {
-        return next(new ErrorHandler(`receiver ID is required`, 400));
+        throw new ErrorHandler(400, `receiver ID is required`);
       }
 
       if (!amount) {
-        return next(new ErrorHandler(`amount is required`, 400));
+        throw new ErrorHandler(400, `amount is required`);
       }
 
       const transfer = await BankingSystemService.transfer(
@@ -114,7 +114,7 @@ export class BankingSystemController {
         data: transfer,
       });
     } catch (error) {
-      next(new ErrorHandler(error.message, error.statusCode));
+      next(error);
     }
   }
 
@@ -123,7 +123,7 @@ export class BankingSystemController {
       const accountID = req.params.id;
 
       if (!accountID) {
-        return next(new ErrorHandler(`sender ID is required`, 400));
+        throw new ErrorHandler(400, `sender ID is required`);
       }
 
       const logTrx = await BankingSystemService.log(accountID);
@@ -135,7 +135,7 @@ export class BankingSystemController {
         data: logTrx,
       });
     } catch (error) {
-      next(new ErrorHandler(error.message, error.statusCode));
+      next(error);
     }
   }
 }

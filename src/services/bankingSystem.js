@@ -1,5 +1,5 @@
+import { ErrorHandler } from '../middlewares/error.js';
 import { BankingSystemRepository } from '../repositories/bankingSystem.js';
-import { ErrorHandler } from '../utils/errorHandler.js';
 
 export class BankingSystemService {
   static async getBalance(accountID) {
@@ -18,7 +18,7 @@ export class BankingSystemService {
     const account = await BankingSystemRepository.getAccount(accountID);
 
     if (!account) {
-      throw new ErrorHandler(`account with ID: ${senderID} is not found`, 404);
+      throw new ErrorHandler(404, `account with ID: ${accountID} is not found`);
     }
 
     const accountBalance = await BankingSystemRepository.getBalance(accountID);
@@ -42,7 +42,7 @@ export class BankingSystemService {
     const account = await BankingSystemRepository.getAccount(accountID);
 
     if (!account) {
-      throw new ErrorHandler(`account with ID: ${senderID} is not found`, 404);
+      throw new ErrorHandler(404, `account with ID: ${senderID} is not found`);
     }
 
     const insufficient = await BankingSystemRepository.insufficientCheck(
@@ -51,7 +51,7 @@ export class BankingSystemService {
     );
 
     if (insufficient) {
-      throw new ErrorHandler(`account remaining balance is insufficient`, 400);
+      throw new ErrorHandler(400, `account remaining balance is insufficient`);
     }
 
     const accountBalance = await BankingSystemRepository.getBalance(accountID);
@@ -76,13 +76,13 @@ export class BankingSystemService {
     const receiver = await BankingSystemRepository.getAccount(receiverID);
 
     if (!sender) {
-      throw new ErrorHandler(`account with ID: ${senderID} is not found`, 404);
+      throw new ErrorHandler(404, `account with ID: ${senderID} is not found`);
     }
 
     if (!receiver) {
       throw new ErrorHandler(
-        `account with ID: ${receiverID} is not found`,
         404,
+        `account with ID: ${receiverID} is not found`,
       );
     }
 
@@ -92,7 +92,7 @@ export class BankingSystemService {
     );
 
     if (insufficient) {
-      throw new ErrorHandler(`account remaining balance is insufficient`, 400);
+      throw new ErrorHandler(400, `account remaining balance is insufficient`);
     }
 
     const senderBalance = await BankingSystemRepository.getBalance(senderID);
@@ -125,7 +125,7 @@ export class BankingSystemService {
     const account = await BankingSystemRepository.getAccount(accountID);
 
     if (!account) {
-      throw new ErrorHandler(`account with ID: ${accountID} is not found`, 404);
+      throw new ErrorHandler(404, `account with ID: ${accountID} is not found`);
     }
 
     const log = await BankingSystemRepository.log(accountID);

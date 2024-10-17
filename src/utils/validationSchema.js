@@ -55,18 +55,18 @@ export const registerAccountSchema = Joi.object({
     .valid(
       'BRI',
       'BCA',
-      'Mandiri',
+      'MANDIRI',
       'BNI',
       'BSI',
       'CIMB',
-      'Permata',
-      'Danamon',
-      'Others',
+      'PERMATA',
+      'DANAMON',
+      'OTHERS',
     )
     .required()
     .messages({
       'string.any':
-        'must be a valid bank name & bank name allowed: BRI | BCA | Mandiri | BNI | BSI | CIMB | Permata | Danamon | Others',
+        'must be a valid bank name & bank name allowed: BRI | BCA | MANDIRI | BNI | BSI | CIMB | PERMATA | DANAMON | OTHERS',
     }),
   bank_account_number: Joi.string().required(),
   balance: Joi.number().min(0).required(),

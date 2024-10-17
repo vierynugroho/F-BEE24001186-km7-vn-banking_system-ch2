@@ -7,6 +7,7 @@ const router = express.Router();
 router.route('/').get(TransactionsController.getAllTransactions);
 router.route('/').post(TransactionsController.transfer);
 router.route('/:transactionID').get(TransactionsController.getTransaction);
-router.route('/withdrawal/:id').put(TransactionsController.withdrawal);
+router.route('/withdrawal/:accountID').post(TransactionsController.withdrawal);
+router.route('/deposit/:accountID').post(TransactionsController.deposit);
 
 export default router;

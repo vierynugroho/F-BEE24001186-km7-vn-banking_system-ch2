@@ -63,7 +63,7 @@ export const registerAccountSchema = Joi.object({
 export const transferSchema = Joi.object({
   senderID: Joi.number().min(1).required(),
   receiverID: Joi.number().min(1).required(),
-  amount: Joi.number().min(0).required(),
+  amount: Joi.number().min(1).required(),
 });
 
 export const depositSchema = Joi.object({
@@ -71,5 +71,5 @@ export const depositSchema = Joi.object({
 });
 
 export const withdrawalSchema = Joi.object({
-  amount: Joi.number().min(0).required(),
+  amount: Joi.number().min(1).required(),
 });

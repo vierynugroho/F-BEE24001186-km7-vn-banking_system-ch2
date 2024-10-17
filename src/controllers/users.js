@@ -1,53 +1,20 @@
-import * as argon from 'argon2';
-import { prisma } from '../../db/prisma.js';
 import { ErrorHandler } from '../middlewares/error.js';
+import { UsersService } from '../services/users.js';
 
 export class UsersController {
   static async register(req, res, next) {
     try {
-      const { email, password, name, identity_type, identity_number, address } =
-        req.body;
+      const data = req.body;
 
-      const emailUsed = await prisma.users.findUnique({
-        where: {
-          email,
-        },
-      });
+      const userRegister = await UsersService.register(data);
 
-      if (emailUsed) {
-        throw new ErrorHandler(409, 'Email has already been taken');
-      }
-
-      const passwordHashed = await argon.hash(password);
-
-      const registerUser = await prisma.$transaction(async (tx) => {
-        const user = await tx.users.create({
-          data: {
-            name,
-            email,
-            password: passwordHashed,
-          },
-        });
-
-        const profile = await tx.profiles.create({
-          data: {
-            user_id: user.id,
-            identity_type,
-            identity_number,
-            address,
-          },
-        });
-
-        return { user, profile };
-      });
-
-      delete registerUser.user.password;
+      delete userRegister.user.password;
 
       res.json({
         status: true,
         statusCode: 200,
         message: 'register successfully',
-        data: registerUser,
+        data: userRegister,
       });
     } catch (error) {
       next(error);
@@ -56,26 +23,9 @@ export class UsersController {
 
   static async login(req, res, next) {
     try {
-      const { email, password } = req.body;
+      const data = req.body;
 
-      const user = await prisma.users.findUnique({
-        where: {
-          email,
-        },
-        include: {
-          Profiles: true,
-        },
-      });
-
-      if (!user) {
-        throw new ErrorHandler(403, 'wrong credential');
-      }
-
-      const comparePassword = await argon.verify(user.password, password);
-
-      if (!comparePassword) {
-        throw new ErrorHandler(403, 'wrong credential');
-      }
+      const user = await UsersService.login(data);
 
       delete user.password;
 
@@ -92,11 +42,7 @@ export class UsersController {
 
   static async getUsers(req, res, next) {
     try {
-      const users = await prisma.users.findMany({
-        include: {
-          Profiles: true,
-        },
-      });
+      const users = await UsersService.getUsers();
 
       users.map((user) => {
         delete user.password;
@@ -121,14 +67,7 @@ export class UsersController {
         throw new ErrorHandler(400, 'userID must be a number');
       }
 
-      const user = await prisma.users.findUnique({
-        where: {
-          id: userID,
-        },
-        include: {
-          Profiles: true,
-        },
-      });
+      const user = await UsersService.getUserById(userID);
 
       if (!user) {
         throw new ErrorHandler(404, `user with id ${userID} is not found`);

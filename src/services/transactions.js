@@ -116,13 +116,50 @@ export class TransactionsService {
 
     delete deposit.Users.password;
 
+    // add trx data to tbl_trx
+    await TransactionsRepository.addToTransaction(accountID, accountID, amount);
+
     const trx = {
-      amount,
+      amount: await formatRupiah(amount),
       currentAccountBalance: deposit,
     };
 
     return trx;
   }
 
-  static async withdrawal() {}
+  static async withdrawal(accountID, amount) {
+    const account = await TransactionsRepository.getAccount(accountID);
+
+    if (!account) {
+      throw new ErrorHandler(404, `account with ID: ${accountID} is not found`);
+    }
+
+    const insufficient = await TransactionsRepository.insufficient(
+      accountID,
+      amount,
+    );
+
+    if (insufficient) {
+      throw new ErrorHandler(400, `account remaining balance is insufficient`);
+    }
+
+    const newAccountBalance = parseFloat(account.balance) - amount;
+
+    const withdrawal = await TransactionsRepository.updateBalance(
+      accountID,
+      newAccountBalance,
+    );
+
+    delete withdrawal.Users.password;
+
+    // add trx data to tbl_trx
+    await TransactionsRepository.addToTransaction(accountID, accountID, amount);
+
+    const trx = {
+      amount: await formatRupiah(amount),
+      currentAccountBalance: withdrawal,
+    };
+
+    return trx;
+  }
 }

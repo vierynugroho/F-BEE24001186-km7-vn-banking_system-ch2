@@ -95,5 +95,27 @@ export class TransactionsController {
     }
   }
 
-  static async withdrawal(req, res, next) {}
+  static async withdrawal(req, res, next) {
+    try {
+      const accountID = parseFloat(req.params.accountID);
+      const { amount } = req.body;
+
+      if (isNaN(accountID)) {
+        throw new ErrorHandler(400, 'accountID must be a number');
+      }
+
+      const withdrawal = await TransactionsService.withdrawal(
+        accountID,
+        amount,
+      );
+
+      res.json({
+        statusCode: 200,
+        message: 'withdrawal successfully',
+        data: withdrawal,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

@@ -46,7 +46,22 @@ export class AccountsRepository {
     return accountRegister;
   }
 
-  static async getAccountById() {}
+  static async getAccountById(accountID) {
+    const user = await prisma.bank_Accounts.findUnique({
+      where: {
+        id: accountID,
+      },
+      include: {
+        Users: {
+          include: {
+            Profiles: true,
+          },
+        },
+      },
+    });
+
+    return user;
+  }
 
   static async getAccountByNumberAndBankName(bank_account_number, bank_name) {
     const account = await prisma.bank_Accounts.findFirst({

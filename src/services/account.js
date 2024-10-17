@@ -39,5 +39,13 @@ export class AccountsService {
     return { accounts, totalAccounts };
   }
 
-  static async getAccountById() {}
+  static async getAccountById(accountID) {
+    const user = await AccountsRepository.getAccountById(accountID);
+
+    if (user) {
+      delete user.Users.password;
+    }
+
+    return user;
+  }
 }

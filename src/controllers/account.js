@@ -56,5 +56,29 @@ export class AccountsController {
     }
   }
 
-  static async getAccountById(req, res, next) {}
+  static async getAccountById(req, res, next) {
+    try {
+      const accountID = parseFloat(req.params.accountID);
+
+      if (isNaN(accountID)) {
+        throw new ErrorHandler(400, 'accountID must be a number');
+      }
+
+      const user = await AccountsService.getAccountById(accountID);
+
+      if (!user) {
+        throw new ErrorHandler(404, `user with id ${accountID} is not found`);
+      }
+
+      delete user.password;
+
+      res.json({
+        statusCode: 200,
+        message: 'account data retrieved successfully',
+        data: user,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

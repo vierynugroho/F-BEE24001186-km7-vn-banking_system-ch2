@@ -10,7 +10,7 @@ export class UsersController {
 
       const emailUsed = await prisma.users.findUnique({
         where: {
-          email: email,
+          email,
         },
       });
 

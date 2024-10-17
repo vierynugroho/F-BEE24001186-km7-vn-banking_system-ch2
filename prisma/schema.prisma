@@ -51,7 +51,7 @@ model Profiles {
   address         String
   user_id         Int       @unique
 
-  users_id Users @relation(fields: [user_id], references: [id])
+  users_id Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("profiles")
 }

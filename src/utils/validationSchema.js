@@ -15,8 +15,17 @@ export const transferSchema = Joi.object({
 
 export const registerSchema = Joi.object({
   name: Joi.string().min(3).required(),
-  email: Joi.string().email().required(),
+  email: Joi.string()
+    .email({
+      tlds: {
+        allow: ['com', 'net', 'id'],
+      },
+    })
+    .required(),
   password: Joi.string().min(8).required(),
+  identity_type: Joi.string().valid('GIRO', 'SAVING').required(),
+  identity_number: Joi.string().min(8).required(),
+  address: Joi.string().min(1).required(),
 });
 
 export const loginSchema = Joi.object({

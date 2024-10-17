@@ -76,7 +76,17 @@ export class TransactionsService {
     return { transactions, totalTransactions };
   }
 
-  static async getTransaction() {}
+  static async getTransaction(transactionID) {
+    const transaction =
+      await TransactionsRepository.getTransaction(transactionID);
+
+    if (transaction) {
+      delete transaction.SourceBankAccounts.Users.password;
+      delete transaction.DestinationBankAccounts.Users.password;
+    }
+
+    return transaction;
+  }
 
   static async deposit() {}
 

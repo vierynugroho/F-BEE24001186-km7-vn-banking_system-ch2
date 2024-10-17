@@ -10,10 +10,10 @@ import {
 const router = express.Router();
 
 router.route('/').get(TransactionsController.getAllTransactions);
+router.route('/:transactionID').get(TransactionsController.getTransaction);
 router
   .route('/')
   .post(Validator(transferSchema), TransactionsController.transfer);
-router.route('/:transactionID').get(TransactionsController.getTransaction);
 router
   .route('/withdrawal/:accountID')
   .post(Validator(withdrawalSchema), TransactionsController.withdrawal);

@@ -91,6 +91,36 @@ export class TransactionsRepository {
     return transactions;
   }
 
+  static async getTransaction(transactionID) {
+    const transaction = await prisma.transactions.findUnique({
+      where: {
+        id: transactionID,
+      },
+      include: {
+        SourceBankAccounts: {
+          include: {
+            Users: {
+              include: {
+                Profiles: true,
+              },
+            },
+          },
+        },
+        DestinationBankAccounts: {
+          include: {
+            Users: {
+              include: {
+                Profiles: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    return transaction;
+  }
+
   static async countTransactions() {
     const totalTransactions = await prisma.transactions.count();
 

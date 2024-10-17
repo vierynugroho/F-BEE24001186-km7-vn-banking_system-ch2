@@ -53,9 +53,35 @@ export class TransactionsController {
     }
   }
 
-  static async getTransaction() {}
+  static async getTransaction(req, res, next) {
+    try {
+      const transactionID = parseFloat(req.params.transactionID);
 
-  static async deposit() {}
+      if (isNaN(transactionID)) {
+        throw new ErrorHandler(400, 'transactionID must be a number');
+      }
+
+      const transaction =
+        await TransactionsService.getTransaction(transactionID);
+
+      if (!transaction) {
+        throw new ErrorHandler(
+          404,
+          `transaction with id ${transactionID} is not found`,
+        );
+      }
+
+      res.json({
+        statusCode: 200,
+        message: 'transaction data retrieved successfully',
+        data: transaction,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deposit(req, res, next) {}
 
   static async withdrawal() {}
 }

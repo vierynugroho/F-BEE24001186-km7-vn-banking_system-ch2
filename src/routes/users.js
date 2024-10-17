@@ -5,7 +5,7 @@ import { UsersController } from '../controllers/users.js';
 const router = express.Router();
 
 router.route('/').get(UsersController.getUsers);
-router.route('/userId').get(UsersController.getUserById);
+router.route('/:userId').get(UsersController.getUserById);
 router
   .route('/register')
   .post(Validator(registerSchema), UsersController.register);

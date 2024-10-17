@@ -113,5 +113,37 @@ export class UsersController {
     }
   }
 
-  static async getUserById(req, res, next) {}
+  static async getUserById(req, res, next) {
+    try {
+      const userID = parseFloat(req.params.userId);
+
+      if (isNaN(userID)) {
+        throw new ErrorHandler(400, 'userID must be a number');
+      }
+
+      const user = await prisma.users.findUnique({
+        where: {
+          id: userID,
+        },
+        include: {
+          Profiles: true,
+        },
+      });
+
+      if (!user) {
+        throw new ErrorHandler(404, `user with id ${userID} is not found`);
+      }
+
+      delete user.password;
+
+      res.json({
+        status: true,
+        statusCode: 200,
+        message: 'user data retrieved successfully',
+        data: user,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

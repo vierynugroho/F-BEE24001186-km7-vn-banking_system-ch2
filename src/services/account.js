@@ -10,6 +10,10 @@ export class AccountsService {
     );
 
     if (account) {
+      delete account.Users.password;
+    }
+
+    if (account) {
       throw new ErrorHandler(409, 'Account has already registered');
     }
 
@@ -27,6 +31,10 @@ export class AccountsService {
   static async getAccounts(pagination) {
     const accounts = await AccountsRepository.getAccounts(pagination);
     const totalAccounts = await AccountsRepository.countAccounts();
+
+    accounts.map((account) => {
+      delete account.Users.password;
+    });
 
     return { accounts, totalAccounts };
   }

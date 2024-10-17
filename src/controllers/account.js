@@ -36,7 +36,7 @@ export class AccountsController {
         await AccountsService.getAccounts(pagination);
 
       accounts.map((account) => {
-        delete account.users_id.password;
+        delete account.Users.password;
       });
 
       res.json({

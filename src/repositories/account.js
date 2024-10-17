@@ -62,10 +62,6 @@ export class AccountsRepository {
       },
     });
 
-    if (account) {
-      delete account.Users.password;
-    }
-
     return account;
   }
 }

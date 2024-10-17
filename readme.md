@@ -10,9 +10,11 @@
 
 # How to running this project?
 
-1. running this command to running this project `npm run start:dev`
-2. import thunder client collection
-3. running this command to seed the database `npm run prisma:seed`
+1. contents of the .env file according to example
+2. running this command `npm run install`
+3. running this command to running this project `npm run start:dev`
+4. import thunder client collection
+5. running this command to seed the database `npm run prisma:seed`
 
 # Profile
 
@@ -31,9 +33,11 @@
 
 ### KM x Binar Academy Batch 7
 
-|                                                  |
-| ------------------------------------------------ |
-| **Notes**                                        |
-| Banking_System.js using raw query implementation |
-| Thunder Client -> using folder db_rest           |
-| Challenge Chapter 4                              |
+|                                                                                                                                       |
+| ------------------------------------------------------------------------------------------------------------------------------------- |
+| **Notes**                                                                                                                             |
+| Banking_System.js using raw query implementation                                                                                      |
+| Banking_System using database chapter 3 (in folder /db)                                                                               |
+|                                                                                                                                       |
+| Thunder Client extention: [thunder_client_download](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) |
+| Challenge Chapter 4 BEJS                                                                                                              |

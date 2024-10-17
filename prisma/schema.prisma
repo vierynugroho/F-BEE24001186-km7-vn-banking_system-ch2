@@ -37,7 +37,9 @@ model Bank_Accounts {
   balance             Float
   user_id             Int
 
-  users_id Users @relation(fields: [user_id], references: [id])
+  users_id                Users          @relation(fields: [user_id], references: [id])
+  SourceTransactions      Transactions[] @relation("source_bank_account")
+  DestinationTransactions Transactions[] @relation("destination_bank_account")
 
   @@map("bank_accounts")
 }
@@ -59,6 +61,9 @@ model Transactions {
   source_account_id      Int
   destination_account_id Int
   amount                 Float
+
+  source_bank_account      Bank_Accounts @relation(name: "source_bank_account", fields: [source_account_id], references: [id])
+  destination_bank_account Bank_Accounts @relation(name: "destination_bank_account", fields: [destination_account_id], references: [id])
 
   @@index(fields: [source_account_id])
   @@map("transactions")

@@ -1,18 +1,5 @@
 import Joi from 'joi';
 
-export const depositSchema = Joi.object({
-  amount: Joi.number().min(0).required(),
-});
-
-export const withdrawalSchema = Joi.object({
-  amount: Joi.number().min(0).required(),
-});
-
-export const transferSchema = Joi.object({
-  receiverID: Joi.number().required(),
-  amount: Joi.number().min(0).required(),
-});
-
 // users & profile
 export const registerSchema = Joi.object({
   name: Joi.string().min(3).required(),
@@ -70,4 +57,19 @@ export const registerAccountSchema = Joi.object({
     }),
   bank_account_number: Joi.string().required(),
   balance: Joi.number().min(0).required(),
+});
+
+// transactions
+export const transferSchema = Joi.object({
+  senderID: Joi.number().min(1).required(),
+  receiverID: Joi.number().min(1).required(),
+  amount: Joi.number().min(0).required(),
+});
+
+export const depositSchema = Joi.object({
+  amount: Joi.number().min(0).required(),
+});
+
+export const withdrawalSchema = Joi.object({
+  amount: Joi.number().min(0).required(),
 });

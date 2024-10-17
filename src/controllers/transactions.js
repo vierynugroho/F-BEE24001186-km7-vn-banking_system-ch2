@@ -1,7 +1,57 @@
-export class TransactionsController {
-  static async transfer() {}
+import { ErrorHandler } from '../middlewares/error.js';
+import { TransactionsService } from '../services/transactions.js';
 
-  static async getAllTransactions() {}
+export class TransactionsController {
+  static async transfer(req, res, next) {
+    try {
+      const data = req.body;
+      const transfer = await TransactionsService.transfer(data);
+
+      res.json({
+        statusCode: 200,
+        message: 'transfer transaction successfully',
+        data: transfer,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getAllTransactions(req, res, next) {
+    try {
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 5;
+
+      if (isNaN(page) || isNaN(limit)) {
+        throw new ErrorHandler(400, 'page & limit must be a number');
+      }
+
+      const offset = (page - 1) * limit;
+      const pagination = {
+        offset,
+        limit,
+      };
+
+      const { transactions, totalTransactions } =
+        await TransactionsService.getAllTransactions(pagination);
+
+      res.json({
+        statusCode: 200,
+        message: 'transations data retrieved successfully',
+        pagination: {
+          totalPage: Math.ceil(totalTransactions / limit),
+          currentPage: page,
+          pageItems: transactions.length,
+          nextPage:
+            page < Math.ceil(totalTransactions / limit) ? page + 1 : null,
+          prevPage: page > 1 ? page - 1 : null,
+        },
+        data: transactions,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   static async getTransaction() {}
 

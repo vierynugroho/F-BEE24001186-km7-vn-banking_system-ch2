@@ -1,5 +1,5 @@
 import { ErrorHandler } from '../middlewares/error.js';
-import { AccountsService } from '../services/account.js';
+import { AccountsService } from '../services/accounts.js';
 
 export class AccountsController {
   static async register(req, res, next) {

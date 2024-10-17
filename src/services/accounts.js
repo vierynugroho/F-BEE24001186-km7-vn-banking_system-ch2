@@ -1,5 +1,5 @@
 import { ErrorHandler } from '../middlewares/error.js';
-import { AccountsRepository } from '../repositories/account.js';
+import { AccountsRepository } from '../repositories/accounts.js';
 import { UsersRepository } from '../repositories/users.js';
 
 export class AccountsService {

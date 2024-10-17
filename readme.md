@@ -8,6 +8,12 @@
 <img src='./public/assets/erd.png' alt='erd' title='erd banking_system - Viery Nugroho'>
 </div>
 
+# How to running this project?
+
+1. running this command to running this project `npm run start:dev`
+2. import thunder client collection
+3. running this command to seed the database `npm run prisma:seed`
+
 # Profile
 
 |                  |                                      |
@@ -25,8 +31,9 @@
 
 ### KM x Binar Academy Batch 7
 
-|                                        |
-| -------------------------------------- |
-| **Notes**                              |
-| Thunder Client -> using folder db_rest |
-| Challenge Chapter 4                    |
+|                                                  |
+| ------------------------------------------------ |
+| **Notes**                                        |
+| Banking_System.js using raw query implementation |
+| Thunder Client -> using folder db_rest           |
+| Challenge Chapter 4                              |

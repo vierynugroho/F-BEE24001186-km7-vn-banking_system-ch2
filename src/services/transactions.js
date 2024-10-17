@@ -28,6 +28,13 @@ export class TransactionsService {
       );
     }
 
+    if (senderID === receiverID && sender.bank_name === receiver.bank_name) {
+      throw new ErrorHandler(
+        403,
+        `transactions between 2 (two) same accounts are not allowed`,
+      );
+    }
+
     const insufficient = await TransactionsRepository.insufficient(
       senderID,
       amount,

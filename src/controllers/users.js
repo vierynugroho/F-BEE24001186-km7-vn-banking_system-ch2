@@ -11,7 +11,6 @@ export class UsersController {
       delete userRegister.user.password;
 
       res.json({
-        status: true,
         statusCode: 200,
         message: 'register successfully',
         data: userRegister,
@@ -30,7 +29,6 @@ export class UsersController {
       delete user.password;
 
       res.json({
-        status: true,
         statusCode: 200,
         message: 'login successfully',
         data: user,
@@ -42,16 +40,35 @@ export class UsersController {
 
   static async getUsers(req, res, next) {
     try {
-      const users = await UsersService.getUsers();
+      const page = parseInt(req.query.page) || 1;
+      const limit = parseInt(req.query.limit) || 5;
+
+      if (isNaN(page) || isNaN(limit)) {
+        throw new ErrorHandler(400, 'page & limit must be a number');
+      }
+
+      const offset = (page - 1) * limit;
+      const pagination = {
+        offset,
+        limit,
+      };
+
+      const { users, totalUser } = await UsersService.getUsers(pagination);
 
       users.map((user) => {
         delete user.password;
       });
 
       res.json({
-        status: true,
         statusCode: 200,
         message: 'users data retrieved successfully',
+        pagination: {
+          totalPage: Math.ceil(totalUser / limit),
+          currentPage: page,
+          pageItems: users.length,
+          nextPage: page < Math.ceil(totalUser / limit) ? page + 1 : null,
+          prevPage: page > 1 ? page - 1 : null,
+        },
         data: users,
       });
     } catch (error) {
@@ -76,7 +93,6 @@ export class UsersController {
       delete user.password;
 
       res.json({
-        status: true,
         statusCode: 200,
         message: 'user data retrieved successfully',
         data: user,

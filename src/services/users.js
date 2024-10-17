@@ -35,10 +35,11 @@ export class UsersService {
     return user;
   }
 
-  static async getUsers() {
-    const users = await UsersRepository.getUsers();
+  static async getUsers(pagination) {
+    const users = await UsersRepository.getUsers(pagination);
+    const totalUser = await UsersRepository.countUsers();
 
-    return users;
+    return { users, totalUser };
   }
 
   static async getUser(email) {

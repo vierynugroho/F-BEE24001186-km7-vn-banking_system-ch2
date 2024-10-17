@@ -1,14 +1,22 @@
 import { prisma } from '../../db/prisma.js';
 
 export class UsersRepository {
-  static async getUsers() {
+  static async getUsers(pagination) {
     const users = await prisma.users.findMany({
+      skip: pagination.offset,
+      take: pagination.limit,
       include: {
         Profiles: true,
       },
     });
 
     return users;
+  }
+
+  static async countUsers() {
+    const totalUsers = await prisma.users.count();
+
+    return totalUsers;
   }
 
   static async getUser(email) {

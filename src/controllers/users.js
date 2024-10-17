@@ -56,11 +56,34 @@ export class UsersController {
 
   static async login(req, res, next) {
     try {
+      const { email, password } = req.body;
+
+      const user = await prisma.users.findUnique({
+        where: {
+          email,
+        },
+        include: {
+          Profiles: true,
+        },
+      });
+
+      if (!user) {
+        throw new ErrorHandler(403, 'wrong credential');
+      }
+
+      const comparePassword = await argon.verify(user.password, password);
+
+      if (!comparePassword) {
+        throw new ErrorHandler(403, 'wrong credential');
+      }
+
+      delete user.password;
+
       res.json({
         status: true,
         statusCode: 200,
         message: 'login successfully',
-        data: '',
+        data: user,
       });
     } catch (error) {
       next(error);

@@ -21,7 +21,11 @@ export const registerSchema = Joi.object({
         allow: ['com', 'net', 'id'],
       },
     })
-    .required(),
+    .required()
+    .messages({
+      'string.email':
+        'must be a valid email & domain allowed: .com | .net | .id',
+    }),
   password: Joi.string().min(8).required(),
   identity_type: Joi.string().valid('GIRO', 'SAVING').required(),
   identity_number: Joi.string().min(8).required(),
@@ -29,6 +33,16 @@ export const registerSchema = Joi.object({
 });
 
 export const loginSchema = Joi.object({
-  email: Joi.string().email().required(),
+  email: Joi.string()
+    .email({
+      tlds: {
+        allow: ['com', 'net', 'id'],
+      },
+    })
+    .required()
+    .messages({
+      'string.email':
+        'must be a valid email & domain allowed: .com | .net | .id',
+    }),
   password: Joi.string().min(8).required(),
 });

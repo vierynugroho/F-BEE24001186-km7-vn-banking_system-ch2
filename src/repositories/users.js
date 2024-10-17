@@ -69,6 +69,4 @@ export class UsersRepository {
 
     return userRegister;
   }
-
-  static async login() {}
 }

@@ -6,7 +6,7 @@ export class AccountsRepository {
       skip: pagination.offset,
       take: pagination.limit,
       include: {
-        users_id: {
+        Users: {
           include: {
             Profiles: true,
           },
@@ -48,19 +48,23 @@ export class AccountsRepository {
 
   static async getAccountById() {}
 
-  static async getAccountByNumber(bank_account_number) {
-    const account = await prisma.bank_Accounts.findUnique({
+  static async getAccountByNumberAndBankName(bank_account_number, bank_name) {
+    const account = await prisma.bank_Accounts.findFirst({
       where: {
-        bank_account_number,
+        AND: [{ bank_account_number }, { bank_name }],
       },
       include: {
-        users_id: {
+        Users: {
           include: {
             Profiles: true,
           },
         },
       },
     });
+
+    if (account) {
+      delete account.Users.password;
+    }
 
     return account;
   }

@@ -4,8 +4,9 @@ import { UsersRepository } from '../repositories/users.js';
 
 export class AccountsService {
   static async register(data) {
-    const account = await AccountsRepository.getAccountByNumber(
+    const account = await AccountsRepository.getAccountByNumberAndBankName(
       data.bank_account_number,
+      data.bank_name,
     );
 
     if (account) {
@@ -23,7 +24,12 @@ export class AccountsService {
     return accountRegister;
   }
 
-  static async getAccounts() {}
+  static async getAccounts(pagination) {
+    const accounts = await AccountsRepository.getAccounts(pagination);
+    const totalAccounts = await AccountsRepository.countAccounts();
+
+    return { accounts, totalAccounts };
+  }
 
   static async getAccountById() {}
 }

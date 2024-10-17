@@ -44,6 +44,13 @@ export class TransactionsRepository {
       data: {
         balance: newBalance,
       },
+      include: {
+        Users: {
+          include: {
+            Profiles: true,
+          },
+        },
+      },
     });
 
     return account;

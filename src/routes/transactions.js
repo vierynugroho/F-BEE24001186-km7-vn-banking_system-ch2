@@ -16,9 +16,9 @@ router
   .post(Validator(transferSchema), TransactionsController.transfer);
 router
   .route('/withdrawal/:accountID')
-  .post(Validator(withdrawalSchema), TransactionsController.withdrawal);
+  .put(Validator(withdrawalSchema), TransactionsController.withdrawal);
 router
   .route('/deposit/:accountID')
-  .post(Validator(depositSchema), TransactionsController.deposit);
+  .put(Validator(depositSchema), TransactionsController.deposit);
 
 export default router;

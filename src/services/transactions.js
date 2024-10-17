@@ -87,15 +87,42 @@ export class TransactionsService {
     const transaction =
       await TransactionsRepository.getTransaction(transactionID);
 
-    if (transaction) {
-      delete transaction.SourceBankAccounts.Users.password;
-      delete transaction.DestinationBankAccounts.Users.password;
+    if (!transaction) {
+      throw new ErrorHandler(
+        404,
+        `transaction with id ${transactionID} is not found`,
+      );
     }
+
+    delete transaction.SourceBankAccounts.Users.password;
+    delete transaction.DestinationBankAccounts.Users.password;
 
     return transaction;
   }
 
-  static async deposit() {}
+  static async deposit(accountID, amount) {
+    const account = await TransactionsRepository.getAccount(accountID);
+
+    if (!account) {
+      throw new ErrorHandler(404, `account with ID: ${accountID} is not found`);
+    }
+
+    const newAccountBalance = parseFloat(account.balance) + amount;
+
+    const deposit = await TransactionsRepository.updateBalance(
+      accountID,
+      newAccountBalance,
+    );
+
+    delete deposit.Users.password;
+
+    const trx = {
+      amount,
+      currentAccountBalance: deposit,
+    };
+
+    return trx;
+  }
 
   static async withdrawal() {}
 }

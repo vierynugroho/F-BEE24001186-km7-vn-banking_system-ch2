@@ -64,13 +64,6 @@ export class TransactionsController {
       const transaction =
         await TransactionsService.getTransaction(transactionID);
 
-      if (!transaction) {
-        throw new ErrorHandler(
-          404,
-          `transaction with id ${transactionID} is not found`,
-        );
-      }
-
       res.json({
         statusCode: 200,
         message: 'transaction data retrieved successfully',
@@ -81,7 +74,26 @@ export class TransactionsController {
     }
   }
 
-  static async deposit(req, res, next) {}
+  static async deposit(req, res, next) {
+    try {
+      const accountID = parseFloat(req.params.accountID);
+      const { amount } = req.body;
 
-  static async withdrawal() {}
+      if (isNaN(accountID)) {
+        throw new ErrorHandler(400, 'accountID must be a number');
+      }
+
+      const deposit = await TransactionsService.deposit(accountID, amount);
+
+      res.json({
+        statusCode: 200,
+        message: 'deposit successfully',
+        data: deposit,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async withdrawal(req, res, next) {}
 }

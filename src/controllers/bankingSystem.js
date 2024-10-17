@@ -110,7 +110,7 @@ export class BankingSystemController {
       res.json({
         status: true,
         statusCode: 200,
-        message: 'deposit successfully',
+        message: 'transfer successfully',
         data: transfer,
       });
     } catch (error) {
@@ -131,7 +131,7 @@ export class BankingSystemController {
       res.json({
         status: true,
         statusCode: 200,
-        message: 'log transaction successfully',
+        message: 'log transaction retrieved successfully',
         data: logTrx,
       });
     } catch (error) {

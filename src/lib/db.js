@@ -6,7 +6,7 @@ const client = new Client({
   password: 'postgres',
   host: 'localhost',
   port: 5432,
-  database: 'ch3_challenge',
+  database: 'ch3_challenge', // sesuai dengan database chapter 3
 });
 
 await client.connect();

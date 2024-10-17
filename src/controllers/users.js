@@ -89,4 +89,29 @@ export class UsersController {
       next(error);
     }
   }
+
+  static async getUsers(req, res, next) {
+    try {
+      const users = await prisma.users.findMany({
+        include: {
+          Profiles: true,
+        },
+      });
+
+      users.map((user) => {
+        delete user.password;
+      });
+
+      res.json({
+        status: true,
+        statusCode: 200,
+        message: 'users data retrieved successfully',
+        data: users,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getUserById(req, res, next) {}
 }

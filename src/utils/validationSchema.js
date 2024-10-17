@@ -13,6 +13,7 @@ export const transferSchema = Joi.object({
   amount: Joi.number().min(0).required(),
 });
 
+// users & profile
 export const registerSchema = Joi.object({
   name: Joi.string().min(3).required(),
   email: Joi.string()
@@ -45,4 +46,28 @@ export const loginSchema = Joi.object({
         'must be a valid email & domain allowed: .com | .net | .id',
     }),
   password: Joi.string().min(8).required(),
+});
+
+// bank accounts
+export const registerAccountSchema = Joi.object({
+  userID: Joi.number().required(),
+  bank_name: Joi.string()
+    .valid(
+      'BRI',
+      'BCA',
+      'Mandiri',
+      'BNI',
+      'BSI',
+      'CIMB',
+      'Permata',
+      'Danamon',
+      'Others',
+    )
+    .required()
+    .messages({
+      'string.any':
+        'must be a valid bank name & bank name allowed: BRI | BCA | Mandiri | BNI | BSI | CIMB | Permata | Danamon | Others',
+    }),
+  bank_account_number: Joi.string().required(),
+  balance: Joi.number().min(0).required(),
 });

@@ -1,0 +1,13 @@
+node_modules
+# Keep environment variables out of version control
+.env
+coverage
+dist
+
+# challenge 3 remove
+db
+src/lib/db.js
+src/controllers/bankingSystem.js
+src/services/bankingSystem.js
+src/repositories/bankingSystem.js
+src/routes/bankingSystem.js

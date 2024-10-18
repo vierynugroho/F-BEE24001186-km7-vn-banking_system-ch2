@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum USER_TYPE {
+  GIRO
+  SAVING
+}
+
+enum BANK_NAME {
+  BRI
+  BCA
+  MANDIRI
+  BNI
+  BSI
+  CIMB
+  PERMATA
+  DANAMON
+  OTHERS
+}
+
+model Users {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+
+  Profiles      Profiles?
+  Bank_Accounts Bank_Accounts[]
+
+  @@map("users")
+}
+
+model Bank_Accounts {
+  id                  Int       @id @default(autoincrement())
+  bank_name           BANK_NAME
+  bank_account_number String
+  balance             Float
+  user_id             Int
+
+  Users                   Users          @relation(fields: [user_id], references: [id])
+  SourceBankAccounts      Transactions[] @relation("source_bank_account")
+  DestinationBankAccounts Transactions[] @relation("destination_bank_account")
+
+  @@map("bank_accounts")
+}
+
+model Profiles {
+  id              Int       @id @default(autoincrement())
+  identity_type   USER_TYPE
+  identity_number String
+  address         String
+  user_id         Int       @unique
+
+  Users Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+model Transactions {
+  id                     Int   @id @default(autoincrement())
+  source_account_id      Int
+  destination_account_id Int
+  amount                 Float
+
+  SourceBankAccounts      Bank_Accounts @relation(name: "source_bank_account", fields: [source_account_id], references: [id])
+  DestinationBankAccounts Bank_Accounts @relation(name: "destination_bank_account", fields: [destination_account_id], references: [id])
+
+  @@index(fields: [source_account_id])
+  @@map("transactions")
+}

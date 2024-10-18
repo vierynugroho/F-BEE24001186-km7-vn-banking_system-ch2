@@ -79,4 +79,31 @@ export class AccountsRepository {
 
     return account;
   }
+
+  static async getAccountByUserIDAndAcountID(userID, accountID) {
+    const account = await prisma.bank_Accounts.findFirst({
+      where: {
+        AND: [{ user_id: userID }, { id: accountID }],
+      },
+      include: {
+        Users: {
+          include: {
+            Profiles: true,
+          },
+        },
+      },
+    });
+
+    return account;
+  }
+
+  static async deleteAccount(accountID) {
+    const account = await prisma.bank_Accounts.delete({
+      where: {
+        id: accountID,
+      },
+    });
+
+    return account;
+  }
 }

@@ -49,7 +49,7 @@ model Bank_Accounts {
   balance             Float
   user_id             Int
 
-  Users                   Users          @relation(fields: [user_id], references: [id])
+  Users                   Users          @relation(fields: [user_id], references: [id], onDelete: Cascade)
   SourceBankAccounts      Transactions[] @relation("source_bank_account")
   DestinationBankAccounts Transactions[] @relation("destination_bank_account")
 
@@ -74,8 +74,8 @@ model Transactions {
   destination_account_id Int
   amount                 Float
 
-  SourceBankAccounts      Bank_Accounts @relation(name: "source_bank_account", fields: [source_account_id], references: [id])
-  DestinationBankAccounts Bank_Accounts @relation(name: "destination_bank_account", fields: [destination_account_id], references: [id])
+  SourceBankAccounts      Bank_Accounts @relation(name: "source_bank_account", fields: [source_account_id], references: [id], onDelete: Cascade)
+  DestinationBankAccounts Bank_Accounts @relation(name: "destination_bank_account", fields: [destination_account_id], references: [id], onDelete: Cascade)
 
   @@index(fields: [source_account_id])
   @@map("transactions")

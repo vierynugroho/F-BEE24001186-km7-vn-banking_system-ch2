@@ -79,15 +79,25 @@ export class AccountsController {
   static async deleteAccount(req, res, next) {
     try {
       const userID = parseFloat(req.params.userID);
+      const accountID = parseFloat(req.body.accountID);
 
       if (isNaN(userID)) {
+        throw new ErrorHandler(400, 'userID must be a number');
+      }
+
+      if (isNaN(accountID)) {
         throw new ErrorHandler(400, 'accountID must be a number');
       }
+
+      const deleteAccount = await AccountsService.deleteAccount(
+        userID,
+        accountID,
+      );
 
       res.json({
         statusCode: 200,
         message: 'account data deleted successfully',
-        data: user,
+        data: deleteAccount,
       });
     } catch (error) {
       next(error);

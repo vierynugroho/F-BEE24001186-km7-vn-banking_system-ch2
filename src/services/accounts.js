@@ -40,14 +40,44 @@ export class AccountsService {
   }
 
   static async getAccountById(accountID) {
-    const user = await AccountsRepository.getAccountById(accountID);
+    const account = await AccountsRepository.getAccountById(accountID);
 
-    if (!user) {
-      throw new ErrorHandler(404, `user with id ${accountID} is not found`);
+    if (!account) {
+      throw new ErrorHandler(404, `account with id ${accountID} is not found`);
     }
 
-    delete user.Users.password;
+    delete account.Users.password;
 
-    return user;
+    return account;
+  }
+
+  static async deleteAccount(userID, accountID) {
+    const user = await UsersRepository.getUserById(userID);
+
+    if (!user) {
+      throw new ErrorHandler(404, `user with id ${userID} is not found`);
+    }
+
+    const account = await AccountsRepository.getAccountById(accountID);
+
+    if (!account) {
+      throw new ErrorHandler(404, `account with id ${accountID} is not found`);
+    }
+
+    const userAccount = await AccountsRepository.getAccountByUserIDAndAcountID(
+      userID,
+      accountID,
+    );
+
+    if (!userAccount) {
+      throw new ErrorHandler(
+        403,
+        `you doesn't have an access for account  with id ${accountID}`,
+      );
+    }
+
+    const deletedUser = await AccountsRepository.deleteAccount(accountID);
+
+    return deletedUser;
   }
 }

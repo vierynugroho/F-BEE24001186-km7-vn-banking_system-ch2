@@ -59,6 +59,10 @@ export const registerAccountSchema = Joi.object({
   balance: Joi.number().min(0).required(),
 });
 
+export const deleteAccountSchema = Joi.object({
+  accountID: Joi.number().min(1).required(),
+});
+
 // transactions
 export const transferSchema = Joi.object({
   senderID: Joi.number().min(1).required(),

@@ -1,61 +1,6 @@
 import { prisma } from '../lib/prisma.js';
 
 export class TransactionsRepository {
-  static async getBalance(accountID) {
-    const account = await prisma.bank_Accounts.findUnique({
-      where: {
-        id: accountID,
-      },
-    });
-
-    return account.balance;
-  }
-
-  static async getAccount(accountID) {
-    const getAccount = await prisma.bank_Accounts.findUnique({
-      where: {
-        id: accountID,
-      },
-      include: {
-        Users: {
-          include: {
-            Profiles: true,
-          },
-        },
-      },
-    });
-
-    const account = getAccount === null ? false : getAccount;
-    return account;
-  }
-
-  static async insufficient(accountID, amount) {
-    const balance = await this.getBalance(accountID);
-    const insufficient = amount > balance ? true : false;
-
-    return insufficient;
-  }
-
-  static async updateBalance(accountID, newBalance) {
-    const account = await prisma.bank_Accounts.update({
-      where: {
-        id: accountID,
-      },
-      data: {
-        balance: newBalance,
-      },
-      include: {
-        Users: {
-          include: {
-            Profiles: true,
-          },
-        },
-      },
-    });
-
-    return account;
-  }
-
   static async addToTransaction(senderID, receiverID, amount) {
     const transaction = await prisma.transactions.create({
       data: {
@@ -94,7 +39,6 @@ export class TransactionsRepository {
       },
     });
 
-    console.log(transactions);
     return transactions;
   }
 
@@ -126,6 +70,25 @@ export class TransactionsRepository {
     });
 
     return transaction;
+  }
+
+  static async accountTransaction(accountID) {
+    const accountTrx = await prisma.transactions.findMany({
+      where: {
+        OR: [
+          {
+            source_account_id: accountID,
+          },
+          {
+            destination_account_id: accountID,
+          },
+        ],
+      },
+    });
+
+    const haveTransaction = accountTrx.length === 0 ? false : true;
+
+    return haveTransaction;
   }
 
   static async countTransactions() {

@@ -1,6 +1,16 @@
 import { prisma } from '../lib/prisma.js';
 
 export class AccountsRepository {
+  static async getBalance(accountID) {
+    const account = await prisma.bank_Accounts.findUnique({
+      where: {
+        id: accountID,
+      },
+    });
+
+    return account.balance;
+  }
+
   static async getAccounts(pagination) {
     const accounts = await prisma.bank_Accounts.findMany({
       skip: pagination.offset,
@@ -78,5 +88,59 @@ export class AccountsRepository {
     });
 
     return account;
+  }
+
+  static async getAccountByUserIDAndAcountID(userID, accountID) {
+    const account = await prisma.bank_Accounts.findFirst({
+      where: {
+        AND: [{ user_id: userID }, { id: accountID }],
+      },
+      include: {
+        Users: {
+          include: {
+            Profiles: true,
+          },
+        },
+      },
+    });
+
+    return account;
+  }
+
+  static async deleteAccount(accountID) {
+    const account = await prisma.bank_Accounts.delete({
+      where: {
+        id: accountID,
+      },
+    });
+
+    return account;
+  }
+
+  static async updateBalance(accountID, newBalance) {
+    const account = await prisma.bank_Accounts.update({
+      where: {
+        id: accountID,
+      },
+      data: {
+        balance: newBalance,
+      },
+      include: {
+        Users: {
+          include: {
+            Profiles: true,
+          },
+        },
+      },
+    });
+
+    return account;
+  }
+
+  static async insufficient(accountID, amount) {
+    const balance = await this.getBalance(accountID);
+    const insufficient = amount > balance ? true : false;
+
+    return insufficient;
   }
 }

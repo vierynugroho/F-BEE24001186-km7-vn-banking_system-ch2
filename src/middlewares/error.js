@@ -10,7 +10,8 @@ export class ErrorHandler extends Error {
   }
 }
 
-export const errorMiddleware = (err, req, res) => {
+// eslint-disable-next-line no-unused-vars
+export const errorMiddleware = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.message = err.message || 'Internal Server Error';
 
@@ -26,11 +27,20 @@ export const errorMiddleware = (err, req, res) => {
           message: 'Duplicate field, constraint violation',
         },
       });
+    } else if (err.code === 'P2003') {
+      res.status(409).json({
+        error: {
+          statusCode: 409,
+          message: 'Key Constraint',
+          details: err.message,
+        },
+      });
     } else if (err.code === 'P2005') {
       res.status(409).json({
         error: {
           statusCode: 409,
           message: 'Resource not found',
+          details: err.message,
         },
       });
     } else {

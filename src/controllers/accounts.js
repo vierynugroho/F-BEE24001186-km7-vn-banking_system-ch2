@@ -66,16 +66,80 @@ export class AccountsController {
 
       const user = await AccountsService.getAccountById(accountID);
 
-      if (!user) {
-        throw new ErrorHandler(404, `user with id ${accountID} is not found`);
-      }
-
-      delete user.password;
-
       res.json({
         statusCode: 200,
         message: 'account data retrieved successfully',
         data: user,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deleteAccount(req, res, next) {
+    try {
+      const userID = parseFloat(req.params.userID);
+      const accountID = parseFloat(req.body.accountID);
+
+      if (isNaN(userID)) {
+        throw new ErrorHandler(400, 'userID must be a number');
+      }
+
+      if (isNaN(accountID)) {
+        throw new ErrorHandler(400, 'accountID must be a number');
+      }
+
+      const deleteAccount = await AccountsService.deleteAccount(
+        userID,
+        accountID,
+      );
+
+      res.json({
+        statusCode: 200,
+        message: 'account data deleted successfully',
+        data: deleteAccount,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deposit(req, res, next) {
+    try {
+      const accountID = parseFloat(req.params.accountID);
+      const { amount } = req.body;
+
+      if (isNaN(accountID)) {
+        throw new ErrorHandler(400, 'accountID must be a number');
+      }
+
+      const deposit = await AccountsService.deposit(accountID, amount);
+
+      res.json({
+        statusCode: 200,
+        message: 'deposit successfully',
+        data: deposit,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async withdrawal(req, res, next) {
+    try {
+      const accountID = parseFloat(req.params.accountID);
+      const { amount } = req.body;
+
+      if (isNaN(accountID)) {
+        throw new ErrorHandler(400, 'accountID must be a number');
+      }
+
+      const withdrawal = await AccountsService.withdrawal(accountID, amount);
+
+      res.json({
+        statusCode: 200,
+        message: 'withdrawal successfully',
+        data: withdrawal,
       });
     } catch (error) {
       next(error);

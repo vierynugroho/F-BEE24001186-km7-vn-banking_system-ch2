@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "ch4_challenge",
     "collectionId": "d49b21ab-31fd-49e9-b0f7-90313679bd6d",
-    "dateExported": "2024-10-17T18:29:43.790Z",
+    "dateExported": "2024-10-18T14:19:25.742Z",
     "version": "1.2",
     "folders": [
         {
@@ -40,11 +40,11 @@
             "colId": "d49b21ab-31fd-49e9-b0f7-90313679bd6d",
             "containerId": "",
             "name": "root",
-            "url": "http://localhost:2000",
+            "url": "http://localhost:2000/api/v1",
             "method": "GET",
             "sortNum": 10000,
             "created": "2024-10-11T12:29:04.275Z",
-            "modified": "2024-10-17T02:14:46.416Z",
+            "modified": "2024-10-18T14:17:43.211Z",
             "headers": []
         },
         {
@@ -173,11 +173,11 @@
             "colId": "d49b21ab-31fd-49e9-b0f7-90313679bd6d",
             "containerId": "ff3e2567-9c72-4a8d-946b-eaf2ad16d49e",
             "name": "get all users",
-            "url": "http://localhost:2000/api/v1/users?page=1&limit=10",
+            "url": "http://localhost:2000/api/v1/users?page=1&limit=5",
             "method": "GET",
             "sortNum": 160000,
             "created": "2024-10-17T03:28:57.965Z",
-            "modified": "2024-10-17T04:37:33.439Z",
+            "modified": "2024-10-18T14:14:11.766Z",
             "headers": [],
             "params": [
                 {
@@ -187,7 +187,7 @@
                 },
                 {
                     "name": "limit",
-                    "value": "10",
+                    "value": "5",
                     "isPath": false
                 }
             ]
@@ -197,11 +197,11 @@
             "colId": "d49b21ab-31fd-49e9-b0f7-90313679bd6d",
             "containerId": "ff3e2567-9c72-4a8d-946b-eaf2ad16d49e",
             "name": "get user by id",
-            "url": "http://localhost:2000/api/v1/users/1",
+            "url": "http://localhost:2000/api/v1/users/11",
             "method": "GET",
             "sortNum": 170000,
             "created": "2024-10-17T03:32:00.379Z",
-            "modified": "2024-10-17T07:10:21.266Z",
+            "modified": "2024-10-18T14:14:24.792Z",
             "headers": []
         },
         {
@@ -213,11 +213,11 @@
             "method": "POST",
             "sortNum": 180000,
             "created": "2024-10-17T05:30:36.312Z",
-            "modified": "2024-10-17T12:59:39.479Z",
+            "modified": "2024-10-18T13:44:39.601Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userID\": \"2\",\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"111\",\n  \"balance\": \"10000\"\n}",
+                "raw": "{\n  \"userID\": \"11\",\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"111\",\n  \"balance\": \"10000\"\n}",
                 "form": []
             }
         },
@@ -226,11 +226,11 @@
             "colId": "d49b21ab-31fd-49e9-b0f7-90313679bd6d",
             "containerId": "c26da076-187b-414f-820e-06c9786ec5ea",
             "name": "get all accounts",
-            "url": "http://localhost:2000/api/v1/accounts?page=1&limit=2",
+            "url": "http://localhost:2000/api/v1/accounts?page=1&limit=5",
             "method": "GET",
             "sortNum": 190000,
             "created": "2024-10-17T06:29:00.593Z",
-            "modified": "2024-10-17T12:59:56.711Z",
+            "modified": "2024-10-18T14:14:55.984Z",
             "headers": [],
             "params": [
                 {
@@ -240,7 +240,7 @@
                 },
                 {
                     "name": "limit",
-                    "value": "2",
+                    "value": "5",
                     "isPath": false
                 }
             ]
@@ -250,11 +250,11 @@
             "colId": "d49b21ab-31fd-49e9-b0f7-90313679bd6d",
             "containerId": "c26da076-187b-414f-820e-06c9786ec5ea",
             "name": "get account by id",
-            "url": "http://localhost:2000/api/v1/accounts/2",
+            "url": "http://localhost:2000/api/v1/accounts/22",
             "method": "GET",
             "sortNum": 200000,
             "created": "2024-10-17T07:09:10.151Z",
-            "modified": "2024-10-17T07:14:06.935Z",
+            "modified": "2024-10-18T14:15:23.265Z",
             "headers": []
         },
         {
@@ -279,12 +279,24 @@
             "colId": "d49b21ab-31fd-49e9-b0f7-90313679bd6d",
             "containerId": "eeec3428-0d9c-478a-a4e7-1703333ad003",
             "name": "get all transactions",
-            "url": "http://localhost:2000/api/v1/transactions",
+            "url": "http://localhost:2000/api/v1/transactions?page=4&limit=10",
             "method": "GET",
             "sortNum": 230000,
             "created": "2024-10-17T17:30:46.304Z",
-            "modified": "2024-10-17T17:30:50.739Z",
-            "headers": []
+            "modified": "2024-10-18T14:17:24.196Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "page",
+                    "value": "4",
+                    "isPath": false
+                },
+                {
+                    "name": "limit",
+                    "value": "10",
+                    "isPath": false
+                }
+            ]
         },
         {
             "_id": "4bbf094b-449c-4809-915f-1082e54dc4ba",
@@ -299,15 +311,32 @@
             "headers": []
         },
         {
-            "_id": "6b5eba61-ad19-4459-887f-049ceb31c564",
+            "_id": "d25e3dd0-cf47-4ece-9cd9-37a03514cd16",
             "colId": "d49b21ab-31fd-49e9-b0f7-90313679bd6d",
-            "containerId": "eeec3428-0d9c-478a-a4e7-1703333ad003",
+            "containerId": "c26da076-187b-414f-820e-06c9786ec5ea",
+            "name": "delete account",
+            "url": "http://localhost:2000/api/v1/accounts/11",
+            "method": "DELETE",
+            "sortNum": 270000,
+            "created": "2024-10-18T12:58:36.515Z",
+            "modified": "2024-10-18T14:15:59.431Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"accountID\": 22\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "1e69f528-f437-4bd2-9f74-7c2f181c214b",
+            "colId": "d49b21ab-31fd-49e9-b0f7-90313679bd6d",
+            "containerId": "c26da076-187b-414f-820e-06c9786ec5ea",
             "name": "deposit",
-            "url": "http://localhost:2000/api/v1/transactions/deposit/3",
+            "url": "http://localhost:2000/api/v1/accounts/deposit/1",
             "method": "PUT",
-            "sortNum": 250000,
-            "created": "2024-10-17T18:04:51.228Z",
-            "modified": "2024-10-17T18:12:18.016Z",
+            "sortNum": 280000,
+            "created": "2024-10-18T13:59:40.554Z",
+            "modified": "2024-10-18T14:03:56.246Z",
             "headers": [],
             "body": {
                 "type": "json",
@@ -316,22 +345,22 @@
             }
         },
         {
-            "_id": "f11935c3-0b57-4f14-88d1-2074499d3866",
+            "_id": "879bc3d9-ed61-438e-9349-e321c2410abf",
             "colId": "d49b21ab-31fd-49e9-b0f7-90313679bd6d",
-            "containerId": "eeec3428-0d9c-478a-a4e7-1703333ad003",
+            "containerId": "c26da076-187b-414f-820e-06c9786ec5ea",
             "name": "withdrawal",
-            "url": "http://localhost:2000/api/v1/transactions/withdrawal/3",
+            "url": "http://localhost:2000/api/v1/accounts/withdrawal/1",
             "method": "PUT",
-            "sortNum": 260000,
-            "created": "2024-10-17T18:11:53.750Z",
-            "modified": "2024-10-17T18:16:40.156Z",
+            "sortNum": 290000,
+            "created": "2024-10-18T14:00:01.570Z",
+            "modified": "2024-10-18T14:04:05.166Z",
             "headers": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"amount\": 0\n}",
+                "raw": "{\n  \"amount\": 3000\n}",
                 "form": []
             }
         }
     ],
-    "ref": "d6alTdfHIhh01wzcUwTtDumysNci5MJb0FE9ZfNOsNJ-ptTvPzvIvq9j0puldsmoNXgNqzuvXq8x1Rang6SaRg"
+    "ref": "d6alTdfHIhh01wzcUwTtDuyj8ufZQX8wzUexINkiMIiBseLQ4P_32-QNNza5muUzRXJeXr7yS2hu-u8lVyyAOQ"
 }

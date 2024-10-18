@@ -2,7 +2,9 @@ import express from 'express';
 import Validator from '../utils/validator.js';
 import {
   deleteAccountSchema,
+  depositSchema,
   registerAccountSchema,
+  withdrawalSchema,
 } from '../utils/validationSchema.js';
 import { AccountsController } from '../controllers/accounts.js';
 
@@ -16,4 +18,11 @@ router
 router
   .route('/:userID')
   .delete(Validator(deleteAccountSchema), AccountsController.deleteAccount);
+router
+  .route('/withdrawal/:accountID')
+  .put(Validator(withdrawalSchema), AccountsController.withdrawal);
+router
+  .route('/deposit/:accountID')
+  .put(Validator(depositSchema), AccountsController.deposit);
+
 export default router;

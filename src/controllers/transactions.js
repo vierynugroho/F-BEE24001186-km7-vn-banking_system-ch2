@@ -73,49 +73,4 @@ export class TransactionsController {
       next(error);
     }
   }
-
-  static async deposit(req, res, next) {
-    try {
-      const accountID = parseFloat(req.params.accountID);
-      const { amount } = req.body;
-
-      if (isNaN(accountID)) {
-        throw new ErrorHandler(400, 'accountID must be a number');
-      }
-
-      const deposit = await TransactionsService.deposit(accountID, amount);
-
-      res.json({
-        statusCode: 200,
-        message: 'deposit successfully',
-        data: deposit,
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  static async withdrawal(req, res, next) {
-    try {
-      const accountID = parseFloat(req.params.accountID);
-      const { amount } = req.body;
-
-      if (isNaN(accountID)) {
-        throw new ErrorHandler(400, 'accountID must be a number');
-      }
-
-      const withdrawal = await TransactionsService.withdrawal(
-        accountID,
-        amount,
-      );
-
-      res.json({
-        statusCode: 200,
-        message: 'withdrawal successfully',
-        data: withdrawal,
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
 }

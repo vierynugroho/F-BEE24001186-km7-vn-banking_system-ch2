@@ -1,10 +1,12 @@
 import { ErrorHandler } from '../middlewares/error.js';
+import { AccountsRepository } from '../repositories/accounts.js';
 import { TransactionsRepository } from '../repositories/transactions.js';
 import { formatRupiah } from '../utils/formatRupiah.js';
 
 export class TransactionsService {
   static async getBalance(accountID) {
-    const balance = await TransactionsRepository.getBalance(accountID);
+    Acc;
+    const balance = await AccountsRepository.getBalance(accountID);
 
     return balance;
   }
@@ -14,8 +16,8 @@ export class TransactionsService {
     const receiverID = data.receiverID;
     const amount = data.amount;
 
-    const sender = await TransactionsRepository.getAccount(senderID);
-    const receiver = await TransactionsRepository.getAccount(receiverID);
+    const sender = await AccountsRepository.getAccountById(senderID);
+    const receiver = await AccountsRepository.getAccountById(receiverID);
 
     if (!sender) {
       throw new ErrorHandler(404, `account with ID: ${senderID} is not found`);
@@ -35,7 +37,7 @@ export class TransactionsService {
       );
     }
 
-    const insufficient = await TransactionsRepository.insufficient(
+    const insufficient = await AccountsRepository.insufficient(
       senderID,
       amount,
     );
@@ -47,11 +49,11 @@ export class TransactionsService {
     const newSenderBalance = parseFloat(sender.balance) - amount;
     const newReceiverBalance = parseFloat(receiver.balance) + amount;
 
-    const senderTransferUpdate = await TransactionsRepository.updateBalance(
+    const senderTransferUpdate = await AccountsRepository.updateBalance(
       senderID,
       newSenderBalance,
     );
-    const receiverTransferUpdate = await TransactionsRepository.updateBalance(
+    const receiverTransferUpdate = await AccountsRepository.updateBalance(
       receiverID,
       newReceiverBalance,
     );
@@ -98,68 +100,5 @@ export class TransactionsService {
     delete transaction.DestinationBankAccounts.Users.password;
 
     return transaction;
-  }
-
-  static async deposit(accountID, amount) {
-    const account = await TransactionsRepository.getAccount(accountID);
-
-    if (!account) {
-      throw new ErrorHandler(404, `account with ID: ${accountID} is not found`);
-    }
-
-    const newAccountBalance = parseFloat(account.balance) + amount;
-
-    const deposit = await TransactionsRepository.updateBalance(
-      accountID,
-      newAccountBalance,
-    );
-
-    delete deposit.Users.password;
-
-    // add trx data to tbl_trx
-    await TransactionsRepository.addToTransaction(accountID, accountID, amount);
-
-    const trx = {
-      amount: await formatRupiah(amount),
-      currentAccountBalance: deposit,
-    };
-
-    return trx;
-  }
-
-  static async withdrawal(accountID, amount) {
-    const account = await TransactionsRepository.getAccount(accountID);
-
-    if (!account) {
-      throw new ErrorHandler(404, `account with ID: ${accountID} is not found`);
-    }
-
-    const insufficient = await TransactionsRepository.insufficient(
-      accountID,
-      amount,
-    );
-
-    if (insufficient) {
-      throw new ErrorHandler(400, `account remaining balance is insufficient`);
-    }
-
-    const newAccountBalance = parseFloat(account.balance) - amount;
-
-    const withdrawal = await TransactionsRepository.updateBalance(
-      accountID,
-      newAccountBalance,
-    );
-
-    delete withdrawal.Users.password;
-
-    // add trx data to tbl_trx
-    await TransactionsRepository.addToTransaction(accountID, accountID, amount);
-
-    const trx = {
-      amount: await formatRupiah(amount),
-      currentAccountBalance: withdrawal,
-    };
-
-    return trx;
   }
 }

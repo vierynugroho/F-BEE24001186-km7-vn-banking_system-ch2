@@ -42,9 +42,11 @@ export class AccountsService {
   static async getAccountById(accountID) {
     const user = await AccountsRepository.getAccountById(accountID);
 
-    if (user) {
-      delete user.Users.password;
+    if (!user) {
+      throw new ErrorHandler(404, `user with id ${accountID} is not found`);
     }
+
+    delete user.Users.password;
 
     return user;
   }

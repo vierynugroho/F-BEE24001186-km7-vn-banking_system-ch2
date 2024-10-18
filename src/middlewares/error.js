@@ -12,7 +12,6 @@ export class ErrorHandler extends Error {
 
 // eslint-disable-next-line no-unused-vars
 export const errorMiddleware = (err, req, res, next) => {
-  console.log(res);
   err.statusCode = err.statusCode || 500;
   err.message = err.message || 'Internal Server Error';
 

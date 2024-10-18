@@ -97,6 +97,25 @@ export class AccountsRepository {
     return account;
   }
 
+  static async accountTransaction(accountID) {
+    const accountTrx = await prisma.transactions.findMany({
+      where: {
+        OR: [
+          {
+            source_account_id: accountID,
+          },
+          {
+            destination_account_id: accountID,
+          },
+        ],
+      },
+    });
+
+    const haveTransaction = accountTrx.length === 0 ? false : true;
+
+    return haveTransaction;
+  }
+
   static async deleteAccount(accountID) {
     const account = await prisma.bank_Accounts.delete({
       where: {

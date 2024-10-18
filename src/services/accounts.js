@@ -76,6 +76,16 @@ export class AccountsService {
       );
     }
 
+    const haveTransaction =
+      await AccountsRepository.accountTransaction(accountID);
+
+    if (haveTransaction) {
+      throw new ErrorHandler(
+        403,
+        `account has transaction data, account cannot be deleted`,
+      );
+    }
+
     const deletedUser = await AccountsRepository.deleteAccount(accountID);
 
     return deletedUser;

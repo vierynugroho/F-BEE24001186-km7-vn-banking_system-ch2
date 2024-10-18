@@ -9,6 +9,6 @@ export default [
   {
     ignores: ['.config/*', 'node_modules/*', 'coverage/*'],
   },
-  { files: ['**/*.js'], languageOptions: { sourceType: 'commonjs' } },
+  { files: ['**/*.js'], languageOptions: { sourceType: 'module' } },
   { languageOptions: { globals: globals.browser } },
 ];

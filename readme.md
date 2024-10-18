@@ -16,6 +16,12 @@
 4. import thunder client collection
 5. running this command to seed the database `npm run prisma:seed`
 
+# Tools Version
+
+1. Node: v20.10.0
+2. postgres: postgres (PostgreSQL) 16.1
+3. npm: 10.9.0
+
 # Profile
 
 |                  |                                      |

@@ -1,465 +1,5111 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.0.0",
   "info": {
     "title": "ch4_challenge",
-    "description": "",
-    "version": "1.0.0",
-    "contact": {}
+    "description": "challenge chapter 5 - api documentation - Banking System\n\nFeature:  \nStartFragment\n\nUsers & Profile\n\n- \\[x\\] POST api/v1/users (register)\n    \n- \\[x\\] POST api/v1/users/login (login)\n    \n- \\[x\\] GET api/v1/users (get all users)\n    \n- \\[x\\] GET api/v1/users/:userID (get by id)\n    \n- \\[x\\] pagination\n    \n\nBank_Accounts / Account\n\n- \\[x\\] POST api/v1/accounts (register)\n    \n- \\[x\\] GET api/v1/accounts (get all accounts)\n    \n- \\[x\\] GET api/v1/accounts/:accountID (get by id)\n    \n- \\[x\\] DELETE api/v1/accounts/:userID (delete account) - via req.body\n    \n- \\[x\\] PUT api/v1/transactions/deposit/:transactionID (deposit)\n    \n- \\[x\\] PUT api/v1/transactions/withdrawal/:transactionID (withdrawal)\n    \n\nTransactions\n\n- \\[x\\] POST api/v1/transactions (transfer) - via req.body\n    \n- \\[x\\] GET api/v1/transactions (get all transactions)\n    \n- \\[x\\] GET api/v1/transactions/:transactionID (get by id) - show sender & receiver details  \n    Created by Viery Nugroho",
+    "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "http://localhost"
+      "url": "http://localhost:2000/api",
+      "description": "local development"
     }
   ],
-  "paths": {
-    "/api/v1/users": {
-      "get": {
-        "tags": ["users"],
-        "summary": "get all users",
-        "description": "get all users",
-        "operationId": "getAllUsers",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "example": "1"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "example": "5"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": ["users"],
-        "summary": "register",
-        "description": "register",
-        "operationId": "register",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "address": {
-                    "type": "string",
-                    "example": "Blitar"
-                  },
-                  "email": {
-                    "type": "string",
-                    "example": "viery15102002@gmail.com"
-                  },
-                  "identity_number": {
-                    "type": "string",
-                    "example": "6289516424305"
-                  },
-                  "identity_type": {
-                    "type": "string",
-                    "example": "SAVING"
-                  },
-                  "name": {
-                    "type": "string",
-                    "example": "viery nugroho"
-                  },
-                  "password": {
-                    "type": "string",
-                    "example": "password"
-                  }
-                }
-              },
-              "examples": {
-                "register": {
-                  "value": {
-                    "address": "Blitar",
-                    "email": "viery15102002@gmail.com",
-                    "identity_number": "6289516424305",
-                    "identity_type": "SAVING",
-                    "name": "viery nugroho",
-                    "password": "password"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/users/login": {
-      "post": {
-        "tags": ["users"],
-        "summary": "login",
-        "description": "login",
-        "operationId": "login",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "example": "viery15102002@gmail.com"
-                  },
-                  "password": {
-                    "type": "string",
-                    "example": "password"
-                  }
-                }
-              },
-              "examples": {
-                "login": {
-                  "value": {
-                    "email": "viery15102002@gmail.com",
-                    "password": "password"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/users/11": {
-      "get": {
-        "tags": ["users"],
-        "summary": "get user by id",
-        "description": "get user by id",
-        "operationId": "getUserById",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/accounts": {
-      "get": {
-        "tags": ["accounts"],
-        "summary": "get all accounts",
-        "description": "get all accounts",
-        "operationId": "getAllAccounts",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "example": "1"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "example": "100"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": ["accounts"],
-        "summary": "register",
-        "description": "register",
-        "operationId": "register1",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "balance": {
-                    "type": "string",
-                    "example": "10000"
-                  },
-                  "bank_account_number": {
-                    "type": "string",
-                    "example": "111"
-                  },
-                  "bank_name": {
-                    "type": "string",
-                    "example": "PERMATA"
-                  },
-                  "userID": {
-                    "type": "string",
-                    "example": "11"
-                  }
-                }
-              },
-              "examples": {
-                "register": {
-                  "value": {
-                    "balance": "10000",
-                    "bank_account_number": "111",
-                    "bank_name": "PERMATA",
-                    "userID": "11"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/accounts/2": {
-      "get": {
-        "tags": ["accounts"],
-        "summary": "get account by id",
-        "description": "get account by id",
-        "operationId": "getAccountById",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/accounts/11": {
-      "delete": {
-        "tags": ["accounts"],
-        "summary": "delete account",
-        "description": "delete account",
-        "operationId": "deleteAccount",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "accountID": {
-                    "type": "number",
-                    "example": 21
-                  }
-                }
-              },
-              "examples": {
-                "delete account": {
-                  "value": {
-                    "accountID": 21
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/accounts/deposit/1": {
-      "put": {
-        "tags": ["accounts"],
-        "summary": "deposit",
-        "description": "deposit",
-        "operationId": "deposit",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "amount": {
-                    "type": "number",
-                    "example": 3000
-                  }
-                }
-              },
-              "examples": {
-                "deposit": {
-                  "value": {
-                    "amount": 3000
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/accounts/withdrawal/1": {
-      "put": {
-        "tags": ["accounts"],
-        "summary": "withdrawal",
-        "description": "withdrawal",
-        "operationId": "withdrawal",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "amount": {
-                    "type": "number",
-                    "example": 3000
-                  }
-                }
-              },
-              "examples": {
-                "withdrawal": {
-                  "value": {
-                    "amount": 3000
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/transactions": {
-      "get": {
-        "tags": ["transactions"],
-        "summary": "get all transactions",
-        "description": "get all transactions",
-        "operationId": "getAllTransactions",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "example": "4"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "schema": {
-              "type": "string",
-              "example": "10"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      },
-      "post": {
-        "tags": ["transactions"],
-        "summary": "transfer",
-        "description": "transfer",
-        "operationId": "transfer",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "amount": {
-                    "type": "number",
-                    "example": 1000
-                  },
-                  "receiverID": {
-                    "type": "number",
-                    "example": 2
-                  },
-                  "senderID": {
-                    "type": "number",
-                    "example": 1
-                  }
-                }
-              },
-              "examples": {
-                "transfer": {
-                  "value": {
-                    "amount": 1000,
-                    "receiverID": 2,
-                    "senderID": 1
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1/transactions/7": {
-      "get": {
-        "tags": ["transactions"],
-        "summary": "get transaction by id",
-        "description": "get transaction by id",
-        "operationId": "getTransactionById",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/v1": {
-      "get": {
-        "summary": "root",
-        "description": "root",
-        "operationId": "root",
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        }
-      }
-    }
-  },
   "tags": [
     {
       "name": "users"
     },
     {
-      "name": "accounts"
+      "name": "bank accounts"
     },
     {
       "name": "transactions"
     }
-  ]
+  ],
+  "paths": {
+    "/{VERSION}/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "viery nugroho",
+                  "email": "vierynugroho@gmail.com",
+                  "password": "password",
+                  "identity_type": "SAVING",
+                  "identity_number": "6289516424305",
+                  "address": "Blitar"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "254"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"fe-YQjXYJGwHD9La2QxHsmRDKUrWaA\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:29:51 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "register successfully"
+                  },
+                  "data": {
+                    "user": {
+                      "id": 13,
+                      "name": "viery nugroho",
+                      "email": "vierynugroho@gmail.com"
+                    },
+                    "profile": {
+                      "id": 13,
+                      "identity_type": "SAVING",
+                      "identity_number": "6289516424305",
+                      "address": "Blitar",
+                      "user_id": 13
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "98"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"62-8d+FU2rcltYNBV7DoEvkAx7+anA\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:23:27 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 422,
+                    "message": "must be a valid email & domain allowed: .com | .net | .id"
+                  }
+                }
+              }
+            }
+          },
+          "undefined": {
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "email has already been taken",
+                    "value": {
+                      "error": {
+                        "statusCode": 409,
+                        "message": "Email has already been taken"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "field is required",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "\"password\" is required"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "invalid json",
+                    "value": {
+                      "error": {
+                        "statusCode": 500,
+                        "message": "something went wrong",
+                        "details": "Expected double-quoted property name in JSON at position 34"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["users"],
+        "summary": "get all users",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "5"
+          },
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "974"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"3ce-ISkbURDlC47gpRs8RQzr/TvXWAI\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:30:54 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "success",
+                    "value": {
+                      "meta": {
+                        "statusCode": 200,
+                        "message": "users data retrieved successfully",
+                        "pagination": {
+                          "totalPage": 3,
+                          "currentPage": 1,
+                          "pageItems": 5,
+                          "nextPage": 2,
+                          "prevPage": null
+                        }
+                      },
+                      "data": [
+                        {
+                          "id": 1,
+                          "name": "User 2",
+                          "email": "user2@example.com",
+                          "Profiles": {
+                            "id": 1,
+                            "identity_type": "SAVING",
+                            "identity_number": "100000001",
+                            "address": "Address 2",
+                            "user_id": 1
+                          }
+                        },
+                        {
+                          "id": 2,
+                          "name": "User 6",
+                          "email": "user6@example.com",
+                          "Profiles": {
+                            "id": 2,
+                            "identity_type": "GIRO",
+                            "identity_number": "100000005",
+                            "address": "Address 6",
+                            "user_id": 2
+                          }
+                        },
+                        {
+                          "id": 3,
+                          "name": "User 7",
+                          "email": "user7@example.com",
+                          "Profiles": {
+                            "id": 3,
+                            "identity_type": "SAVING",
+                            "identity_number": "100000006",
+                            "address": "Address 7",
+                            "user_id": 3
+                          }
+                        },
+                        {
+                          "id": 4,
+                          "name": "User 8",
+                          "email": "user8@example.com",
+                          "Profiles": {
+                            "id": 4,
+                            "identity_type": "GIRO",
+                            "identity_number": "100000007",
+                            "address": "Address 8",
+                            "user_id": 4
+                          }
+                        },
+                        {
+                          "id": 5,
+                          "name": "User 9",
+                          "email": "user9@example.com",
+                          "Profiles": {
+                            "id": 5,
+                            "identity_type": "GIRO",
+                            "identity_number": "100000008",
+                            "address": "Address 9",
+                            "user_id": 5
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "example-1": {
+                    "summary": "success - without query params",
+                    "value": {
+                      "meta": {
+                        "statusCode": 200,
+                        "message": "users data retrieved successfully",
+                        "pagination": {
+                          "totalPage": 3,
+                          "currentPage": 1,
+                          "pageItems": 5,
+                          "nextPage": 2,
+                          "prevPage": null
+                        }
+                      },
+                      "data": [
+                        {
+                          "id": 1,
+                          "name": "User 2",
+                          "email": "user2@example.com",
+                          "Profiles": {
+                            "id": 1,
+                            "identity_type": "SAVING",
+                            "identity_number": "100000001",
+                            "address": "Address 2",
+                            "user_id": 1
+                          }
+                        },
+                        {
+                          "id": 2,
+                          "name": "User 6",
+                          "email": "user6@example.com",
+                          "Profiles": {
+                            "id": 2,
+                            "identity_type": "GIRO",
+                            "identity_number": "100000005",
+                            "address": "Address 6",
+                            "user_id": 2
+                          }
+                        },
+                        {
+                          "id": 3,
+                          "name": "User 7",
+                          "email": "user7@example.com",
+                          "Profiles": {
+                            "id": 3,
+                            "identity_type": "SAVING",
+                            "identity_number": "100000006",
+                            "address": "Address 7",
+                            "user_id": 3
+                          }
+                        },
+                        {
+                          "id": 4,
+                          "name": "User 8",
+                          "email": "user8@example.com",
+                          "Profiles": {
+                            "id": 4,
+                            "identity_type": "GIRO",
+                            "identity_number": "100000007",
+                            "address": "Address 8",
+                            "user_id": 4
+                          }
+                        },
+                        {
+                          "id": 5,
+                          "name": "User 9",
+                          "email": "user9@example.com",
+                          "Profiles": {
+                            "id": 5,
+                            "identity_type": "GIRO",
+                            "identity_number": "100000008",
+                            "address": "Address 9",
+                            "user_id": 5
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "example-2": {
+                    "summary": "success - empty data",
+                    "value": {
+                      "meta": {
+                        "statusCode": 200,
+                        "message": "users data retrieved successfully",
+                        "pagination": {
+                          "totalPage": 3,
+                          "currentPage": 111,
+                          "pageItems": 0,
+                          "nextPage": null,
+                          "prevPage": 110
+                        }
+                      },
+                      "data": []
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{VERSION}/users/login": {
+      "post": {
+        "tags": ["users"],
+        "summary": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "email": "viery15102002@gmail.com",
+                  "password": "password"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "244"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"f4-HR4xjr/ysVxUYdZ2wEQOU+6a0F0\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:30:27 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "login successfully"
+                  },
+                  "data": {
+                    "id": 11,
+                    "name": "viery nugroho",
+                    "email": "viery15102002@gmail.com",
+                    "Profiles": {
+                      "id": 11,
+                      "identity_type": "SAVING",
+                      "identity_number": "6289516424305",
+                      "address": "Blitar",
+                      "user_id": 11
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 403,
+                    "message": "wrong credential"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "98"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"62-8d+FU2rcltYNBV7DoEvkAx7+anA\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:22:52 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "invalid email",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "must be a valid email & domain allowed: .com | .net | .id"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "field is required",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "\"password\" is required"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "133"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"85-/X8VwL4PoPa6i16fwqoTCBaX6bE\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:23:54 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 500,
+                    "message": "something went wrong",
+                    "details": "Expected double-quoted property name in JSON at position 40"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{VERSION}/users/{userID}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "get user by id",
+        "parameters": [
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "userID",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "258"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"102-w+mpGyx20yxD/R4ZNm2W5AZg54c\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:32:03 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "user data retrieved successfully"
+                  },
+                  "data": {
+                    "id": 11,
+                    "name": "viery nugroho",
+                    "email": "viery15102002@gmail.com",
+                    "Profiles": {
+                      "id": 11,
+                      "identity_type": "SAVING",
+                      "identity_number": "6289516424305",
+                      "address": "Blitar",
+                      "user_id": 11
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "64"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"40-kGSJEawy+vF77E0WDqbWtxcY/hg\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:32:40 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 400,
+                    "message": "userID must be a number"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "70"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"46-GyhZtq5XnVR6sr46s+bf2+CGBbk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:32:23 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 404,
+                    "message": "user with id 111 is not found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{VERSION}/accounts": {
+      "post": {
+        "tags": ["bank accounts"],
+        "summary": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "userID": "11",
+                  "bank_name": "PERMATA",
+                  "bank_account_number": "11111",
+                  "balance": "10000"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "158"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"9e-VaLv7yESa+wrdt0Pps52v78ygiU\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:35:32 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "register successfully"
+                  },
+                  "data": {
+                    "id": 23,
+                    "bank_name": "PERMATA",
+                    "bank_account_number": "1112",
+                    "balance": 10000,
+                    "user_id": 11
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "74"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"4a-HJtqj+6NED5y3MkeggESFzO9Rwg\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:37:27 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 404,
+                    "message": "Users with id 909291 is not found"
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "71"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"47-ue7fNIWP/pUJ26Iy3vSZiVn/3Zo\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:35:05 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 409,
+                    "message": "Account has already registered"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "64"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"40-Rj3VzWA+FyBn4bnIljaqbkapEwY\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:36:03 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 422,
+                    "message": "\"balance\" is required"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "133"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"85-ANp7OkS8pNeR4I2FVOo7Bs5T2nI\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:35:49 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 500,
+                    "message": "something went wrong",
+                    "details": "Expected double-quoted property name in JSON at position 79"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["bank accounts"],
+        "summary": "get all accounts",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "1"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "100"
+          },
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "5970"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"1752-qxh619MWSRoBOS/smaGzXJrQT60\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:38:01 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "success",
+                    "value": {
+                      "meta": {
+                        "statusCode": 200,
+                        "message": "accounts data retrieved successfully",
+                        "pagination": {
+                          "totalPage": 1,
+                          "currentPage": 1,
+                          "pageItems": 22,
+                          "nextPage": null,
+                          "prevPage": null
+                        }
+                      },
+                      "data": [
+                        {
+                          "id": 1,
+                          "bank_name": "CIMB",
+                          "bank_account_number": "200000001",
+                          "balance": 1383.38,
+                          "user_id": 1,
+                          "Users": {
+                            "id": 1,
+                            "name": "User 2",
+                            "email": "user2@example.com",
+                            "Profiles": {
+                              "id": 1,
+                              "identity_type": "SAVING",
+                              "identity_number": "100000001",
+                              "address": "Address 2",
+                              "user_id": 1
+                            }
+                          }
+                        },
+                        {
+                          "id": 2,
+                          "bank_name": "BRI",
+                          "bank_account_number": "300000001",
+                          "balance": 4705.98,
+                          "user_id": 1,
+                          "Users": {
+                            "id": 1,
+                            "name": "User 2",
+                            "email": "user2@example.com",
+                            "Profiles": {
+                              "id": 1,
+                              "identity_type": "SAVING",
+                              "identity_number": "100000001",
+                              "address": "Address 2",
+                              "user_id": 1
+                            }
+                          }
+                        },
+                        {
+                          "id": 3,
+                          "bank_name": "BSI",
+                          "bank_account_number": "200000005",
+                          "balance": 1794.94,
+                          "user_id": 2,
+                          "Users": {
+                            "id": 2,
+                            "name": "User 6",
+                            "email": "user6@example.com",
+                            "Profiles": {
+                              "id": 2,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000005",
+                              "address": "Address 6",
+                              "user_id": 2
+                            }
+                          }
+                        },
+                        {
+                          "id": 4,
+                          "bank_name": "BSI",
+                          "bank_account_number": "300000005",
+                          "balance": 2454.8,
+                          "user_id": 2,
+                          "Users": {
+                            "id": 2,
+                            "name": "User 6",
+                            "email": "user6@example.com",
+                            "Profiles": {
+                              "id": 2,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000005",
+                              "address": "Address 6",
+                              "user_id": 2
+                            }
+                          }
+                        },
+                        {
+                          "id": 5,
+                          "bank_name": "PERMATA",
+                          "bank_account_number": "200000006",
+                          "balance": 2711.84,
+                          "user_id": 3,
+                          "Users": {
+                            "id": 3,
+                            "name": "User 7",
+                            "email": "user7@example.com",
+                            "Profiles": {
+                              "id": 3,
+                              "identity_type": "SAVING",
+                              "identity_number": "100000006",
+                              "address": "Address 7",
+                              "user_id": 3
+                            }
+                          }
+                        },
+                        {
+                          "id": 6,
+                          "bank_name": "BNI",
+                          "bank_account_number": "300000006",
+                          "balance": 2522.03,
+                          "user_id": 3,
+                          "Users": {
+                            "id": 3,
+                            "name": "User 7",
+                            "email": "user7@example.com",
+                            "Profiles": {
+                              "id": 3,
+                              "identity_type": "SAVING",
+                              "identity_number": "100000006",
+                              "address": "Address 7",
+                              "user_id": 3
+                            }
+                          }
+                        },
+                        {
+                          "id": 7,
+                          "bank_name": "BNI",
+                          "bank_account_number": "200000007",
+                          "balance": 1869.58,
+                          "user_id": 4,
+                          "Users": {
+                            "id": 4,
+                            "name": "User 8",
+                            "email": "user8@example.com",
+                            "Profiles": {
+                              "id": 4,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000007",
+                              "address": "Address 8",
+                              "user_id": 4
+                            }
+                          }
+                        },
+                        {
+                          "id": 8,
+                          "bank_name": "PERMATA",
+                          "bank_account_number": "300000007",
+                          "balance": 1657.97,
+                          "user_id": 4,
+                          "Users": {
+                            "id": 4,
+                            "name": "User 8",
+                            "email": "user8@example.com",
+                            "Profiles": {
+                              "id": 4,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000007",
+                              "address": "Address 8",
+                              "user_id": 4
+                            }
+                          }
+                        },
+                        {
+                          "id": 9,
+                          "bank_name": "BSI",
+                          "bank_account_number": "200000008",
+                          "balance": 4574.82,
+                          "user_id": 5,
+                          "Users": {
+                            "id": 5,
+                            "name": "User 9",
+                            "email": "user9@example.com",
+                            "Profiles": {
+                              "id": 5,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000008",
+                              "address": "Address 9",
+                              "user_id": 5
+                            }
+                          }
+                        },
+                        {
+                          "id": 10,
+                          "bank_name": "MANDIRI",
+                          "bank_account_number": "300000008",
+                          "balance": 3292.67,
+                          "user_id": 5,
+                          "Users": {
+                            "id": 5,
+                            "name": "User 9",
+                            "email": "user9@example.com",
+                            "Profiles": {
+                              "id": 5,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000008",
+                              "address": "Address 9",
+                              "user_id": 5
+                            }
+                          }
+                        },
+                        {
+                          "id": 11,
+                          "bank_name": "BRI",
+                          "bank_account_number": "200000009",
+                          "balance": 4969.09,
+                          "user_id": 6,
+                          "Users": {
+                            "id": 6,
+                            "name": "User 10",
+                            "email": "user10@example.com",
+                            "Profiles": {
+                              "id": 6,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000009",
+                              "address": "Address 10",
+                              "user_id": 6
+                            }
+                          }
+                        },
+                        {
+                          "id": 12,
+                          "bank_name": "BCA",
+                          "bank_account_number": "300000009",
+                          "balance": 4592.48,
+                          "user_id": 6,
+                          "Users": {
+                            "id": 6,
+                            "name": "User 10",
+                            "email": "user10@example.com",
+                            "Profiles": {
+                              "id": 6,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000009",
+                              "address": "Address 10",
+                              "user_id": 6
+                            }
+                          }
+                        },
+                        {
+                          "id": 13,
+                          "bank_name": "BNI",
+                          "bank_account_number": "200000004",
+                          "balance": 1301.39,
+                          "user_id": 7,
+                          "Users": {
+                            "id": 7,
+                            "name": "User 5",
+                            "email": "user5@example.com",
+                            "Profiles": {
+                              "id": 7,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000004",
+                              "address": "Address 5",
+                              "user_id": 7
+                            }
+                          }
+                        },
+                        {
+                          "id": 14,
+                          "bank_name": "BNI",
+                          "bank_account_number": "300000004",
+                          "balance": 3604.5,
+                          "user_id": 7,
+                          "Users": {
+                            "id": 7,
+                            "name": "User 5",
+                            "email": "user5@example.com",
+                            "Profiles": {
+                              "id": 7,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000004",
+                              "address": "Address 5",
+                              "user_id": 7
+                            }
+                          }
+                        },
+                        {
+                          "id": 15,
+                          "bank_name": "CIMB",
+                          "bank_account_number": "200000002",
+                          "balance": 2184.75,
+                          "user_id": 8,
+                          "Users": {
+                            "id": 8,
+                            "name": "User 3",
+                            "email": "user3@example.com",
+                            "Profiles": {
+                              "id": 8,
+                              "identity_type": "SAVING",
+                              "identity_number": "100000002",
+                              "address": "Address 3",
+                              "user_id": 8
+                            }
+                          }
+                        },
+                        {
+                          "id": 16,
+                          "bank_name": "BCA",
+                          "bank_account_number": "300000002",
+                          "balance": 2748.07,
+                          "user_id": 8,
+                          "Users": {
+                            "id": 8,
+                            "name": "User 3",
+                            "email": "user3@example.com",
+                            "Profiles": {
+                              "id": 8,
+                              "identity_type": "SAVING",
+                              "identity_number": "100000002",
+                              "address": "Address 3",
+                              "user_id": 8
+                            }
+                          }
+                        },
+                        {
+                          "id": 17,
+                          "bank_name": "PERMATA",
+                          "bank_account_number": "200000003",
+                          "balance": 2169.98,
+                          "user_id": 9,
+                          "Users": {
+                            "id": 9,
+                            "name": "User 4",
+                            "email": "user4@example.com",
+                            "Profiles": {
+                              "id": 9,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000003",
+                              "address": "Address 4",
+                              "user_id": 9
+                            }
+                          }
+                        },
+                        {
+                          "id": 18,
+                          "bank_name": "BSI",
+                          "bank_account_number": "300000003",
+                          "balance": 3835.23,
+                          "user_id": 9,
+                          "Users": {
+                            "id": 9,
+                            "name": "User 4",
+                            "email": "user4@example.com",
+                            "Profiles": {
+                              "id": 9,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000003",
+                              "address": "Address 4",
+                              "user_id": 9
+                            }
+                          }
+                        },
+                        {
+                          "id": 19,
+                          "bank_name": "OTHERS",
+                          "bank_account_number": "200000000",
+                          "balance": 2865.54,
+                          "user_id": 10,
+                          "Users": {
+                            "id": 10,
+                            "name": "User 1",
+                            "email": "user1@example.com",
+                            "Profiles": {
+                              "id": 10,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000000",
+                              "address": "Address 1",
+                              "user_id": 10
+                            }
+                          }
+                        },
+                        {
+                          "id": 20,
+                          "bank_name": "PERMATA",
+                          "bank_account_number": "300000000",
+                          "balance": 2349.51,
+                          "user_id": 10,
+                          "Users": {
+                            "id": 10,
+                            "name": "User 1",
+                            "email": "user1@example.com",
+                            "Profiles": {
+                              "id": 10,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000000",
+                              "address": "Address 1",
+                              "user_id": 10
+                            }
+                          }
+                        },
+                        {
+                          "id": 22,
+                          "bank_name": "PERMATA",
+                          "bank_account_number": "111",
+                          "balance": 10000,
+                          "user_id": 11,
+                          "Users": {
+                            "id": 11,
+                            "name": "viery nugroho",
+                            "email": "viery15102002@gmail.com",
+                            "Profiles": {
+                              "id": 11,
+                              "identity_type": "SAVING",
+                              "identity_number": "6289516424305",
+                              "address": "Blitar",
+                              "user_id": 11
+                            }
+                          }
+                        },
+                        {
+                          "id": 23,
+                          "bank_name": "PERMATA",
+                          "bank_account_number": "1112",
+                          "balance": 10000,
+                          "user_id": 11,
+                          "Users": {
+                            "id": 11,
+                            "name": "viery nugroho",
+                            "email": "viery15102002@gmail.com",
+                            "Profiles": {
+                              "id": 11,
+                              "identity_type": "SAVING",
+                              "identity_number": "6289516424305",
+                              "address": "Blitar",
+                              "user_id": 11
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "example-1": {
+                    "summary": "success - without query params",
+                    "value": {
+                      "meta": {
+                        "statusCode": 200,
+                        "message": "accounts data retrieved successfully",
+                        "pagination": {
+                          "totalPage": 5,
+                          "currentPage": 1,
+                          "pageItems": 5,
+                          "nextPage": 2,
+                          "prevPage": null
+                        }
+                      },
+                      "data": [
+                        {
+                          "id": 1,
+                          "bank_name": "CIMB",
+                          "bank_account_number": "200000001",
+                          "balance": 1383.38,
+                          "user_id": 1,
+                          "Users": {
+                            "id": 1,
+                            "name": "User 2",
+                            "email": "user2@example.com",
+                            "Profiles": {
+                              "id": 1,
+                              "identity_type": "SAVING",
+                              "identity_number": "100000001",
+                              "address": "Address 2",
+                              "user_id": 1
+                            }
+                          }
+                        },
+                        {
+                          "id": 2,
+                          "bank_name": "BRI",
+                          "bank_account_number": "300000001",
+                          "balance": 4705.98,
+                          "user_id": 1,
+                          "Users": {
+                            "id": 1,
+                            "name": "User 2",
+                            "email": "user2@example.com",
+                            "Profiles": {
+                              "id": 1,
+                              "identity_type": "SAVING",
+                              "identity_number": "100000001",
+                              "address": "Address 2",
+                              "user_id": 1
+                            }
+                          }
+                        },
+                        {
+                          "id": 3,
+                          "bank_name": "BSI",
+                          "bank_account_number": "200000005",
+                          "balance": 1794.94,
+                          "user_id": 2,
+                          "Users": {
+                            "id": 2,
+                            "name": "User 6",
+                            "email": "user6@example.com",
+                            "Profiles": {
+                              "id": 2,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000005",
+                              "address": "Address 6",
+                              "user_id": 2
+                            }
+                          }
+                        },
+                        {
+                          "id": 4,
+                          "bank_name": "BSI",
+                          "bank_account_number": "300000005",
+                          "balance": 2454.8,
+                          "user_id": 2,
+                          "Users": {
+                            "id": 2,
+                            "name": "User 6",
+                            "email": "user6@example.com",
+                            "Profiles": {
+                              "id": 2,
+                              "identity_type": "GIRO",
+                              "identity_number": "100000005",
+                              "address": "Address 6",
+                              "user_id": 2
+                            }
+                          }
+                        },
+                        {
+                          "id": 5,
+                          "bank_name": "PERMATA",
+                          "bank_account_number": "200000006",
+                          "balance": 2711.84,
+                          "user_id": 3,
+                          "Users": {
+                            "id": 3,
+                            "name": "User 7",
+                            "email": "user7@example.com",
+                            "Profiles": {
+                              "id": 3,
+                              "identity_type": "SAVING",
+                              "identity_number": "100000006",
+                              "address": "Address 7",
+                              "user_id": 3
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "example-2": {
+                    "summary": "success - empty data",
+                    "value": {
+                      "meta": {
+                        "statusCode": 200,
+                        "message": "accounts data retrieved successfully",
+                        "pagination": {
+                          "totalPage": 1,
+                          "currentPage": 111,
+                          "pageItems": 0,
+                          "nextPage": null,
+                          "prevPage": 110
+                        }
+                      },
+                      "data": []
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{VERSION}/accounts/{accountID}": {
+      "get": {
+        "tags": ["bank accounts"],
+        "summary": "get account by id",
+        "parameters": [
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "accountID",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "343"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"157-AeZ5OhGfIuQhUNAqYEVJyNYLEDY\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:41:01 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "account data retrieved successfully"
+                  },
+                  "data": {
+                    "id": 2,
+                    "bank_name": "BRI",
+                    "bank_account_number": "300000001",
+                    "balance": 4705.98,
+                    "user_id": 1,
+                    "Users": {
+                      "id": 1,
+                      "name": "User 2",
+                      "email": "user2@example.com",
+                      "Profiles": {
+                        "id": 1,
+                        "identity_type": "SAVING",
+                        "identity_number": "100000001",
+                        "address": "Address 2",
+                        "user_id": 1
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "67"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"43-6PUaypMxfe8twZ362EjChc+3Q/A\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:41:21 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 400,
+                    "message": "accountID must be a number"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "74"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"4a-pojK+UICsQ+nEKR1IFZV1eSRtPw\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:42:16 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 404,
+                    "message": "account with id 2222 is not found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{VERSION}/accounts/{userID}": {
+      "delete": {
+        "tags": ["bank accounts"],
+        "summary": "delete account",
+        "parameters": [
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "userID",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "171"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"ab-YDwcIIqpl/44S+zr62YCSAfqa7c\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:57:15 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "account data deleted successfully"
+                  },
+                  "data": {
+                    "id": 25,
+                    "bank_name": "PERMATA",
+                    "bank_account_number": "11111",
+                    "balance": 10000,
+                    "user_id": 11
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "75"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"4b-+9u6YXtWwERogNusMTfkWOzFH34\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:49:25 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 400,
+                    "message": "bankAccountNumber must be a number"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "90"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"5a-9WXDRFgVBm863gqppLFLhaeUTwE\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:44:52 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "forbidden",
+                    "value": {
+                      "error": {
+                        "statusCode": 403,
+                        "message": "you doesn't have an access for account  with id 1"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "account cannot be deleted",
+                    "value": {
+                      "error": {
+                        "statusCode": 403,
+                        "message": "account has transaction data, account cannot be deleted"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "72"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"48-rcnCh8ojtoUpt+mOyhCAat/eoAM\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:42:38 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "accountID is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 404,
+                        "message": "account with id 21 is not found"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "userID is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 404,
+                        "message": "user with id 22 is not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "74"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"4a-imOTmIe2OB4PxNVkV4sChUCrTd8\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:01:17 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 422,
+                    "message": "\"bankAccountNumber\" is required"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "133"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"85-tnSZdnCi8mQwl0udm2c18PNNrjI\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:00:59 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 500,
+                    "message": "something went wrong",
+                    "details": "Expected double-quoted property name in JSON at position 21"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{VERSION}/accounts/deposit/{accountID}": {
+      "put": {
+        "tags": ["bank accounts"],
+        "summary": "deposit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "amount": 3000
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "accountID",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "379"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"17b-RcP4ZNabKuH0pWMd74L8xi1JFhY\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:00:48 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "deposit successfully"
+                  },
+                  "data": {
+                    "amount": "Rp 3.000,00",
+                    "currentAccountBalance": {
+                      "id": 1,
+                      "bank_name": "CIMB",
+                      "bank_account_number": "200000001",
+                      "balance": 4383.38,
+                      "user_id": 1,
+                      "Users": {
+                        "id": 1,
+                        "name": "User 2",
+                        "email": "user2@example.com",
+                        "Profiles": {
+                          "id": 1,
+                          "identity_type": "SAVING",
+                          "identity_number": "100000001",
+                          "address": "Address 2",
+                          "user_id": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "67"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"43-6PUaypMxfe8twZ362EjChc+3Q/A\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:01:50 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 400,
+                    "message": "accountID must be a number"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "86"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"56-xx+m7TKzMIqTuxtoyXkoS6cYOos\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:02:11 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "invalid amount value",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "\"amount\" must be greater than or equal to 0"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "amount must be a number",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "\"amount\" must be a number"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "field is required",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "\"amount\" is required"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{VERSION}/accounts/withdrawal/{accountID}": {
+      "put": {
+        "tags": ["bank accounts"],
+        "summary": "withdrawal",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "amount": 3000
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "accountID",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "382"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"17e-QJnib0/gNrpzBhw/pdiekZS8AAM\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:04:54 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "withdrawal successfully"
+                  },
+                  "data": {
+                    "amount": "Rp 3.000,00",
+                    "currentAccountBalance": {
+                      "id": 1,
+                      "bank_name": "CIMB",
+                      "bank_account_number": "200000001",
+                      "balance": 1383.38,
+                      "user_id": 1,
+                      "Users": {
+                        "id": 1,
+                        "name": "User 2",
+                        "email": "user2@example.com",
+                        "Profiles": {
+                          "id": 1,
+                          "identity_type": "SAVING",
+                          "identity_number": "100000001",
+                          "address": "Address 2",
+                          "user_id": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "67"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"43-6PUaypMxfe8twZ362EjChc+3Q/A\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:06:51 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "invalid query params value",
+                    "value": {
+                      "error": {
+                        "statusCode": 400,
+                        "message": "accountID must be a number"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "insufficient",
+                    "value": {
+                      "error": {
+                        "statusCode": 400,
+                        "message": "account remaining balance is insufficient"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "63"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"3f-hfzCMNtz0rMgfT2kNiq4CAVlgOM\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:05:26 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "field is required",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "\"amount\" is required"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "invalid amount value",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "\"amount\" must be greater than or equal to 1"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "amount must be a number",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "\"amount\" must be a number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{VERSION}/transactions": {
+      "post": {
+        "tags": ["transactions"],
+        "summary": "transfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "senderID": 1,
+                  "receiverID": 2,
+                  "amount": 1000
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "172"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"ac-/EzIHB5idieE+qUVweu1wFT9iGk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:07:23 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "transfer transaction successfully"
+                  },
+                  "data": {
+                    "amount": 1000,
+                    "currentSenderBalance": "Rp 383,38",
+                    "currentReceiverBalance": "Rp 5.705,98"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "82"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"52-j0whqNUWvVjcqp+PG+I8SqjJKnY\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:08:36 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 400,
+                    "message": "account remaining balance is insufficient"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "76"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"4c-sb6cw9hYe1k+m1u/CDj79V7uy8g\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:07:50 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 404,
+                    "message": "account with ID: 11111 is not found"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "86"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"56-baMVoHtZeGOnl9GGZPsGelk5MIc\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:08:15 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 422,
+                    "message": "\"amount\" must be greater than or equal to 1"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["transactions"],
+        "summary": "get all transactions",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "4"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            },
+            "example": "10"
+          },
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "6653"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"19fd-cxpeZnlhooA3vb0TUlk3myAZIxA\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:10:19 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "success",
+                    "value": {
+                      "meta": {
+                        "statusCode": 200,
+                        "message": "transations data retrieved successfully",
+                        "pagination": {
+                          "totalPage": 6,
+                          "currentPage": 4,
+                          "pageItems": 10,
+                          "nextPage": 5,
+                          "prevPage": 3
+                        }
+                      },
+                      "data": [
+                        {
+                          "id": 31,
+                          "source_account_id": 5,
+                          "destination_account_id": 8,
+                          "amount": 511.04,
+                          "SourceBankAccounts": {
+                            "id": 5,
+                            "bank_name": "PERMATA",
+                            "bank_account_number": "200000006",
+                            "balance": 2711.84,
+                            "user_id": 3,
+                            "Users": {
+                              "id": 3,
+                              "name": "User 7",
+                              "email": "user7@example.com",
+                              "Profiles": {
+                                "id": 3,
+                                "identity_type": "SAVING",
+                                "identity_number": "100000006",
+                                "address": "Address 7",
+                                "user_id": 3
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 8,
+                            "bank_name": "PERMATA",
+                            "bank_account_number": "300000007",
+                            "balance": 1657.97,
+                            "user_id": 4,
+                            "Users": {
+                              "id": 4,
+                              "name": "User 8",
+                              "email": "user8@example.com",
+                              "Profiles": {
+                                "id": 4,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000007",
+                                "address": "Address 8",
+                                "user_id": 4
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 32,
+                          "source_account_id": 5,
+                          "destination_account_id": 8,
+                          "amount": 901.67,
+                          "SourceBankAccounts": {
+                            "id": 5,
+                            "bank_name": "PERMATA",
+                            "bank_account_number": "200000006",
+                            "balance": 2711.84,
+                            "user_id": 3,
+                            "Users": {
+                              "id": 3,
+                              "name": "User 7",
+                              "email": "user7@example.com",
+                              "Profiles": {
+                                "id": 3,
+                                "identity_type": "SAVING",
+                                "identity_number": "100000006",
+                                "address": "Address 7",
+                                "user_id": 3
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 8,
+                            "bank_name": "PERMATA",
+                            "bank_account_number": "300000007",
+                            "balance": 1657.97,
+                            "user_id": 4,
+                            "Users": {
+                              "id": 4,
+                              "name": "User 8",
+                              "email": "user8@example.com",
+                              "Profiles": {
+                                "id": 4,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000007",
+                                "address": "Address 8",
+                                "user_id": 4
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 33,
+                          "source_account_id": 5,
+                          "destination_account_id": 8,
+                          "amount": 329.55,
+                          "SourceBankAccounts": {
+                            "id": 5,
+                            "bank_name": "PERMATA",
+                            "bank_account_number": "200000006",
+                            "balance": 2711.84,
+                            "user_id": 3,
+                            "Users": {
+                              "id": 3,
+                              "name": "User 7",
+                              "email": "user7@example.com",
+                              "Profiles": {
+                                "id": 3,
+                                "identity_type": "SAVING",
+                                "identity_number": "100000006",
+                                "address": "Address 7",
+                                "user_id": 3
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 8,
+                            "bank_name": "PERMATA",
+                            "bank_account_number": "300000007",
+                            "balance": 1657.97,
+                            "user_id": 4,
+                            "Users": {
+                              "id": 4,
+                              "name": "User 8",
+                              "email": "user8@example.com",
+                              "Profiles": {
+                                "id": 4,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000007",
+                                "address": "Address 8",
+                                "user_id": 4
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 34,
+                          "source_account_id": 5,
+                          "destination_account_id": 8,
+                          "amount": 766.32,
+                          "SourceBankAccounts": {
+                            "id": 5,
+                            "bank_name": "PERMATA",
+                            "bank_account_number": "200000006",
+                            "balance": 2711.84,
+                            "user_id": 3,
+                            "Users": {
+                              "id": 3,
+                              "name": "User 7",
+                              "email": "user7@example.com",
+                              "Profiles": {
+                                "id": 3,
+                                "identity_type": "SAVING",
+                                "identity_number": "100000006",
+                                "address": "Address 7",
+                                "user_id": 3
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 8,
+                            "bank_name": "PERMATA",
+                            "bank_account_number": "300000007",
+                            "balance": 1657.97,
+                            "user_id": 4,
+                            "Users": {
+                              "id": 4,
+                              "name": "User 8",
+                              "email": "user8@example.com",
+                              "Profiles": {
+                                "id": 4,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000007",
+                                "address": "Address 8",
+                                "user_id": 4
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 35,
+                          "source_account_id": 5,
+                          "destination_account_id": 8,
+                          "amount": 354.72,
+                          "SourceBankAccounts": {
+                            "id": 5,
+                            "bank_name": "PERMATA",
+                            "bank_account_number": "200000006",
+                            "balance": 2711.84,
+                            "user_id": 3,
+                            "Users": {
+                              "id": 3,
+                              "name": "User 7",
+                              "email": "user7@example.com",
+                              "Profiles": {
+                                "id": 3,
+                                "identity_type": "SAVING",
+                                "identity_number": "100000006",
+                                "address": "Address 7",
+                                "user_id": 3
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 8,
+                            "bank_name": "PERMATA",
+                            "bank_account_number": "300000007",
+                            "balance": 1657.97,
+                            "user_id": 4,
+                            "Users": {
+                              "id": 4,
+                              "name": "User 8",
+                              "email": "user8@example.com",
+                              "Profiles": {
+                                "id": 4,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000007",
+                                "address": "Address 8",
+                                "user_id": 4
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 36,
+                          "source_account_id": 7,
+                          "destination_account_id": 10,
+                          "amount": 299.75,
+                          "SourceBankAccounts": {
+                            "id": 7,
+                            "bank_name": "BNI",
+                            "bank_account_number": "200000007",
+                            "balance": 1869.58,
+                            "user_id": 4,
+                            "Users": {
+                              "id": 4,
+                              "name": "User 8",
+                              "email": "user8@example.com",
+                              "Profiles": {
+                                "id": 4,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000007",
+                                "address": "Address 8",
+                                "user_id": 4
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 10,
+                            "bank_name": "MANDIRI",
+                            "bank_account_number": "300000008",
+                            "balance": 3292.67,
+                            "user_id": 5,
+                            "Users": {
+                              "id": 5,
+                              "name": "User 9",
+                              "email": "user9@example.com",
+                              "Profiles": {
+                                "id": 5,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000008",
+                                "address": "Address 9",
+                                "user_id": 5
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 37,
+                          "source_account_id": 7,
+                          "destination_account_id": 10,
+                          "amount": 703.63,
+                          "SourceBankAccounts": {
+                            "id": 7,
+                            "bank_name": "BNI",
+                            "bank_account_number": "200000007",
+                            "balance": 1869.58,
+                            "user_id": 4,
+                            "Users": {
+                              "id": 4,
+                              "name": "User 8",
+                              "email": "user8@example.com",
+                              "Profiles": {
+                                "id": 4,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000007",
+                                "address": "Address 8",
+                                "user_id": 4
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 10,
+                            "bank_name": "MANDIRI",
+                            "bank_account_number": "300000008",
+                            "balance": 3292.67,
+                            "user_id": 5,
+                            "Users": {
+                              "id": 5,
+                              "name": "User 9",
+                              "email": "user9@example.com",
+                              "Profiles": {
+                                "id": 5,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000008",
+                                "address": "Address 9",
+                                "user_id": 5
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 38,
+                          "source_account_id": 7,
+                          "destination_account_id": 10,
+                          "amount": 366.61,
+                          "SourceBankAccounts": {
+                            "id": 7,
+                            "bank_name": "BNI",
+                            "bank_account_number": "200000007",
+                            "balance": 1869.58,
+                            "user_id": 4,
+                            "Users": {
+                              "id": 4,
+                              "name": "User 8",
+                              "email": "user8@example.com",
+                              "Profiles": {
+                                "id": 4,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000007",
+                                "address": "Address 8",
+                                "user_id": 4
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 10,
+                            "bank_name": "MANDIRI",
+                            "bank_account_number": "300000008",
+                            "balance": 3292.67,
+                            "user_id": 5,
+                            "Users": {
+                              "id": 5,
+                              "name": "User 9",
+                              "email": "user9@example.com",
+                              "Profiles": {
+                                "id": 5,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000008",
+                                "address": "Address 9",
+                                "user_id": 5
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 39,
+                          "source_account_id": 7,
+                          "destination_account_id": 10,
+                          "amount": 447.53,
+                          "SourceBankAccounts": {
+                            "id": 7,
+                            "bank_name": "BNI",
+                            "bank_account_number": "200000007",
+                            "balance": 1869.58,
+                            "user_id": 4,
+                            "Users": {
+                              "id": 4,
+                              "name": "User 8",
+                              "email": "user8@example.com",
+                              "Profiles": {
+                                "id": 4,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000007",
+                                "address": "Address 8",
+                                "user_id": 4
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 10,
+                            "bank_name": "MANDIRI",
+                            "bank_account_number": "300000008",
+                            "balance": 3292.67,
+                            "user_id": 5,
+                            "Users": {
+                              "id": 5,
+                              "name": "User 9",
+                              "email": "user9@example.com",
+                              "Profiles": {
+                                "id": 5,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000008",
+                                "address": "Address 9",
+                                "user_id": 5
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 40,
+                          "source_account_id": 7,
+                          "destination_account_id": 10,
+                          "amount": 276.4,
+                          "SourceBankAccounts": {
+                            "id": 7,
+                            "bank_name": "BNI",
+                            "bank_account_number": "200000007",
+                            "balance": 1869.58,
+                            "user_id": 4,
+                            "Users": {
+                              "id": 4,
+                              "name": "User 8",
+                              "email": "user8@example.com",
+                              "Profiles": {
+                                "id": 4,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000007",
+                                "address": "Address 8",
+                                "user_id": 4
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 10,
+                            "bank_name": "MANDIRI",
+                            "bank_account_number": "300000008",
+                            "balance": 3292.67,
+                            "user_id": 5,
+                            "Users": {
+                              "id": 5,
+                              "name": "User 9",
+                              "email": "user9@example.com",
+                              "Profiles": {
+                                "id": 5,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000008",
+                                "address": "Address 9",
+                                "user_id": 5
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  "example-1": {
+                    "summary": "success - empty data",
+                    "value": {
+                      "meta": {
+                        "statusCode": 200,
+                        "message": "transations data retrieved successfully",
+                        "pagination": {
+                          "totalPage": 6,
+                          "currentPage": 114,
+                          "pageItems": 0,
+                          "nextPage": null,
+                          "prevPage": 113
+                        }
+                      },
+                      "data": []
+                    }
+                  },
+                  "example-2": {
+                    "summary": "success - without query params",
+                    "value": {
+                      "meta": {
+                        "statusCode": 200,
+                        "message": "transations data retrieved successfully",
+                        "pagination": {
+                          "totalPage": 11,
+                          "currentPage": 1,
+                          "pageItems": 5,
+                          "nextPage": 2,
+                          "prevPage": null
+                        }
+                      },
+                      "data": [
+                        {
+                          "id": 1,
+                          "source_account_id": 19,
+                          "destination_account_id": 2,
+                          "amount": 276.38,
+                          "SourceBankAccounts": {
+                            "id": 19,
+                            "bank_name": "OTHERS",
+                            "bank_account_number": "200000000",
+                            "balance": 2865.54,
+                            "user_id": 10,
+                            "Users": {
+                              "id": 10,
+                              "name": "User 1",
+                              "email": "user1@example.com",
+                              "Profiles": {
+                                "id": 10,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000000",
+                                "address": "Address 1",
+                                "user_id": 10
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 2,
+                            "bank_name": "BRI",
+                            "bank_account_number": "300000001",
+                            "balance": 5705.98,
+                            "user_id": 1,
+                            "Users": {
+                              "id": 1,
+                              "name": "User 2",
+                              "email": "user2@example.com",
+                              "Profiles": {
+                                "id": 1,
+                                "identity_type": "SAVING",
+                                "identity_number": "100000001",
+                                "address": "Address 2",
+                                "user_id": 1
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 2,
+                          "source_account_id": 19,
+                          "destination_account_id": 2,
+                          "amount": 263.33,
+                          "SourceBankAccounts": {
+                            "id": 19,
+                            "bank_name": "OTHERS",
+                            "bank_account_number": "200000000",
+                            "balance": 2865.54,
+                            "user_id": 10,
+                            "Users": {
+                              "id": 10,
+                              "name": "User 1",
+                              "email": "user1@example.com",
+                              "Profiles": {
+                                "id": 10,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000000",
+                                "address": "Address 1",
+                                "user_id": 10
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 2,
+                            "bank_name": "BRI",
+                            "bank_account_number": "300000001",
+                            "balance": 5705.98,
+                            "user_id": 1,
+                            "Users": {
+                              "id": 1,
+                              "name": "User 2",
+                              "email": "user2@example.com",
+                              "Profiles": {
+                                "id": 1,
+                                "identity_type": "SAVING",
+                                "identity_number": "100000001",
+                                "address": "Address 2",
+                                "user_id": 1
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 3,
+                          "source_account_id": 19,
+                          "destination_account_id": 2,
+                          "amount": 209.33,
+                          "SourceBankAccounts": {
+                            "id": 19,
+                            "bank_name": "OTHERS",
+                            "bank_account_number": "200000000",
+                            "balance": 2865.54,
+                            "user_id": 10,
+                            "Users": {
+                              "id": 10,
+                              "name": "User 1",
+                              "email": "user1@example.com",
+                              "Profiles": {
+                                "id": 10,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000000",
+                                "address": "Address 1",
+                                "user_id": 10
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 2,
+                            "bank_name": "BRI",
+                            "bank_account_number": "300000001",
+                            "balance": 5705.98,
+                            "user_id": 1,
+                            "Users": {
+                              "id": 1,
+                              "name": "User 2",
+                              "email": "user2@example.com",
+                              "Profiles": {
+                                "id": 1,
+                                "identity_type": "SAVING",
+                                "identity_number": "100000001",
+                                "address": "Address 2",
+                                "user_id": 1
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 4,
+                          "source_account_id": 19,
+                          "destination_account_id": 2,
+                          "amount": 344.7,
+                          "SourceBankAccounts": {
+                            "id": 19,
+                            "bank_name": "OTHERS",
+                            "bank_account_number": "200000000",
+                            "balance": 2865.54,
+                            "user_id": 10,
+                            "Users": {
+                              "id": 10,
+                              "name": "User 1",
+                              "email": "user1@example.com",
+                              "Profiles": {
+                                "id": 10,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000000",
+                                "address": "Address 1",
+                                "user_id": 10
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 2,
+                            "bank_name": "BRI",
+                            "bank_account_number": "300000001",
+                            "balance": 5705.98,
+                            "user_id": 1,
+                            "Users": {
+                              "id": 1,
+                              "name": "User 2",
+                              "email": "user2@example.com",
+                              "Profiles": {
+                                "id": 1,
+                                "identity_type": "SAVING",
+                                "identity_number": "100000001",
+                                "address": "Address 2",
+                                "user_id": 1
+                              }
+                            }
+                          }
+                        },
+                        {
+                          "id": 5,
+                          "source_account_id": 19,
+                          "destination_account_id": 2,
+                          "amount": 289.29,
+                          "SourceBankAccounts": {
+                            "id": 19,
+                            "bank_name": "OTHERS",
+                            "bank_account_number": "200000000",
+                            "balance": 2865.54,
+                            "user_id": 10,
+                            "Users": {
+                              "id": 10,
+                              "name": "User 1",
+                              "email": "user1@example.com",
+                              "Profiles": {
+                                "id": 10,
+                                "identity_type": "GIRO",
+                                "identity_number": "100000000",
+                                "address": "Address 1",
+                                "user_id": 10
+                              }
+                            }
+                          },
+                          "DestinationBankAccounts": {
+                            "id": 2,
+                            "bank_name": "BRI",
+                            "bank_account_number": "300000001",
+                            "balance": 5705.98,
+                            "user_id": 1,
+                            "Users": {
+                              "id": 1,
+                              "name": "User 2",
+                              "email": "user2@example.com",
+                              "Profiles": {
+                                "id": 1,
+                                "identity_type": "SAVING",
+                                "identity_number": "100000001",
+                                "address": "Address 2",
+                                "user_id": 1
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{VERSION}/transactions/{transactionID}": {
+      "get": {
+        "tags": ["transactions"],
+        "summary": "get transaction by id",
+        "parameters": [
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "transactionID",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "742"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"2e6-i2FcYrO9JTJ1yGE2FGWtx2mKG7k\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:11:56 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "transaction data retrieved successfully"
+                  },
+                  "data": {
+                    "id": 7,
+                    "source_account_id": 1,
+                    "destination_account_id": 16,
+                    "amount": 200.87,
+                    "SourceBankAccounts": {
+                      "id": 1,
+                      "bank_name": "CIMB",
+                      "bank_account_number": "200000001",
+                      "balance": 383.3800000000001,
+                      "user_id": 1,
+                      "Users": {
+                        "id": 1,
+                        "name": "User 2",
+                        "email": "user2@example.com",
+                        "Profiles": {
+                          "id": 1,
+                          "identity_type": "SAVING",
+                          "identity_number": "100000001",
+                          "address": "Address 2",
+                          "user_id": 1
+                        }
+                      }
+                    },
+                    "DestinationBankAccounts": {
+                      "id": 16,
+                      "bank_name": "BCA",
+                      "bank_account_number": "300000002",
+                      "balance": 2748.07,
+                      "user_id": 8,
+                      "Users": {
+                        "id": 8,
+                        "name": "User 3",
+                        "email": "user3@example.com",
+                        "Profiles": {
+                          "id": 8,
+                          "identity_type": "SAVING",
+                          "identity_number": "100000002",
+                          "address": "Address 3",
+                          "user_id": 8
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "71"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"47-I/GJiKpe+L/uS7rLEgg7ynZvSyc\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:12:21 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 400,
+                    "message": "transactionID must be a number"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "75"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"4b-AxLsD6lrdL/RtS1Bb4Zu96WD+9c\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:12:46 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 404,
+                    "message": "transaction with id 0 is not found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/{VERSION}": {
+      "get": {
+        "tags": ["default"],
+        "summary": "root",
+        "parameters": [
+          {
+            "name": "VERSION",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "status": true,
+                  "statusCode": 200,
+                  "message": "Welcome to API Akuuh"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "76"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"4c-aHFeX8d5sLGchnpI3PnpdQVhbT4\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 14:13:27 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 404,
+                    "message": "GET - /api/v1/invalid is not found!"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

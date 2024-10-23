@@ -15,6 +15,7 @@
 3. running this command to running this project `npm run start:dev`
 4. import thunder client collection
 5. running this command to seed the database `npm run prisma:seed`
+6. api documentation: `http://localhost:{PORT}/api/v1/docs`
 
 # Tools Version
 

@@ -53,7 +53,7 @@ model Bank_Accounts {
   SourceBankAccounts      Transactions[] @relation("source_bank_account")
   DestinationBankAccounts Transactions[] @relation("destination_bank_account")
 
-  @@map("bank_accounts")
+  @@map("bankAccounts")
 }
 
 model Profiles {

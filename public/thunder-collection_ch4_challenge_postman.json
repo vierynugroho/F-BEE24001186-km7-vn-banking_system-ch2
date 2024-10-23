@@ -1,0 +1,395 @@
+{
+    "info": {
+        "_postman_id": "8819d58b-93b1-495c-ad8b-446abfb3a228",
+        "name": "ch4_challenge",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "users",
+            "item": [
+                {
+                    "name": "register",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/users",
+                            "path": [
+                                "api",
+                                "v1",
+                                "users"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"name\": \"viery nugroho\",\n  \"email\": \"viery15102002@gmail.com\",\n  \"password\": \"password\",\n  \"identity_type\": \"SAVING\",\n  \"identity_number\": \"6289516424305\",\n  \"address\": \"Blitar\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "login",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/users/login",
+                            "path": [
+                                "api",
+                                "v1",
+                                "users",
+                                "login"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"email\":\"viery15102002@gmail.com\",\n  \"password\": \"password\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "get all users",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/users?page=1&limit=5",
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "5"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "v1",
+                                "users"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        }
+                    }
+                },
+                {
+                    "name": "get user by id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/users/11",
+                            "path": [
+                                "api",
+                                "v1",
+                                "users",
+                                "11"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "accounts",
+            "item": [
+                {
+                    "name": "register",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/accounts",
+                            "path": [
+                                "api",
+                                "v1",
+                                "accounts"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"userID\": \"11\",\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"111\",\n  \"balance\": \"10000\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "get all accounts",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/accounts?page=1&limit=100",
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "100"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "v1",
+                                "accounts"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        }
+                    }
+                },
+                {
+                    "name": "get account by id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/accounts/2",
+                            "path": [
+                                "api",
+                                "v1",
+                                "accounts",
+                                "2"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        }
+                    }
+                },
+                {
+                    "name": "delete account",
+                    "request": {
+                        "method": "DELETE",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/accounts/11",
+                            "path": [
+                                "api",
+                                "v1",
+                                "accounts",
+                                "11"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"accountID\": 21\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "deposit",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/accounts/deposit/1",
+                            "path": [
+                                "api",
+                                "v1",
+                                "accounts",
+                                "deposit",
+                                "1"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"amount\": 3000\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "withdrawal",
+                    "request": {
+                        "method": "PUT",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/accounts/withdrawal/1",
+                            "path": [
+                                "api",
+                                "v1",
+                                "accounts",
+                                "withdrawal",
+                                "1"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"amount\": 3000\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "transactions",
+            "item": [
+                {
+                    "name": "transfer",
+                    "request": {
+                        "method": "POST",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/transactions",
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            },
+                            "raw": "{\n  \"senderID\": 1,\n  \"receiverID\": 2,\n  \"amount\": 1000\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "get all transactions",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/transactions?page=4&limit=10",
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "4"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                }
+                            ],
+                            "variable": [],
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        }
+                    }
+                },
+                {
+                    "name": "get transaction by id",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "http://localhost:2000/api/v1/transactions/7",
+                            "path": [
+                                "api",
+                                "v1",
+                                "transactions",
+                                "7"
+                            ],
+                            "protocol": "http",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "2000"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "root",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:2000/api/v1",
+                    "path": [
+                        "api",
+                        "v1"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "2000"
+                }
+            }
+        }
+    ]
+}

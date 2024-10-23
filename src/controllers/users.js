@@ -11,8 +11,10 @@ export class UsersController {
       delete userRegister.user.password;
 
       res.json({
-        statusCode: 200,
-        message: 'register successfully',
+        meta: {
+          statusCode: 200,
+          message: 'register successfully',
+        },
         data: userRegister,
       });
     } catch (error) {
@@ -29,8 +31,10 @@ export class UsersController {
       delete user.password;
 
       res.json({
-        statusCode: 200,
-        message: 'login successfully',
+        meta: {
+          statusCode: 200,
+          message: 'login successfully',
+        },
         data: user,
       });
     } catch (error) {
@@ -60,14 +64,16 @@ export class UsersController {
       });
 
       res.json({
-        statusCode: 200,
-        message: 'users data retrieved successfully',
-        pagination: {
-          totalPage: Math.ceil(totalUser / limit),
-          currentPage: page,
-          pageItems: users.length,
-          nextPage: page < Math.ceil(totalUser / limit) ? page + 1 : null,
-          prevPage: page > 1 ? page - 1 : null,
+        meta: {
+          statusCode: 200,
+          message: 'users data retrieved successfully',
+          pagination: {
+            totalPage: Math.ceil(totalUser / limit),
+            currentPage: page,
+            pageItems: users.length,
+            nextPage: page < Math.ceil(totalUser / limit) ? page + 1 : null,
+            prevPage: page > 1 ? page - 1 : null,
+          },
         },
         data: users,
       });
@@ -93,8 +99,10 @@ export class UsersController {
       delete user.password;
 
       res.json({
-        statusCode: 200,
-        message: 'user data retrieved successfully',
+        meta: {
+          statusCode: 200,
+          message: 'user data retrieved successfully',
+        },
         data: user,
       });
     } catch (error) {

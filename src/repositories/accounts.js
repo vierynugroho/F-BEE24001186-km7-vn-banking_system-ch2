@@ -73,6 +73,23 @@ export class AccountsRepository {
     return user;
   }
 
+  static async getAccountByNumber(bank_account_number) {
+    const user = await prisma.bank_Accounts.findFirst({
+      where: {
+        bank_account_number,
+      },
+      include: {
+        Users: {
+          include: {
+            Profiles: true,
+          },
+        },
+      },
+    });
+
+    return user;
+  }
+
   static async getAccountByNumberAndBankName(bank_account_number, bank_name) {
     const account = await prisma.bank_Accounts.findFirst({
       where: {

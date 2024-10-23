@@ -53,11 +53,18 @@ export class AccountsService {
     return account;
   }
 
-  static async deleteAccount(userID, accountID) {
+  static async deleteAccount(userID, accountID, bank_account_number) {
     const user = await UsersRepository.getUserById(userID);
 
     if (!user) {
       throw new ErrorHandler(404, `user with id ${userID} is not found`);
+    }
+
+    const bankAccount =
+      await AccountsRepository.getAccountByNumber(bank_account_number);
+
+    if (!bankAccount) {
+      throw new ErrorHandler(404, `account with id ${accountID} is not found`);
     }
 
     const account = await AccountsRepository.getAccountById(accountID);

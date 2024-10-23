@@ -1,0 +1,465 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "ch4_challenge",
+    "description": "",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "servers": [
+    {
+      "url": "http://localhost"
+    }
+  ],
+  "paths": {
+    "/api/v1/users": {
+      "get": {
+        "tags": ["users"],
+        "summary": "get all users",
+        "description": "get all users",
+        "operationId": "getAllUsers",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "5"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": ["users"],
+        "summary": "register",
+        "description": "register",
+        "operationId": "register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "address": {
+                    "type": "string",
+                    "example": "Blitar"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "viery15102002@gmail.com"
+                  },
+                  "identity_number": {
+                    "type": "string",
+                    "example": "6289516424305"
+                  },
+                  "identity_type": {
+                    "type": "string",
+                    "example": "SAVING"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "viery nugroho"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  }
+                }
+              },
+              "examples": {
+                "register": {
+                  "value": {
+                    "address": "Blitar",
+                    "email": "viery15102002@gmail.com",
+                    "identity_number": "6289516424305",
+                    "identity_type": "SAVING",
+                    "name": "viery nugroho",
+                    "password": "password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/users/login": {
+      "post": {
+        "tags": ["users"],
+        "summary": "login",
+        "description": "login",
+        "operationId": "login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "viery15102002@gmail.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password"
+                  }
+                }
+              },
+              "examples": {
+                "login": {
+                  "value": {
+                    "email": "viery15102002@gmail.com",
+                    "password": "password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/users/11": {
+      "get": {
+        "tags": ["users"],
+        "summary": "get user by id",
+        "description": "get user by id",
+        "operationId": "getUserById",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/accounts": {
+      "get": {
+        "tags": ["accounts"],
+        "summary": "get all accounts",
+        "description": "get all accounts",
+        "operationId": "getAllAccounts",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "1"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "100"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": ["accounts"],
+        "summary": "register",
+        "description": "register",
+        "operationId": "register1",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "balance": {
+                    "type": "string",
+                    "example": "10000"
+                  },
+                  "bank_account_number": {
+                    "type": "string",
+                    "example": "111"
+                  },
+                  "bank_name": {
+                    "type": "string",
+                    "example": "PERMATA"
+                  },
+                  "userID": {
+                    "type": "string",
+                    "example": "11"
+                  }
+                }
+              },
+              "examples": {
+                "register": {
+                  "value": {
+                    "balance": "10000",
+                    "bank_account_number": "111",
+                    "bank_name": "PERMATA",
+                    "userID": "11"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/2": {
+      "get": {
+        "tags": ["accounts"],
+        "summary": "get account by id",
+        "description": "get account by id",
+        "operationId": "getAccountById",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/11": {
+      "delete": {
+        "tags": ["accounts"],
+        "summary": "delete account",
+        "description": "delete account",
+        "operationId": "deleteAccount",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "accountID": {
+                    "type": "number",
+                    "example": 21
+                  }
+                }
+              },
+              "examples": {
+                "delete account": {
+                  "value": {
+                    "accountID": 21
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/deposit/1": {
+      "put": {
+        "tags": ["accounts"],
+        "summary": "deposit",
+        "description": "deposit",
+        "operationId": "deposit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "example": 3000
+                  }
+                }
+              },
+              "examples": {
+                "deposit": {
+                  "value": {
+                    "amount": 3000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/accounts/withdrawal/1": {
+      "put": {
+        "tags": ["accounts"],
+        "summary": "withdrawal",
+        "description": "withdrawal",
+        "operationId": "withdrawal",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "example": 3000
+                  }
+                }
+              },
+              "examples": {
+                "withdrawal": {
+                  "value": {
+                    "amount": 3000
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/transactions": {
+      "get": {
+        "tags": ["transactions"],
+        "summary": "get all transactions",
+        "description": "get all transactions",
+        "operationId": "getAllTransactions",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "4"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "10"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": ["transactions"],
+        "summary": "transfer",
+        "description": "transfer",
+        "operationId": "transfer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "example": 1000
+                  },
+                  "receiverID": {
+                    "type": "number",
+                    "example": 2
+                  },
+                  "senderID": {
+                    "type": "number",
+                    "example": 1
+                  }
+                }
+              },
+              "examples": {
+                "transfer": {
+                  "value": {
+                    "amount": 1000,
+                    "receiverID": 2,
+                    "senderID": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/transactions/7": {
+      "get": {
+        "tags": ["transactions"],
+        "summary": "get transaction by id",
+        "description": "get transaction by id",
+        "operationId": "getTransactionById",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1": {
+      "get": {
+        "summary": "root",
+        "description": "root",
+        "operationId": "root",
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "users"
+    },
+    {
+      "name": "accounts"
+    },
+    {
+      "name": "transactions"
+    }
+  ]
+}

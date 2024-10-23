@@ -61,6 +61,7 @@ export const registerAccountSchema = Joi.object({
 
 export const deleteAccountSchema = Joi.object({
   accountID: Joi.number().min(1).required(),
+  bankAccountNumber: Joi.string().min(1).required(),
 });
 
 // transactions

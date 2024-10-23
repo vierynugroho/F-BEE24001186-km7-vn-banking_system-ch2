@@ -8,8 +8,10 @@ export class TransactionsController {
       const transfer = await TransactionsService.transfer(data);
 
       res.json({
-        statusCode: 200,
-        message: 'transfer transaction successfully',
+        meta: {
+          statusCode: 200,
+          message: 'transfer transaction successfully',
+        },
         data: transfer,
       });
     } catch (error) {
@@ -36,15 +38,17 @@ export class TransactionsController {
         await TransactionsService.getAllTransactions(pagination);
 
       res.json({
-        statusCode: 200,
-        message: 'transations data retrieved successfully',
-        pagination: {
-          totalPage: Math.ceil(totalTransactions / limit),
-          currentPage: page,
-          pageItems: transactions.length,
-          nextPage:
-            page < Math.ceil(totalTransactions / limit) ? page + 1 : null,
-          prevPage: page > 1 ? page - 1 : null,
+        meta: {
+          statusCode: 200,
+          message: 'transations data retrieved successfully',
+          pagination: {
+            totalPage: Math.ceil(totalTransactions / limit),
+            currentPage: page,
+            pageItems: transactions.length,
+            nextPage:
+              page < Math.ceil(totalTransactions / limit) ? page + 1 : null,
+            prevPage: page > 1 ? page - 1 : null,
+          },
         },
         data: transactions,
       });
@@ -65,8 +69,10 @@ export class TransactionsController {
         await TransactionsService.getTransaction(transactionID);
 
       res.json({
-        statusCode: 200,
-        message: 'transaction data retrieved successfully',
+        meta: {
+          statusCode: 200,
+          message: 'transaction data retrieved successfully',
+        },
         data: transaction,
       });
     } catch (error) {

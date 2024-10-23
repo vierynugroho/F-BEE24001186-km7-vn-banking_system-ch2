@@ -8,8 +8,10 @@ export class AccountsController {
       const accountRegister = await AccountsService.register(data);
 
       res.json({
-        statusCode: 200,
-        message: 'register successfully',
+        meta: {
+          statusCode: 200,
+          message: 'register successfully',
+        },
         data: accountRegister,
       });
     } catch (error) {
@@ -40,14 +42,16 @@ export class AccountsController {
       });
 
       res.json({
-        statusCode: 200,
-        message: 'accounts data retrieved successfully',
-        pagination: {
-          totalPage: Math.ceil(totalAccounts / limit),
-          currentPage: page,
-          pageItems: accounts.length,
-          nextPage: page < Math.ceil(totalAccounts / limit) ? page + 1 : null,
-          prevPage: page > 1 ? page - 1 : null,
+        meta: {
+          statusCode: 200,
+          message: 'accounts data retrieved successfully',
+          pagination: {
+            totalPage: Math.ceil(totalAccounts / limit),
+            currentPage: page,
+            pageItems: accounts.length,
+            nextPage: page < Math.ceil(totalAccounts / limit) ? page + 1 : null,
+            prevPage: page > 1 ? page - 1 : null,
+          },
         },
         data: accounts,
       });
@@ -67,8 +71,10 @@ export class AccountsController {
       const user = await AccountsService.getAccountById(accountID);
 
       res.json({
-        statusCode: 200,
-        message: 'account data retrieved successfully',
+        meta: {
+          statusCode: 200,
+          message: 'account data retrieved successfully',
+        },
         data: user,
       });
     } catch (error) {
@@ -80,6 +86,7 @@ export class AccountsController {
     try {
       const userID = parseFloat(req.params.userID);
       const accountID = parseFloat(req.body.accountID);
+      const bankAccountNumber = req.body.bankAccountNumber;
 
       if (isNaN(userID)) {
         throw new ErrorHandler(400, 'userID must be a number');
@@ -89,14 +96,21 @@ export class AccountsController {
         throw new ErrorHandler(400, 'accountID must be a number');
       }
 
+      if (isNaN(bankAccountNumber)) {
+        throw new ErrorHandler(400, 'bankAccountNumber must be a number');
+      }
+
       const deleteAccount = await AccountsService.deleteAccount(
         userID,
         accountID,
+        bankAccountNumber,
       );
 
       res.json({
-        statusCode: 200,
-        message: 'account data deleted successfully',
+        meta: {
+          statusCode: 200,
+          message: 'account data deleted successfully',
+        },
         data: deleteAccount,
       });
     } catch (error) {
@@ -116,8 +130,10 @@ export class AccountsController {
       const deposit = await AccountsService.deposit(accountID, amount);
 
       res.json({
-        statusCode: 200,
-        message: 'deposit successfully',
+        meta: {
+          statusCode: 200,
+          message: 'deposit successfully',
+        },
         data: deposit,
       });
     } catch (error) {
@@ -137,8 +153,10 @@ export class AccountsController {
       const withdrawal = await AccountsService.withdrawal(accountID, amount);
 
       res.json({
-        statusCode: 200,
-        message: 'withdrawal successfully',
+        meta: {
+          statusCode: 200,
+          message: 'withdrawal successfully',
+        },
         data: withdrawal,
       });
     } catch (error) {

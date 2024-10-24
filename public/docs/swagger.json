@@ -49,7 +49,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           }
@@ -213,7 +214,8 @@
               }
             }
           },
-          "undefined": {
+          "409": {
+            "description": "conflict",
             "headers": {
               "Content-Type": {
                 "schema": {
@@ -286,7 +288,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           }
@@ -558,7 +561,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           }
@@ -891,7 +895,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           },
@@ -1160,7 +1165,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           }
@@ -1560,7 +1566,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           }
@@ -2212,7 +2219,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           },
@@ -2473,7 +2481,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           },
@@ -2979,7 +2988,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           },
@@ -3278,7 +3288,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           },
@@ -3593,7 +3604,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           }
@@ -3918,7 +3930,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           }
@@ -4717,7 +4730,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           },
@@ -5003,7 +5017,8 @@
             "name": "VERSION",
             "in": "path",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "v1"
             },
             "required": true
           }

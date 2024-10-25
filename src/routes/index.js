@@ -1,5 +1,6 @@
 import express from 'express';
 // import bankingSystemRoute from './bankingSystem.js';
+import authRoute from './auth.js';
 import usersRoute from './users.js';
 import accountsRoute from './accounts.js';
 import transactionsRoute from './transactions.js';
@@ -29,6 +30,7 @@ router.use(
     ],
   }),
 );
+router.use('/api/v1/auth', authRoute);
 router.use('/api/v1/users', usersRoute);
 router.use('/api/v1/accounts', accountsRoute);
 router.use('/api/v1/transactions', transactionsRoute);

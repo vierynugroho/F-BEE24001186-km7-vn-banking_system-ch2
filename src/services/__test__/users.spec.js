@@ -2,9 +2,11 @@ import * as argon from 'argon2';
 import { UsersService } from '../../services/users.js';
 import { UsersRepository } from '../../repositories/users.js';
 import { ErrorHandler } from '../../middlewares/error.js';
+import generateJWT from '../../utils/jwtGenerate.js';
 
 jest.mock('argon2');
 jest.mock('../../repositories/users.js');
+jest.mock('../../utils/jwtGenerate.js');
 
 describe('UsersService', () => {
   let mockUser;
@@ -31,7 +33,7 @@ describe('UsersService', () => {
   });
 
   describe('register', () => {
-    it('should throw an error if email is already taken', async () => {
+    test('should throw an error if email is already taken', async () => {
       UsersRepository.getUser.mockResolvedValueOnce(mockUser.email);
 
       await expect(UsersService.register(mockUser)).rejects.toThrow(
@@ -39,7 +41,7 @@ describe('UsersService', () => {
       );
     });
 
-    it('should register a new user successfully', async () => {
+    test('should register a new user successfully', async () => {
       UsersRepository.getUser.mockResolvedValueOnce(null);
       jest.spyOn(argon, 'hash').mockResolvedValueOnce(mockUser.password);
       UsersRepository.register.mockResolvedValueOnce({
@@ -50,7 +52,6 @@ describe('UsersService', () => {
       mockUser.password = hashedPassword;
 
       const result = await UsersService.register(mockUser);
-      console.log(result);
 
       expect(result).toEqual({
         email: mockUser.email,
@@ -61,7 +62,7 @@ describe('UsersService', () => {
   });
 
   describe('login', () => {
-    it('should throw an error if user does not exist', async () => {
+    test('should throw an error if user does not exist', async () => {
       UsersRepository.getUser.mockResolvedValueOnce(null);
 
       await expect(
@@ -72,7 +73,7 @@ describe('UsersService', () => {
       ).rejects.toThrow(ErrorHandler);
     });
 
-    it('should throw an error if password is incorrect', async () => {
+    test('should throw an error if password is incorrect', async () => {
       UsersRepository.getUser.mockResolvedValueOnce(mockUser);
 
       argon.verify.mockResolvedValueOnce(false);
@@ -90,7 +91,7 @@ describe('UsersService', () => {
       );
     });
 
-    it('should login successfully with correct credentials', async () => {
+    test('should login successfully with correct credentials', async () => {
       UsersRepository.getUser.mockResolvedValueOnce(mockUser);
 
       argon.verify.mockResolvedValueOnce(false);
@@ -108,25 +109,41 @@ describe('UsersService', () => {
       );
     });
 
-    it('should login successfully with returning user data', async () => {
-      UsersRepository.getUser.mockResolvedValueOnce(mockUser);
+    test('should login successfully with returning user data', async () => {
+      mockUser = {
+        id: 1,
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        password: 'hashed_password', // Ini adalah password yang sudah di-hash
+        Profiles: {
+          address: '123 Main St',
+          identity_number: '1234567890',
+          identity_type: 'ID Card',
+        },
+      };
 
-      argon.verify.mockResolvedValueOnce(true);
+      const loginData = {
+        email: 'john.doe@example.com',
+        password: 'plain_password',
+      };
 
-      const result = await UsersService.login({
-        email: mockUser.email,
-        password: 'password',
+      UsersRepository.getUser.mockResolvedValue(mockUser);
+      argon.verify.mockResolvedValue(true);
+
+      const mockToken = 'mock_jwt_token';
+      generateJWT.mockReturnValue(mockToken);
+
+      const result = await UsersService.login(loginData);
+
+      expect(result).toEqual({
+        user: mockUser,
+        token: mockToken,
       });
-
-      expect(result).toEqual(mockUser);
-
-      expect(UsersRepository.getUser).toHaveBeenCalledWith(mockUser.email);
-      expect(argon.verify).toHaveBeenCalledWith(mockUser.password, 'password');
     });
   });
 
   describe('getUsers', () => {
-    it('should return users and total count', async () => {
+    test('should return users and total count', async () => {
       const mockUsers = [{ id: 1, email: 'test@example.com' }];
       UsersRepository.getUsers.mockResolvedValueOnce(mockUsers);
       UsersRepository.countUsers.mockResolvedValueOnce(1);
@@ -138,7 +155,7 @@ describe('UsersService', () => {
   });
 
   describe('getUser', () => {
-    it('should return user by email', async () => {
+    test('should return user by email', async () => {
       const mockUser = { email: 'test@example.com' };
       UsersRepository.getUser.mockResolvedValueOnce(mockUser);
 
@@ -149,7 +166,7 @@ describe('UsersService', () => {
   });
 
   describe('getUserById', () => {
-    it('should return user by ID', async () => {
+    test('should return user by ID', async () => {
       const mockUser = { id: 1, email: 'test@example.com' };
       UsersRepository.getUserById.mockResolvedValueOnce(mockUser);
 

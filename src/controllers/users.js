@@ -26,7 +26,7 @@ export class UsersController {
     try {
       const data = req.body;
 
-      const user = await UsersService.login(data);
+      const { user, token } = await UsersService.login(data);
 
       delete user.password;
 
@@ -35,7 +35,9 @@ export class UsersController {
           statusCode: 200,
           message: 'login successfully',
         },
-        data: user,
+        data: {
+          _token: token,
+        },
       });
     } catch (error) {
       next(error);

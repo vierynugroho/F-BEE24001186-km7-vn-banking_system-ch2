@@ -1,6 +1,7 @@
 import * as argon from 'argon2';
 import { UsersRepository } from '../repositories/users.js';
 import { ErrorHandler } from '../middlewares/error.js';
+import generateJWT from '../utils/jwtGenerate.js';
 
 export class UsersService {
   static async register(data) {
@@ -32,7 +33,18 @@ export class UsersService {
       throw new ErrorHandler(403, 'wrong credential');
     }
 
-    return user;
+    const payload = {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      address: user.Profiles.address,
+      identity_number: user.Profiles.identity_number,
+      identity_type: user.Profiles.identity_type,
+    };
+
+    const token = generateJWT(payload);
+
+    return { user, token };
   }
 
   static async getUsers(pagination) {

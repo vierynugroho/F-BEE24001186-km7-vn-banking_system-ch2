@@ -13,9 +13,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum USER_TYPE {
-  GIRO
-  SAVING
+enum IDENTITY_TYPE {
+  KTP
+  SIM
+  KTM
+  NPWP
+  PASSPORT
+  OTHERS
 }
 
 enum BANK_NAME {
@@ -57,11 +61,11 @@ model Bank_Accounts {
 }
 
 model Profiles {
-  id              Int       @id @default(autoincrement())
-  identity_type   USER_TYPE
+  id              Int           @id @default(autoincrement())
+  identity_type   IDENTITY_TYPE
   identity_number String
   address         String
-  user_id         Int       @unique
+  user_id         Int           @unique
 
   Users Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 

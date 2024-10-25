@@ -20,7 +20,7 @@ describe('UsersService', () => {
       name: 'viery nugroho',
       email: 'vierynugroho@gmail.com',
       password: 'password',
-      identity_type: 'SAVING',
+      identity_type: 'KTP',
       identity_number: '6289516424305',
       address: 'Blitar',
     };

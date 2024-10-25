@@ -23,7 +23,7 @@ function getRandomBankName() {
 
 // Helper function to generate random user type
 function getRandomUserType() {
-  const accountsType = ['GIRO', 'SAVING'];
+  const accountsType = ['KTP', 'KTM', 'PASSPORT', 'SIM', 'NPWP'];
   return accountsType[Math.floor(Math.random() * accountsType.length)];
 }
 

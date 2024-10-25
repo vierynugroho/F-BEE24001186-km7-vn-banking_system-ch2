@@ -15,7 +15,9 @@ export const registerSchema = Joi.object({
         'must be a valid email & domain allowed: .com | .net | .id',
     }),
   password: Joi.string().min(8).required(),
-  identity_type: Joi.string().valid('GIRO', 'SAVING').required(),
+  identity_type: Joi.string()
+    .valid('KTP', 'KTM', 'SIM', 'PASSPORT', 'NPWP', 'OTHERS')
+    .required(),
   identity_number: Joi.string().min(8).required(),
   address: Joi.string().min(1).required(),
 });

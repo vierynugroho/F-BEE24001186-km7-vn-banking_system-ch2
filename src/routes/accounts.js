@@ -22,12 +22,20 @@ router
   );
 router
   .route('/:userID')
-  .delete(Validator(deleteAccountSchema), AccountsController.deleteAccount);
+  .delete(
+    authentication,
+    Validator(deleteAccountSchema),
+    AccountsController.deleteAccount,
+  );
 router
   .route('/withdrawal/:accountID')
-  .put(Validator(withdrawalSchema), AccountsController.withdrawal);
+  .put(
+    authentication,
+    Validator(withdrawalSchema),
+    AccountsController.withdrawal,
+  );
 router
   .route('/deposit/:accountID')
-  .put(Validator(depositSchema), AccountsController.deposit);
+  .put(authentication, Validator(depositSchema), AccountsController.deposit);
 
 export default router;

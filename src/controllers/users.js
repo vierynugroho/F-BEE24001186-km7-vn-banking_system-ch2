@@ -44,6 +44,26 @@ export class UsersController {
     }
   }
 
+  static async getUserLoggedIn(req, res, next) {
+    try {
+      const data = req.body;
+
+      const userLoggedIn = UsersService;
+
+      delete user.password;
+
+      res.json({
+        meta: {
+          statusCode: 200,
+          message: 'user logged in data retrieved successfully',
+        },
+        data: userLoggedIn,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
   static async getUsers(req, res, next) {
     try {
       const page = parseInt(req.query.page) || 1;

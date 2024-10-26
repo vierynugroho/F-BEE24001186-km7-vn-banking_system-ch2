@@ -10,7 +10,7 @@ router
   .post(Validator(registerSchema), UsersController.register);
 router.route('/login').post(Validator(loginSchema), UsersController.login);
 router
-  .route('/authentication')
+  .route('/authenticate')
   .get(authentication, UsersController.getUserLoggedIn);
 
 export default router;

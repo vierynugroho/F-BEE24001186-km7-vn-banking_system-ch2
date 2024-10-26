@@ -15,9 +15,20 @@ export class ErrorHandler extends Error {
 export const errorMiddleware = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.message = err.message || 'Internal Server Error';
+  const NODE_ENV = process.env.NODE_ENV || 'development';
+  const isDevelopment = NODE_ENV === 'development' ? true : false;
 
-  if (process.env.NODE_ENV === 'development') {
-    console.log(err);
+  if (isDevelopment) {
+    console.log('\x1b[31m%s\x1b[0m', '=============== ERROR ==============');
+    console.log(Date());
+    console.log('\x1b[31m%s\x1b[0m', '====================================');
+    console.log('\x1b[33m%s\x1b[0m', `Name:`);
+    console.log(`${err.name || 'something error'}`);
+    console.log('\x1b[33m%s\x1b[0m', `Message:`);
+    console.log(`${err.message}`);
+    console.log('\x1b[33m%s\x1b[0m', `Details:`);
+    console.log(err.stack || err);
+    console.log('\x1b[31m%s\x1b[0m', '====================================');
   }
 
   if (err instanceof Prisma.PrismaClientKnownRequestError) {

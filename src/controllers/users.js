@@ -46,11 +46,7 @@ export class UsersController {
 
   static async getUserLoggedIn(req, res, next) {
     try {
-      const data = req.body;
-
-      const userLoggedIn = UsersService;
-
-      delete user.password;
+      const userLoggedIn = req.user;
 
       res.json({
         meta: {

@@ -1,3 +1,4 @@
+import * as argon from 'argon2';
 import { prisma } from '../../src/lib/prisma.js';
 
 // Helper function to generate random float numbers for transaction amounts
@@ -30,14 +31,19 @@ function getRandomUserType() {
 async function main() {
   const userCount = 10;
   const transactionsPerUser = 5;
+  const hashedPassword = await argon.hash('password');
 
   const users = await Promise.all(
     Array.from({ length: userCount }).map(async (_, index) => {
       return prisma.users.create({
         data: {
-          name: `User ${index + 1}`,
-          email: `user${index + 1}@example.com`,
-          password: `password${index + 1}`,
+          name: index + 1 === 1 ? `Admin` : `User ${index + 1}`,
+          email:
+            index + 1 === 1
+              ? `admin@example.com`
+              : `user${index + 1}@example.com`,
+          role: index + 1 === 1 ? 'ADMIN' : 'CUSTOMER',
+          password: hashedPassword,
           Profiles: {
             create: {
               identity_type: getRandomUserType(),

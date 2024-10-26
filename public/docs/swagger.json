@@ -1,14 +1,14 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "ch4_challenge",
-    "description": "challenge chapter 5 - api documentation - Banking System\n\nFeature:  \nStartFragment\n\nUsers & Profile\n\n- \\[x\\] POST api/v1/users (register)\n    \n- \\[x\\] POST api/v1/users/login (login)\n    \n- \\[x\\] GET api/v1/users (get all users)\n    \n- \\[x\\] GET api/v1/users/:userID (get by id)\n    \n- \\[x\\] pagination\n    \n\nBank_Accounts / Account\n\n- \\[x\\] POST api/v1/accounts (register)\n    \n- \\[x\\] GET api/v1/accounts (get all accounts)\n    \n- \\[x\\] GET api/v1/accounts/:accountID (get by id)\n    \n- \\[x\\] DELETE api/v1/accounts/:userID (delete account) - via req.body\n    \n- \\[x\\] PUT api/v1/transactions/deposit/:transactionID (deposit)\n    \n- \\[x\\] PUT api/v1/transactions/withdrawal/:transactionID (withdrawal)\n    \n\nTransactions\n\n- \\[x\\] POST api/v1/transactions (transfer) - via req.body\n    \n- \\[x\\] GET api/v1/transactions (get all transactions)\n    \n- \\[x\\] GET api/v1/transactions/:transactionID (get by id) - show sender & receiver details  \n    Created by Viery Nugroho",
+    "title": "API Documentation - Banking System",
+    "description": "challenge chapter 5 - api documentation - Banking System\n\n  \n    Created by Viery Nugroho",
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "http://localhost:2000/api",
-      "description": "local development"
+      "url": "http://localhost:2000/api/v1",
+      "description": "local development - v1"
     }
   ],
   "tags": [
@@ -23,7 +23,7 @@
     }
   ],
   "paths": {
-    "/{VERSION}/users": {
+    "/users": {
       "post": {
         "tags": ["users"],
         "summary": "register",
@@ -44,17 +44,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -283,15 +272,6 @@
               "type": "integer"
             },
             "example": "5"
-          },
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
           }
         ],
         "responses": {
@@ -539,7 +519,7 @@
         }
       }
     },
-    "/{VERSION}/users/login": {
+    "/users/login": {
       "post": {
         "tags": ["users"],
         "summary": "login",
@@ -556,17 +536,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -886,20 +855,11 @@
         }
       }
     },
-    "/{VERSION}/users/{userID}": {
+    "/users/{userID}": {
       "get": {
         "tags": ["users"],
         "summary": "get user by id",
         "parameters": [
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
-          },
           {
             "name": "userID",
             "in": "path",
@@ -1141,7 +1101,7 @@
         }
       }
     },
-    "/{VERSION}/accounts": {
+    "/accounts": {
       "post": {
         "tags": ["bank accounts"],
         "summary": "register",
@@ -1160,17 +1120,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -1561,15 +1510,6 @@
               "type": "integer"
             },
             "example": "100"
-          },
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
           }
         ],
         "responses": {
@@ -2210,20 +2150,11 @@
         }
       }
     },
-    "/{VERSION}/accounts/{accountID}": {
+    "/accounts/{accountID}": {
       "get": {
         "tags": ["bank accounts"],
         "summary": "get account by id",
         "parameters": [
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
-          },
           {
             "name": "accountID",
             "in": "path",
@@ -2472,20 +2403,11 @@
         }
       }
     },
-    "/{VERSION}/accounts/{userID}": {
+    "/accounts/{userID}": {
       "delete": {
         "tags": ["bank accounts"],
         "summary": "delete account",
         "parameters": [
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
-          },
           {
             "name": "userID",
             "in": "path",
@@ -2967,7 +2889,7 @@
         }
       }
     },
-    "/{VERSION}/accounts/deposit/{accountID}": {
+    "/accounts/deposit/{accountID}": {
       "put": {
         "tags": ["bank accounts"],
         "summary": "deposit",
@@ -2984,15 +2906,6 @@
           }
         },
         "parameters": [
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
-          },
           {
             "name": "accountID",
             "in": "path",
@@ -3267,7 +3180,7 @@
         }
       }
     },
-    "/{VERSION}/accounts/withdrawal/{accountID}": {
+    "/accounts/withdrawal/{accountID}": {
       "put": {
         "tags": ["bank accounts"],
         "summary": "withdrawal",
@@ -3284,15 +3197,6 @@
           }
         },
         "parameters": [
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
-          },
           {
             "name": "accountID",
             "in": "path",
@@ -3581,7 +3485,7 @@
         }
       }
     },
-    "/{VERSION}/transactions": {
+    "/transactions": {
       "post": {
         "tags": ["transactions"],
         "summary": "transfer",
@@ -3599,17 +3503,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -3925,15 +3818,6 @@
               "type": "integer"
             },
             "example": "10"
-          },
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
           }
         ],
         "responses": {
@@ -4721,20 +4605,11 @@
         }
       }
     },
-    "/{VERSION}/transactions/{transactionID}": {
+    "/transactions/{transactionID}": {
       "get": {
         "tags": ["transactions"],
         "summary": "get transaction by id",
         "parameters": [
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
-          },
           {
             "name": "transactionID",
             "in": "path",
@@ -5008,21 +4883,10 @@
         }
       }
     },
-    "/{VERSION}": {
+    "": {
       "get": {
         "tags": ["default"],
         "summary": "root",
-        "parameters": [
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "example": "v1"
-            },
-            "required": true
-          }
-        ],
         "responses": {
           "200": {
             "description": "OK",

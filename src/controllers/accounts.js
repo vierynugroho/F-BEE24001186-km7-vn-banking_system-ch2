@@ -63,12 +63,20 @@ export class AccountsController {
   static async getAccountById(req, res, next) {
     try {
       const accountID = parseFloat(req.params.accountID);
+      const userLoggedIn = req.user;
 
       if (isNaN(accountID)) {
         throw new ErrorHandler(400, 'accountID must be a number');
       }
 
       const user = await AccountsService.getAccountById(accountID);
+
+      if (userLoggedIn.role != 'ADMIN' && userLoggedIn.id !== user.user_id) {
+        throw new ErrorHandler(
+          403,
+          `you doesn't have and access for this data`,
+        );
+      }
 
       res.json({
         meta: {

@@ -3,7 +3,15 @@
   "info": {
     "title": "API Documentation - Banking System",
     "description": "challenge chapter 5 - api documentation - Banking System\n\n  \n    Created by Viery Nugroho",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "contact": {
+      "name": "Github Repository",
+      "url": "https://github.com/vierynugroho/F-BEE24001186-km7-vn-banking_system-ch2"
+    }
+  },
+  "externalDocs": {
+    "description": "Postman API Documentation",
+    "url": "https://documenter.getpostman.com/view/22814931/2sAY4rEjvL"
   },
   "servers": [
     {

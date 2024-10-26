@@ -39,7 +39,6 @@ export const loginSchema = Joi.object({
 
 // bank accounts
 export const registerAccountSchema = Joi.object({
-  userID: Joi.number().required(),
   bank_name: Joi.string()
     .valid(
       'BRI',
@@ -59,11 +58,6 @@ export const registerAccountSchema = Joi.object({
     }),
   bank_account_number: Joi.string().required(),
   balance: Joi.number().min(0).required(),
-});
-
-export const deleteAccountSchema = Joi.object({
-  accountID: Joi.number().min(1).required(),
-  bankAccountNumber: Joi.string().min(1).required(),
 });
 
 // transactions

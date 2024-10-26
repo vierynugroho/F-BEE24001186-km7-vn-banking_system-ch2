@@ -5,7 +5,11 @@ export class AccountsController {
   static async register(req, res, next) {
     try {
       const data = req.body;
-      const accountRegister = await AccountsService.register(data);
+      const userLoggedIn = req.user;
+      const accountRegister = await AccountsService.register(
+        data,
+        userLoggedIn,
+      );
 
       res.json({
         meta: {
@@ -92,9 +96,8 @@ export class AccountsController {
 
   static async deleteAccount(req, res, next) {
     try {
-      const userID = parseFloat(req.params.userID);
-      const accountID = parseFloat(req.body.accountID);
-      const bankAccountNumber = req.body.bankAccountNumber;
+      const userID = req.user.id;
+      const accountID = parseFloat(req.params.accountID);
 
       if (isNaN(userID)) {
         throw new ErrorHandler(400, 'userID must be a number');
@@ -104,14 +107,9 @@ export class AccountsController {
         throw new ErrorHandler(400, 'accountID must be a number');
       }
 
-      if (isNaN(bankAccountNumber)) {
-        throw new ErrorHandler(400, 'bankAccountNumber must be a number');
-      }
-
       const deleteAccount = await AccountsService.deleteAccount(
         userID,
         accountID,
-        bankAccountNumber,
       );
 
       res.json({

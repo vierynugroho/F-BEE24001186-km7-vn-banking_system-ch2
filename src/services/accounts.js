@@ -5,7 +5,7 @@ import { UsersRepository } from '../repositories/users.js';
 import { formatRupiah } from '../utils/formatRupiah.js';
 
 export class AccountsService {
-  static async register(data) {
+  static async register(data, userLoggedIn) {
     const account = await AccountsRepository.getAccountByNumberAndBankName(
       data.bank_account_number,
       data.bank_name,
@@ -19,13 +19,19 @@ export class AccountsService {
       throw new ErrorHandler(409, 'Account has already registered');
     }
 
-    const user = await UsersRepository.getUserById(data.userID);
+    const user = await UsersRepository.getUserById(userLoggedIn.id);
 
     if (!user) {
-      throw new ErrorHandler(404, `Users with id ${data.userID} is not found`);
+      throw new ErrorHandler(
+        404,
+        `Users with id ${userLoggedIn.id} is not found`,
+      );
     }
 
-    const accountRegister = await AccountsRepository.register(data);
+    const accountRegister = await AccountsRepository.register(
+      data,
+      userLoggedIn,
+    );
 
     return accountRegister;
   }
@@ -70,15 +76,8 @@ export class AccountsService {
     return accounts;
   }
 
-  static async deleteAccount(userID, accountID, bank_account_number) {
-    const user = await UsersRepository.getUserById(userID);
-
-    if (!user) {
-      throw new ErrorHandler(404, `user with id ${userID} is not found`);
-    }
-
-    const bankAccount =
-      await AccountsRepository.getAccountByNumber(bank_account_number);
+  static async deleteAccount(userID, accountID) {
+    const bankAccount = await AccountsRepository.getAccountById(accountID);
 
     if (!bankAccount) {
       throw new ErrorHandler(404, `account with id ${accountID} is not found`);
@@ -98,7 +97,7 @@ export class AccountsService {
     if (!userAccount) {
       throw new ErrorHandler(
         403,
-        `you doesn't have an access for account  with id ${accountID}`,
+        `you doesn't have an access for account with id ${accountID}`,
       );
     }
 

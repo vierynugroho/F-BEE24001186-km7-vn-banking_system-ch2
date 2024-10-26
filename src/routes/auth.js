@@ -7,10 +7,8 @@ const router = express.Router();
 
 router
   .route('/register')
-  .post(authentication, Validator(registerSchema), UsersController.register);
-router
-  .route('/login')
-  .post(authentication, Validator(loginSchema), UsersController.login);
+  .post(Validator(registerSchema), UsersController.register);
+router.route('/login').post(Validator(loginSchema), UsersController.login);
 router
   .route('/authentication')
   .get(authentication, UsersController.getUserLoggedIn);

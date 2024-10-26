@@ -402,7 +402,7 @@ describe('AccountsService', () => {
   });
 
   describe('Withdrawal', () => {
-    it('should withdraw the amount and return updated balance with formatted amount', async () => {
+    test('should withdraw the amount and return updated balance with formatted amount', async () => {
       const accountID = 1;
       const amount = 100;
 
@@ -443,7 +443,7 @@ describe('AccountsService', () => {
       expect(formatRupiah).toHaveBeenCalledWith(amount);
     });
 
-    it('should throw a 404 error if account is not found', async () => {
+    test('should throw a 404 error if account is not found', async () => {
       const accountID = 999;
       const amount = 100000;
 
@@ -458,7 +458,7 @@ describe('AccountsService', () => {
       expect(AccountsRepository.getAccountById).toHaveBeenCalledWith(accountID);
     });
 
-    it('should throw a 400 error if account balance is insufficient', async () => {
+    test('should throw a 400 error if account balance is insufficient', async () => {
       const accountID = 1;
       const amount = 600000;
       const accountData = { id: accountID, balance: 500000 };

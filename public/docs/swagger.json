@@ -11,9 +11,21 @@
       "description": "local development - v1"
     }
   ],
+  "components": {
+    "securitySchemes": {
+      "bearerToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
   "tags": [
     {
       "name": "users"
+    },
+    {
+      "name": "auth"
     },
     {
       "name": "bank accounts"
@@ -23,9 +35,9 @@
     }
   ],
   "paths": {
-    "/users": {
+    "/auth/register": {
       "post": {
-        "tags": ["users"],
+        "tags": ["auth"],
         "summary": "register",
         "requestBody": {
           "content": {
@@ -36,7 +48,7 @@
                   "name": "viery nugroho",
                   "email": "vierynugroho@gmail.com",
                   "password": "password",
-                  "identity_type": "SAVING",
+                  "identity_type": "KTP",
                   "identity_number": "6289516424305",
                   "address": "Blitar"
                 }
@@ -121,7 +133,7 @@
                     },
                     "profile": {
                       "id": 13,
-                      "identity_type": "SAVING",
+                      "identity_type": "KTP",
                       "identity_number": "6289516424305",
                       "address": "Blitar",
                       "user_id": 13
@@ -255,6 +267,11 @@
       },
       "get": {
         "tags": ["users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "get all users",
         "parameters": [
           {
@@ -360,7 +377,7 @@
                           "email": "user2@example.com",
                           "Profiles": {
                             "id": 1,
-                            "identity_type": "SAVING",
+                            "identity_type": "KTP",
                             "identity_number": "100000001",
                             "address": "Address 2",
                             "user_id": 1
@@ -384,7 +401,7 @@
                           "email": "user7@example.com",
                           "Profiles": {
                             "id": 3,
-                            "identity_type": "SAVING",
+                            "identity_type": "KTP",
                             "identity_number": "100000006",
                             "address": "Address 7",
                             "user_id": 3
@@ -438,7 +455,7 @@
                           "email": "user2@example.com",
                           "Profiles": {
                             "id": 1,
-                            "identity_type": "SAVING",
+                            "identity_type": "KTP",
                             "identity_number": "100000001",
                             "address": "Address 2",
                             "user_id": 1
@@ -462,7 +479,7 @@
                           "email": "user7@example.com",
                           "Profiles": {
                             "id": 3,
-                            "identity_type": "SAVING",
+                            "identity_type": "KTP",
                             "identity_number": "100000006",
                             "address": "Address 7",
                             "user_id": 3
@@ -519,9 +536,9 @@
         }
       }
     },
-    "/users/login": {
+    "/auth/login": {
       "post": {
-        "tags": ["users"],
+        "tags": ["auth"],
         "summary": "login",
         "requestBody": {
           "content": {
@@ -611,7 +628,348 @@
                     "email": "viery15102002@gmail.com",
                     "Profiles": {
                       "id": 11,
-                      "identity_type": "SAVING",
+                      "identity_type": "KTP",
+                      "identity_number": "6289516424305",
+                      "address": "Blitar",
+                      "user_id": 11
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 403,
+                    "message": "wrong credential"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "98"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"62-8d+FU2rcltYNBV7DoEvkAx7+anA\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:22:52 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "invalid email",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "must be a valid email & domain allowed: .com | .net | .id"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "field is required",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "\"password\" is required"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "133"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"85-/X8VwL4PoPa6i16fwqoTCBaX6bE\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:23:54 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 500,
+                    "message": "something went wrong",
+                    "details": "Expected double-quoted property name in JSON at position 40"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/authenticate": {
+      "get": {
+        "tags": ["auth"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "summary": "get user info",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "email": "viery15102002@gmail.com",
+                  "password": "password"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "244"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"f4-HR4xjr/ysVxUYdZ2wEQOU+6a0F0\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:30:27 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "login successfully"
+                  },
+                  "data": {
+                    "id": 11,
+                    "name": "viery nugroho",
+                    "email": "viery15102002@gmail.com",
+                    "Profiles": {
+                      "id": 11,
+                      "identity_type": "KTP",
                       "identity_number": "6289516424305",
                       "address": "Blitar",
                       "user_id": 11
@@ -858,6 +1216,11 @@
     "/users/{userID}": {
       "get": {
         "tags": ["users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "get user by id",
         "parameters": [
           {
@@ -944,7 +1307,7 @@
                     "email": "viery15102002@gmail.com",
                     "Profiles": {
                       "id": 11,
-                      "identity_type": "SAVING",
+                      "identity_type": "KTP",
                       "identity_number": "6289516424305",
                       "address": "Blitar",
                       "user_id": 11
@@ -1104,6 +1467,11 @@
     "/accounts": {
       "post": {
         "tags": ["bank accounts"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "register",
         "requestBody": {
           "content": {
@@ -1493,6 +1861,11 @@
       },
       "get": {
         "tags": ["bank accounts"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "get all accounts",
         "parameters": [
           {
@@ -1604,7 +1977,7 @@
                             "email": "user2@example.com",
                             "Profiles": {
                               "id": 1,
-                              "identity_type": "SAVING",
+                              "identity_type": "KTP",
                               "identity_number": "100000001",
                               "address": "Address 2",
                               "user_id": 1
@@ -1623,7 +1996,7 @@
                             "email": "user2@example.com",
                             "Profiles": {
                               "id": 1,
-                              "identity_type": "SAVING",
+                              "identity_type": "KTP",
                               "identity_number": "100000001",
                               "address": "Address 2",
                               "user_id": 1
@@ -1680,7 +2053,7 @@
                             "email": "user7@example.com",
                             "Profiles": {
                               "id": 3,
-                              "identity_type": "SAVING",
+                              "identity_type": "KTP",
                               "identity_number": "100000006",
                               "address": "Address 7",
                               "user_id": 3
@@ -1699,7 +2072,7 @@
                             "email": "user7@example.com",
                             "Profiles": {
                               "id": 3,
-                              "identity_type": "SAVING",
+                              "identity_type": "KTP",
                               "identity_number": "100000006",
                               "address": "Address 7",
                               "user_id": 3
@@ -1870,7 +2243,7 @@
                             "email": "user3@example.com",
                             "Profiles": {
                               "id": 8,
-                              "identity_type": "SAVING",
+                              "identity_type": "KTP",
                               "identity_number": "100000002",
                               "address": "Address 3",
                               "user_id": 8
@@ -1889,7 +2262,7 @@
                             "email": "user3@example.com",
                             "Profiles": {
                               "id": 8,
-                              "identity_type": "SAVING",
+                              "identity_type": "KTP",
                               "identity_number": "100000002",
                               "address": "Address 3",
                               "user_id": 8
@@ -1984,7 +2357,7 @@
                             "email": "viery15102002@gmail.com",
                             "Profiles": {
                               "id": 11,
-                              "identity_type": "SAVING",
+                              "identity_type": "KTP",
                               "identity_number": "6289516424305",
                               "address": "Blitar",
                               "user_id": 11
@@ -2003,7 +2376,7 @@
                             "email": "viery15102002@gmail.com",
                             "Profiles": {
                               "id": 11,
-                              "identity_type": "SAVING",
+                              "identity_type": "KTP",
                               "identity_number": "6289516424305",
                               "address": "Blitar",
                               "user_id": 11
@@ -2040,7 +2413,7 @@
                             "email": "user2@example.com",
                             "Profiles": {
                               "id": 1,
-                              "identity_type": "SAVING",
+                              "identity_type": "KTP",
                               "identity_number": "100000001",
                               "address": "Address 2",
                               "user_id": 1
@@ -2059,7 +2432,7 @@
                             "email": "user2@example.com",
                             "Profiles": {
                               "id": 1,
-                              "identity_type": "SAVING",
+                              "identity_type": "KTP",
                               "identity_number": "100000001",
                               "address": "Address 2",
                               "user_id": 1
@@ -2116,7 +2489,7 @@
                             "email": "user7@example.com",
                             "Profiles": {
                               "id": 3,
-                              "identity_type": "SAVING",
+                              "identity_type": "KTP",
                               "identity_number": "100000006",
                               "address": "Address 7",
                               "user_id": 3
@@ -2153,6 +2526,11 @@
     "/accounts/{accountID}": {
       "get": {
         "tags": ["bank accounts"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "get account by id",
         "parameters": [
           {
@@ -2245,7 +2623,7 @@
                       "email": "user2@example.com",
                       "Profiles": {
                         "id": 1,
-                        "identity_type": "SAVING",
+                        "identity_type": "KTP",
                         "identity_number": "100000001",
                         "address": "Address 2",
                         "user_id": 1
@@ -2406,6 +2784,11 @@
     "/accounts/{userID}": {
       "delete": {
         "tags": ["bank accounts"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "delete account",
         "parameters": [
           {
@@ -2892,6 +3275,11 @@
     "/accounts/deposit/{accountID}": {
       "put": {
         "tags": ["bank accounts"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "deposit",
         "requestBody": {
           "content": {
@@ -2998,7 +3386,7 @@
                         "email": "user2@example.com",
                         "Profiles": {
                           "id": 1,
-                          "identity_type": "SAVING",
+                          "identity_type": "KTP",
                           "identity_number": "100000001",
                           "address": "Address 2",
                           "user_id": 1
@@ -3183,6 +3571,11 @@
     "/accounts/withdrawal/{accountID}": {
       "put": {
         "tags": ["bank accounts"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "withdrawal",
         "requestBody": {
           "content": {
@@ -3289,7 +3682,7 @@
                         "email": "user2@example.com",
                         "Profiles": {
                           "id": 1,
-                          "identity_type": "SAVING",
+                          "identity_type": "KTP",
                           "identity_number": "100000001",
                           "address": "Address 2",
                           "user_id": 1
@@ -3488,6 +3881,11 @@
     "/transactions": {
       "post": {
         "tags": ["transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "transfer",
         "requestBody": {
           "content": {
@@ -3801,6 +4199,11 @@
       },
       "get": {
         "tags": ["transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "get all transactions",
         "parameters": [
           {
@@ -3917,7 +4320,7 @@
                               "email": "user7@example.com",
                               "Profiles": {
                                 "id": 3,
-                                "identity_type": "SAVING",
+                                "identity_type": "KTP",
                                 "identity_number": "100000006",
                                 "address": "Address 7",
                                 "user_id": 3
@@ -3961,7 +4364,7 @@
                               "email": "user7@example.com",
                               "Profiles": {
                                 "id": 3,
-                                "identity_type": "SAVING",
+                                "identity_type": "KTP",
                                 "identity_number": "100000006",
                                 "address": "Address 7",
                                 "user_id": 3
@@ -4005,7 +4408,7 @@
                               "email": "user7@example.com",
                               "Profiles": {
                                 "id": 3,
-                                "identity_type": "SAVING",
+                                "identity_type": "KTP",
                                 "identity_number": "100000006",
                                 "address": "Address 7",
                                 "user_id": 3
@@ -4049,7 +4452,7 @@
                               "email": "user7@example.com",
                               "Profiles": {
                                 "id": 3,
-                                "identity_type": "SAVING",
+                                "identity_type": "KTP",
                                 "identity_number": "100000006",
                                 "address": "Address 7",
                                 "user_id": 3
@@ -4093,7 +4496,7 @@
                               "email": "user7@example.com",
                               "Profiles": {
                                 "id": 3,
-                                "identity_type": "SAVING",
+                                "identity_type": "KTP",
                                 "identity_number": "100000006",
                                 "address": "Address 7",
                                 "user_id": 3
@@ -4411,7 +4814,7 @@
                               "email": "user2@example.com",
                               "Profiles": {
                                 "id": 1,
-                                "identity_type": "SAVING",
+                                "identity_type": "KTP",
                                 "identity_number": "100000001",
                                 "address": "Address 2",
                                 "user_id": 1
@@ -4455,7 +4858,7 @@
                               "email": "user2@example.com",
                               "Profiles": {
                                 "id": 1,
-                                "identity_type": "SAVING",
+                                "identity_type": "KTP",
                                 "identity_number": "100000001",
                                 "address": "Address 2",
                                 "user_id": 1
@@ -4499,7 +4902,7 @@
                               "email": "user2@example.com",
                               "Profiles": {
                                 "id": 1,
-                                "identity_type": "SAVING",
+                                "identity_type": "KTP",
                                 "identity_number": "100000001",
                                 "address": "Address 2",
                                 "user_id": 1
@@ -4543,7 +4946,7 @@
                               "email": "user2@example.com",
                               "Profiles": {
                                 "id": 1,
-                                "identity_type": "SAVING",
+                                "identity_type": "KTP",
                                 "identity_number": "100000001",
                                 "address": "Address 2",
                                 "user_id": 1
@@ -4587,7 +4990,7 @@
                               "email": "user2@example.com",
                               "Profiles": {
                                 "id": 1,
-                                "identity_type": "SAVING",
+                                "identity_type": "KTP",
                                 "identity_number": "100000001",
                                 "address": "Address 2",
                                 "user_id": 1
@@ -4608,6 +5011,11 @@
     "/transactions/{transactionID}": {
       "get": {
         "tags": ["transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "get transaction by id",
         "parameters": [
           {
@@ -4705,7 +5113,7 @@
                         "email": "user2@example.com",
                         "Profiles": {
                           "id": 1,
-                          "identity_type": "SAVING",
+                          "identity_type": "KTP",
                           "identity_number": "100000001",
                           "address": "Address 2",
                           "user_id": 1
@@ -4724,7 +5132,7 @@
                         "email": "user3@example.com",
                         "Profiles": {
                           "id": 8,
-                          "identity_type": "SAVING",
+                          "identity_type": "KTP",
                           "identity_number": "100000002",
                           "address": "Address 3",
                           "user_id": 8

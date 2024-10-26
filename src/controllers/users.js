@@ -1,4 +1,5 @@
 import { ErrorHandler } from '../middlewares/error.js';
+import { AccountsService } from '../services/accounts.js';
 import { UsersService } from '../services/users.js';
 
 export class UsersController {
@@ -47,13 +48,21 @@ export class UsersController {
   static async getUserLoggedIn(req, res, next) {
     try {
       const userLoggedIn = req.user;
+      const accounts = await AccountsService.getAccountByUserID(
+        userLoggedIn.id,
+      );
+
+      const userLoggedInData = {
+        ...userLoggedIn,
+        accounts,
+      };
 
       res.json({
         meta: {
           statusCode: 200,
           message: 'user logged in data retrieved successfully',
         },
-        data: userLoggedIn,
+        data: userLoggedInData,
       });
     } catch (error) {
       next(error);

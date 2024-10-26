@@ -1,4 +1,5 @@
 import { AccountsService } from '../../services/accounts.js';
+import { UsersRepository } from '../../repositories/users.js';
 import { AccountsRepository } from '../../repositories/accounts.js';
 import { TransactionsRepository } from '../../repositories/transactions.js';
 import { ErrorHandler } from '../../middlewares/error.js';
@@ -6,9 +7,10 @@ import { formatRupiah } from '../../utils/formatRupiah.js';
 
 jest.mock('../../repositories/accounts.js');
 jest.mock('../../repositories/transactions.js');
+jest.mock('../../repositories/users.js');
 jest.mock('../../utils/formatRupiah.js');
 
-describe('AccountsService', () => {
+describe('Account Services', () => {
   const mockUserLoggedIn = {
     id: 1,
     name: 'Admin',

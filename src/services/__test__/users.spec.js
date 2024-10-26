@@ -8,7 +8,7 @@ jest.mock('argon2');
 jest.mock('../../repositories/users.js');
 jest.mock('../../utils/jwtGenerate.js');
 
-describe('UsersService', () => {
+describe('User Services', () => {
   let mockUser;
 
   afterAll(() => {

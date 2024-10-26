@@ -35,13 +35,6 @@ export default async (req, res, next) => {
     }
     next();
   } catch (error) {
-    if (error instanceof jwt.TokenExpiredError) {
-      return next(new ErrorHandler(401, 'Token expired, please re-login'));
-    } else if (error instanceof jwt.NotBeforeError) {
-      return next(new ErrorHandler(401, 'Token not active, please re-login'));
-    } else if (error instanceof jwt.JsonWebTokenError) {
-      return next(new ErrorHandler(400, `${error.message}, please re-login`));
-    }
     next(error);
   }
 };

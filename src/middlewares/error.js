@@ -1,4 +1,5 @@
 import { Prisma } from '@prisma/client';
+import jwt from 'jsonwebtoken';
 
 export class ErrorHandler extends Error {
   constructor(statusCode, message) {
@@ -52,6 +53,30 @@ export const errorMiddleware = (err, req, res, next) => {
         },
       });
     }
+  } else if (err instanceof jwt.JsonWebTokenError) {
+    res.status(401).json({
+      error: {
+        statusCode: 401,
+        message: `${err.message}, please re-login`,
+        details: err.message,
+      },
+    });
+  } else if (err instanceof jwt.NotBeforeError) {
+    res.status(401).json({
+      error: {
+        statusCode: 401,
+        message: `token not active, please re-login`,
+        details: err.message,
+      },
+    });
+  } else if (err instanceof jwt.TokenExpiredError) {
+    res.status(401).json({
+      error: {
+        statusCode: 401,
+        message: `token is expired, please re-login`,
+        details: err.message,
+      },
+    });
   } else if (err instanceof ErrorHandler) {
     res.status(err.statusCode).json({
       error: {

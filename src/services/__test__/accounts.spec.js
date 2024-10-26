@@ -34,19 +34,19 @@ describe('AccountsService', () => {
     id: 2,
     bank_name: 'BRI',
     bank_account_number: '300000001',
-    balance: 2284.79,
+    balance: 1000,
     user_id: 1,
     Users: {
       id: 1,
-      name: 'User 2',
-      email: 'user2@example.com',
+      name: 'User',
+      email: 'user@example.com',
       role: 'CUSTOMER',
       password: 'password',
       Profiles: {
         id: 1,
         identity_type: 'KTP',
         identity_number: '100000001',
-        address: 'Address 2',
+        address: 'INDONESIA',
         user_id: 1,
       },
     },
@@ -60,14 +60,14 @@ describe('AccountsService', () => {
     it('should register a new account if it does not exist', async () => {
       AccountsRepository.getAccountByNumberAndBankName.mockResolvedValue(null);
       UsersRepository.getUserById.mockResolvedValue(mockUserLoggedIn);
-      AccountsRepository.register.mockResolvedValue({ id: 1, balance: 0 });
+      AccountsRepository.register.mockResolvedValue(mockAccountData);
 
       const result = await AccountsService.register(
         mockRequest,
         mockUserLoggedIn,
       );
 
-      expect(result).toEqual({ id: 1, balance: 0 });
+      expect(result).toEqual(mockAccountData);
       expect(
         AccountsRepository.getAccountByNumberAndBankName,
       ).toHaveBeenCalledWith(

@@ -76,10 +76,7 @@ export class AccountsController {
       const user = await AccountsService.getAccountById(accountID);
 
       if (userLoggedIn.role != 'ADMIN' && userLoggedIn.id !== user.user_id) {
-        throw new ErrorHandler(
-          403,
-          `you doesn't have and access for this data`,
-        );
+        throw new ErrorHandler(403, `you doesn't have an access for this data`);
       }
 
       res.json({
@@ -126,11 +123,21 @@ export class AccountsController {
 
   static async deposit(req, res, next) {
     try {
+      const userLoggedIn = req.user;
       const accountID = parseFloat(req.params.accountID);
       const { amount } = req.body;
 
       if (isNaN(accountID)) {
         throw new ErrorHandler(400, 'accountID must be a number');
+      }
+
+      const account = await AccountsService.getAccountById(accountID);
+
+      if (account.user_id !== userLoggedIn.id) {
+        throw new ErrorHandler(
+          403,
+          `you doesn't have an access for this account`,
+        );
       }
 
       const deposit = await AccountsService.deposit(accountID, amount);
@@ -149,11 +156,21 @@ export class AccountsController {
 
   static async withdrawal(req, res, next) {
     try {
+      const userLoggedIn = req.user;
       const accountID = parseFloat(req.params.accountID);
       const { amount } = req.body;
 
       if (isNaN(accountID)) {
         throw new ErrorHandler(400, 'accountID must be a number');
+      }
+
+      const account = await AccountsService.getAccountById(accountID);
+
+      if (account.user_id !== userLoggedIn.id) {
+        throw new ErrorHandler(
+          403,
+          `you doesn't have an access for this account`,
+        );
       }
 
       const withdrawal = await AccountsService.withdrawal(accountID, amount);

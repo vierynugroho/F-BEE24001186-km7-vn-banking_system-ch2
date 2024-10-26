@@ -5,7 +5,18 @@ import { TransactionsService } from '../services/transactions.js';
 export class TransactionsController {
   static async transfer(req, res, next) {
     try {
+      const userLoggedIn = req.user;
       const data = req.body;
+
+      const account = await AccountsService.getAccountById(data.senderID);
+
+      if (account.user_id !== userLoggedIn.id) {
+        throw new ErrorHandler(
+          403,
+          `you doesn't have an access for this account`,
+        );
+      }
+
       const transfer = await TransactionsService.transfer(data);
 
       res.json({
@@ -81,7 +92,7 @@ export class TransactionsController {
         ) {
           throw new ErrorHandler(
             403,
-            `you doesn't have and access for this data`,
+            `you doesn't have an access for this data`,
           );
         }
       }

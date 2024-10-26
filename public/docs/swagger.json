@@ -1056,6 +1056,103 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "jwt expired, please re-login",
+                        "details": "jwt expired"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "Thrown if current time is before the nbf claim",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "token not active, please re-login",
+                        "details": "details_error"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "Token is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "unauthorized, token is not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden",
             "headers": {
@@ -1380,6 +1477,103 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "jwt expired, please re-login",
+                        "details": "jwt expired"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "Thrown if current time is before the nbf claim",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "token not active, please re-login",
+                        "details": "details_error"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "Token is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "unauthorized, token is not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden",
             "headers": {
@@ -1631,6 +1825,103 @@
                     "bank_account_number": "1112",
                     "balance": 10000,
                     "user_id": 11
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "jwt expired, please re-login",
+                        "details": "jwt expired"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "Thrown if current time is before the nbf claim",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "token not active, please re-login",
+                        "details": "details_error"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "Token is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "unauthorized, token is not found"
+                      }
+                    }
                   }
                 }
               }
@@ -2588,6 +2879,103 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "jwt expired, please re-login",
+                        "details": "jwt expired"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "Thrown if current time is before the nbf claim",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "token not active, please re-login",
+                        "details": "details_error"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "Token is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "unauthorized, token is not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden",
             "headers": {
@@ -2851,6 +3239,103 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "jwt expired, please re-login",
+                        "details": "jwt expired"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "Thrown if current time is before the nbf claim",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "token not active, please re-login",
+                        "details": "details_error"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "Token is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "unauthorized, token is not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden",
             "headers": {
@@ -3095,6 +3580,103 @@
                     "bank_account_number": "11111",
                     "balance": 10000,
                     "user_id": 11
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "jwt expired, please re-login",
+                        "details": "jwt expired"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "Thrown if current time is before the nbf claim",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "token not active, please re-login",
+                        "details": "details_error"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "Token is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "unauthorized, token is not found"
+                      }
+                    }
                   }
                 }
               }
@@ -3546,6 +4128,103 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "jwt expired, please re-login",
+                        "details": "jwt expired"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "Thrown if current time is before the nbf claim",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "token not active, please re-login",
+                        "details": "details_error"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "Token is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "unauthorized, token is not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden",
             "headers": {
@@ -3933,6 +4612,103 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "jwt expired, please re-login",
+                        "details": "jwt expired"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "Thrown if current time is before the nbf claim",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "token not active, please re-login",
+                        "details": "details_error"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "Token is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "unauthorized, token is not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden",
             "headers": {
@@ -4276,6 +5052,103 @@
                   "error": {
                     "statusCode": 400,
                     "message": "account remaining balance is insufficient"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "jwt expired, please re-login",
+                        "details": "jwt expired"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "Thrown if current time is before the nbf claim",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "token not active, please re-login",
+                        "details": "details_error"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "Token is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "unauthorized, token is not found"
+                      }
+                    }
                   }
                 }
               }
@@ -5312,6 +6185,103 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "jwt expired, please re-login",
+                        "details": "jwt expired"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "Thrown if current time is before the nbf claim",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "token not active, please re-login",
+                        "details": "details_error"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "Token is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "unauthorized, token is not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden",
             "headers": {
@@ -5600,6 +6570,103 @@
               }
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "57"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:24:47 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "Expired Token",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "jwt expired, please re-login",
+                        "details": "jwt expired"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "Thrown if current time is before the nbf claim",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "token not active, please re-login",
+                        "details": "details_error"
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "Token is not found",
+                    "value": {
+                      "error": {
+                        "statusCode": 401,
+                        "message": "unauthorized, token is not found"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
           "403": {
             "description": "Forbidden",
             "headers": {
@@ -5752,7 +6819,7 @@
         }
       }
     },
-    "": {
+    "/": {
       "get": {
         "tags": ["default"],
         "summary": "root",

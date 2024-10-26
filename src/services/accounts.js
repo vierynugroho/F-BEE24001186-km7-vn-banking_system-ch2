@@ -77,12 +77,6 @@ export class AccountsService {
   }
 
   static async deleteAccount(userID, accountID) {
-    const bankAccount = await AccountsRepository.getAccountById(accountID);
-
-    if (!bankAccount) {
-      throw new ErrorHandler(404, `account with id ${accountID} is not found`);
-    }
-
     const account = await AccountsRepository.getAccountById(accountID);
 
     if (!account) {

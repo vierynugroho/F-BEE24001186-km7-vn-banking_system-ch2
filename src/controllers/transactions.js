@@ -1,4 +1,5 @@
 import { ErrorHandler } from '../middlewares/error.js';
+import { AccountsService } from '../services/accounts.js';
 import { TransactionsService } from '../services/transactions.js';
 
 export class TransactionsController {
@@ -60,13 +61,30 @@ export class TransactionsController {
   static async getTransaction(req, res, next) {
     try {
       const transactionID = parseFloat(req.params.transactionID);
+      const userLoggedIn = req.user;
 
       if (isNaN(transactionID)) {
         throw new ErrorHandler(400, 'transactionID must be a number');
       }
 
+      const accounts = await AccountsService.getAccountByUserID(
+        userLoggedIn.id,
+      );
+
       const transaction =
         await TransactionsService.getTransaction(transactionID);
+
+      if (userLoggedIn.role === 'CUSTOMER') {
+        if (
+          accounts[0].id !== transaction.source_account_id &&
+          accounts[0].id !== transaction.destination_account_id
+        ) {
+          throw new ErrorHandler(
+            403,
+            `you doesn't have and access for this data`,
+          );
+        }
+      }
 
       res.json({
         meta: {

@@ -103,9 +103,17 @@ export class UsersController {
   static async getUserById(req, res, next) {
     try {
       const userID = parseFloat(req.params.userId);
+      const userLoggedIn = req.user;
 
       if (isNaN(userID)) {
         throw new ErrorHandler(400, 'userID must be a number');
+      }
+
+      if (userLoggedIn.role != 'ADMIN' && userLoggedIn.id !== userID) {
+        throw new ErrorHandler(
+          403,
+          `you doesn't have and access for this data`,
+        );
       }
 
       const user = await UsersService.getUserById(userID);

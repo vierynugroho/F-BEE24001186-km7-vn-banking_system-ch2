@@ -53,6 +53,23 @@ export class AccountsService {
     return account;
   }
 
+  static async getAccountByUserID(userID) {
+    const accounts = await AccountsRepository.getAccountByUserID(userID);
+
+    if (!accounts) {
+      throw new ErrorHandler(
+        404,
+        `there is no account owned by user with id ${userID}`,
+      );
+    }
+
+    delete accounts.map((acc) => {
+      delete acc.Users.password;
+    });
+
+    return accounts;
+  }
+
   static async deleteAccount(userID, accountID, bank_account_number) {
     const user = await UsersRepository.getUserById(userID);
 

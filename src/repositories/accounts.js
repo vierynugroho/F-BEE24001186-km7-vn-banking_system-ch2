@@ -57,7 +57,7 @@ export class AccountsRepository {
   }
 
   static async getAccountById(accountID) {
-    const user = await prisma.bank_Accounts.findUnique({
+    const account = await prisma.bank_Accounts.findUnique({
       where: {
         id: accountID,
       },
@@ -70,11 +70,28 @@ export class AccountsRepository {
       },
     });
 
-    return user;
+    return account;
+  }
+
+  static async getAccountByUserID(userID) {
+    const accounts = await prisma.bank_Accounts.findMany({
+      where: {
+        user_id: userID,
+      },
+      include: {
+        Users: {
+          include: {
+            Profiles: true,
+          },
+        },
+      },
+    });
+
+    return accounts;
   }
 
   static async getAccountByNumber(bank_account_number) {
-    const user = await prisma.bank_Accounts.findFirst({
+    const account = await prisma.bank_Accounts.findFirst({
       where: {
         bank_account_number,
       },
@@ -87,7 +104,7 @@ export class AccountsRepository {
       },
     });
 
-    return user;
+    return account;
   }
 
   static async getAccountByNumberAndBankName(bank_account_number, bank_name) {

@@ -1,7 +1,6 @@
 import express from 'express';
 import Validator from '../utils/validator.js';
 import {
-  deleteAccountSchema,
   depositSchema,
   registerAccountSchema,
   withdrawalSchema,
@@ -26,12 +25,8 @@ router
     AccountsController.register,
   );
 router
-  .route('/:userID')
-  .delete(
-    authentication,
-    Validator(deleteAccountSchema),
-    AccountsController.deleteAccount,
-  );
+  .route('/:accountID')
+  .delete(authentication, AccountsController.deleteAccount);
 router
   .route('/withdrawal/:accountID')
   .put(

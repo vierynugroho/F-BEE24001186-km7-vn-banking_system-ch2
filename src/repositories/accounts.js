@@ -33,11 +33,11 @@ export class AccountsRepository {
     return totalAccounts;
   }
 
-  static async register(data) {
+  static async register(data, userLoggedIn) {
     const accountRegister = await prisma.$transaction(async (tx) => {
       const user = await tx.users.findUnique({
         where: {
-          id: data.userID,
+          id: userLoggedIn.id,
         },
       });
 

@@ -965,20 +965,8 @@
             "bearerToken": []
           }
         ],
-        "summary": "get user info",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "example": {
-                  "email": "viery15102002@gmail.com",
-                  "password": "password"
-                }
-              }
-            }
-          }
-        },
+        "summary": "get user loggedIn info",
+
         "responses": {
           "200": {
             "description": "OK",
@@ -1046,19 +1034,62 @@
                 "example": {
                   "meta": {
                     "statusCode": 200,
-                    "message": "login successfully"
+                    "message": "user logged in data retrieved successfully"
                   },
                   "data": {
-                    "id": 11,
-                    "name": "viery nugroho",
-                    "email": "viery15102002@gmail.com",
+                    "id": 7,
+                    "name": "Admin",
+                    "email": "admin@example.com",
+                    "role": "ADMIN",
                     "Profiles": {
-                      "id": 11,
-                      "identity_type": "KTP",
-                      "identity_number": "6289516424305",
-                      "address": "Blitar",
-                      "user_id": 11
-                    }
+                      "id": 7,
+                      "identity_type": "KTM",
+                      "identity_number": "100000000",
+                      "address": "Address 1",
+                      "user_id": 7
+                    },
+                    "accounts": [
+                      {
+                        "id": 14,
+                        "bank_name": "CIMB",
+                        "bank_account_number": "300000000",
+                        "balance": 3574.75,
+                        "user_id": 7,
+                        "Users": {
+                          "id": 7,
+                          "name": "Admin",
+                          "email": "admin@example.com",
+                          "role": "ADMIN",
+                          "Profiles": {
+                            "id": 7,
+                            "identity_type": "KTM",
+                            "identity_number": "100000000",
+                            "address": "Address 1",
+                            "user_id": 7
+                          }
+                        }
+                      },
+                      {
+                        "id": 13,
+                        "bank_name": "BSI",
+                        "bank_account_number": "200000000",
+                        "balance": 1837.05,
+                        "user_id": 7,
+                        "Users": {
+                          "id": 7,
+                          "name": "Admin",
+                          "email": "admin@example.com",
+                          "role": "ADMIN",
+                          "Profiles": {
+                            "id": 7,
+                            "identity_type": "KTM",
+                            "identity_number": "100000000",
+                            "address": "Address 1",
+                            "user_id": 7
+                          }
+                        }
+                      }
+                    ]
                   }
                 }
               }

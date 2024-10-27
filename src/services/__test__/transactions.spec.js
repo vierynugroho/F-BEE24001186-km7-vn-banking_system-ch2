@@ -26,8 +26,8 @@ describe('Transaction Services', () => {
     },
   };
 
-  const mockAccountsData = [
-    {
+  const transferData = {
+    sender: {
       id: 1,
       bank_name: 'BRI',
       bank_account_number: '300000001',
@@ -48,7 +48,7 @@ describe('Transaction Services', () => {
         },
       },
     },
-    {
+    receiver: {
       id: 2,
       bank_name: 'BRI',
       bank_account_number: '300000002',
@@ -69,11 +69,6 @@ describe('Transaction Services', () => {
         },
       },
     },
-  ];
-
-  const transferData = {
-    senderID: mockAccountsData[0].id,
-    receiverID: mockAccountsData[1].id,
     amount: 100,
   };
 

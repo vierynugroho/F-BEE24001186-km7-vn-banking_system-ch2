@@ -11,662 +11,6 @@
 			"name": "users",
 			"item": [
 				{
-					"name": "register",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"name\": \"viery nugroho\",\n  \"email\": \"vierynugroho@gmail.com\",\n  \"password\": \"password\",\n  \"identity_type\": \"SAVING\",\n  \"identity_number\": \"6289516424305\",\n  \"address\": \"Blitar\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users",
-							"host": [
-								"{{LOCAL_BASE_URL}}"
-							],
-							"path": [
-								"{{VERSION}}",
-								"users"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "email has already been taken",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"name\": \"viery nugroho\",\n  \"email\": \"viery15102002@gmail.com\",\n  \"password\": \"password\",\n  \"identity_type\": \"SAVING\",\n  \"identity_number\": \"6289516424305\",\n  \"address\": \"Blitar\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"users"
-									]
-								}
-							},
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json",
-									"description": "",
-									"type": "text"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 409,\n        \"message\": \"Email has already been taken\"\n    }\n}"
-						},
-						{
-							"name": "field is required",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"name\": \"viery nugroho\",\n  \"email\": \"viery15102002@gmail.com\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"users"
-									]
-								}
-							},
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json",
-									"description": "",
-									"type": "text"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 422,\n        \"message\": \"\\\"password\\\" is required\"\n    }\n}"
-						},
-						{
-							"name": "invalid json",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"name\": \"viery nugroho\",\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"users"
-									]
-								}
-							},
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json",
-									"description": "",
-									"type": "text"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 500,\n        \"message\": \"something went wrong\",\n        \"details\": \"Expected double-quoted property name in JSON at position 34\"\n    }\n}"
-						},
-						{
-							"name": "invalid email",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"name\": \"viery nugroho\",\n  \"email\": \"vieryngrho@gmail.co\",\n  \"password\": \"password\",\n  \"identity_type\": \"SAVING\",\n  \"identity_number\": \"6289516424305\",\n  \"address\": \"Blitar\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"users"
-									]
-								}
-							},
-							"status": "Unprocessable Entity",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "98"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"62-8d+FU2rcltYNBV7DoEvkAx7+anA\""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Oct 2024 13:23:27 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 422,\n        \"message\": \"must be a valid email & domain allowed: .com | .net | .id\"\n    }\n}"
-						},
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"name\": \"viery nugroho\",\n  \"email\": \"vierynugroho@gmail.com\",\n  \"password\": \"password\",\n  \"identity_type\": \"SAVING\",\n  \"identity_number\": \"6289516424305\",\n  \"address\": \"Blitar\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"users"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "254"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"fe-YQjXYJGwHD9La2QxHsmRDKUrWaA\""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Oct 2024 13:29:51 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"meta\": {\n        \"statusCode\": 200,\n        \"message\": \"register successfully\"\n    },\n    \"data\": {\n        \"user\": {\n            \"id\": 13,\n            \"name\": \"viery nugroho\",\n            \"email\": \"vierynugroho@gmail.com\"\n        },\n        \"profile\": {\n            \"id\": 13,\n            \"identity_type\": \"SAVING\",\n            \"identity_number\": \"6289516424305\",\n            \"address\": \"Blitar\",\n            \"user_id\": 13\n        }\n    }\n}"
-						}
-					]
-				},
-				{
-					"name": "login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"email\":\"viery15102002@gmail.com\",\n  \"password\": \"password\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/login",
-							"host": [
-								"{{LOCAL_BASE_URL}}"
-							],
-							"path": [
-								"{{VERSION}}",
-								"users",
-								"login"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "invalid email",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\":\"viery15102002@gmail.co\",\n  \"password\": \"password\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/login",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"users",
-										"login"
-									]
-								}
-							},
-							"status": "Unprocessable Entity",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "98"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"62-8d+FU2rcltYNBV7DoEvkAx7+anA\""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Oct 2024 13:22:52 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 422,\n        \"message\": \"must be a valid email & domain allowed: .com | .net | .id\"\n    }\n}"
-						},
-						{
-							"name": "invalid json",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\":\"viery15102002@gmail.com\",\n//   \"password\": \"password\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/login",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"users",
-										"login"
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "133"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"85-/X8VwL4PoPa6i16fwqoTCBaX6bE\""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Oct 2024 13:23:54 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 500,\n        \"message\": \"something went wrong\",\n        \"details\": \"Expected double-quoted property name in JSON at position 40\"\n    }\n}"
-						},
-						{
-							"name": "field is required",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\":\"viery15102002@gmail.com\"\n//   \"password\": \"password\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/login",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"users",
-										"login"
-									]
-								}
-							},
-							"status": "Unprocessable Entity",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "65"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"41-/DEmDSm49U7uFNYxhLMVXpK1J04\""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Oct 2024 13:24:16 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 422,\n        \"message\": \"\\\"password\\\" is required\"\n    }\n}"
-						},
-						{
-							"name": "wrong credential",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\":\"viery15102002@gmail.com\",\n  \"password\": \"passwords\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/login",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"users",
-										"login"
-									]
-								}
-							},
-							"status": "Forbidden",
-							"code": 403,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "57"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Oct 2024 13:24:47 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"wrong credential\"\n    }\n}"
-						},
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"email\":\"viery15102002@gmail.com\",\n  \"password\": \"password\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/login",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"users",
-										"login"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "244"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"f4-HR4xjr/ysVxUYdZ2wEQOU+6a0F0\""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Oct 2024 13:30:27 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"meta\": {\n        \"statusCode\": 200,\n        \"message\": \"login successfully\"\n    },\n    \"data\": {\n        \"id\": 11,\n        \"name\": \"viery nugroho\",\n        \"email\": \"viery15102002@gmail.com\",\n        \"Profiles\": {\n            \"id\": 11,\n            \"identity_type\": \"SAVING\",\n            \"identity_number\": \"6289516424305\",\n            \"address\": \"Blitar\",\n            \"user_id\": 11\n        }\n    }\n}"
-						}
-					]
-				},
-				{
 					"name": "get all users",
 					"request": {
 						"method": "GET",
@@ -892,6 +236,146 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"meta\": {\n        \"statusCode\": 200,\n        \"message\": \"users data retrieved successfully\",\n        \"pagination\": {\n            \"totalPage\": 3,\n            \"currentPage\": 111,\n            \"pageItems\": 0,\n            \"nextPage\": null,\n            \"prevPage\": 110\n        }\n    },\n    \"data\": []\n}"
+						},
+						{
+							"name": "forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users?page=1&limit=5",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"53-aBxynALaglJvGmEIH1vrx9wM5zg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 07:51:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"the role you have does not have permission\"\n    }\n}"
+						},
+						{
+							"name": "token is not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users?page=1&limit=5",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 12:10:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
 						}
 					]
 				},
@@ -901,14 +385,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/11",
+							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/2",
 							"host": [
 								"{{LOCAL_BASE_URL}}"
 							],
 							"path": [
 								"{{VERSION}}",
 								"users",
-								"11"
+								"2"
 							]
 						}
 					},
@@ -1095,67 +579,26 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"error\": {\n        \"statusCode\": 400,\n        \"message\": \"userID must be a number\"\n    }\n}"
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "accounts",
-			"item": [
-				{
-					"name": "register",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"userID\": \"11\",\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"11111\",\n  \"balance\": \"10000\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
 						},
-						"url": {
-							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts",
-							"host": [
-								"{{LOCAL_BASE_URL}}"
-							],
-							"path": [
-								"{{VERSION}}",
-								"accounts"
-							]
-						}
-					},
-					"response": [
 						{
-							"name": "account has already registered",
+							"name": "forbidden",
 							"originalRequest": {
-								"method": "POST",
+								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"userID\": \"11\",\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"111\",\n  \"balance\": \"10000\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts",
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/2",
 									"host": [
 										"{{LOCAL_BASE_URL}}"
 									],
 									"path": [
 										"{{VERSION}}",
-										"accounts"
+										"users",
+										"2"
 									]
 								}
 							},
-							"status": "Conflict",
-							"code": 409,
+							"status": "Forbidden",
+							"code": 403,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
@@ -1176,15 +619,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "71"
+									"value": "82"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"47-ue7fNIWP/pUJ26Iy3vSZiVn/3Zo\""
+									"value": "W/\"52-5uJy8r4tGERspybceMM9tmaUaD4\""
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 23 Oct 2024 13:35:05 GMT"
+									"value": "Sat, 26 Oct 2024 07:50:28 GMT"
 								},
 								{
 									"key": "Connection",
@@ -1196,8 +639,138 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 409,\n        \"message\": \"Account has already registered\"\n    }\n}"
+							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"you doesn't have an access for this data\"\n    }\n}"
 						},
+						{
+							"name": "token is not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/2",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users",
+										"2"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3ATAR4M6OfP-WlgoPIE3C2kCcgidn_WxFH.ohwLTlJoozPYT5AYz%2F7e6%2FBB8CG3H19kC%2BN7oRt0dK8; Path=/; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 12:10:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "accounts",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"11111\",\n  \"balance\": \"10000\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts",
+							"host": [
+								"{{LOCAL_BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"accounts"
+							]
+						}
+					},
+					"response": [
 						{
 							"name": "success",
 							"originalRequest": {
@@ -1205,7 +778,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"userID\": \"11\",\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"1112\",\n  \"balance\": \"10000\"\n}",
+									"raw": "{\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"1112\",\n  \"balance\": \"10000\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1268,13 +841,82 @@
 							"body": "{\n    \"meta\": {\n        \"statusCode\": 200,\n        \"message\": \"register successfully\"\n    },\n    \"data\": {\n        \"id\": 23,\n        \"bank_name\": \"PERMATA\",\n        \"bank_account_number\": \"1112\",\n        \"balance\": 10000,\n        \"user_id\": 11\n    }\n}"
 						},
 						{
+							"name": "account has already registered",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"111\",\n  \"balance\": \"10000\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"accounts"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "71"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"47-ue7fNIWP/pUJ26Iy3vSZiVn/3Zo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 13:35:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 409,\n        \"message\": \"Account has already registered\"\n    }\n}"
+						},
+						{
 							"name": "invalid json",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"userID\": \"11\",\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"111\",\n//   \"balance\": \"10000\"\n}",
+									"raw": "{\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"111\",\n//   \"balance\": \"10000\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1343,7 +985,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"userID\": \"11\",\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"111\"\n//   \"balance\": \"10000\"\n}",
+									"raw": "{\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"111\"\n//   \"balance\": \"10000\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1412,7 +1054,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"userID\": \"909291\",\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"1111\",\n  \"balance\": \"10000\"\n}",
+									"raw": "{\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"1111\",\n  \"balance\": \"10000\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1473,6 +1115,75 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"error\": {\n        \"statusCode\": 404,\n        \"message\": \"Users with id 909291 is not found\"\n    }\n}"
+						},
+						{
+							"name": "token is not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bank_name\": \"PERMATA\",\n  \"bank_account_number\": \"11111\",\n  \"balance\": \"10000\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"accounts"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 12:08:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
 						}
 					]
 				},
@@ -1702,6 +1413,146 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"meta\": {\n        \"statusCode\": 200,\n        \"message\": \"accounts data retrieved successfully\",\n        \"pagination\": {\n            \"totalPage\": 1,\n            \"currentPage\": 111,\n            \"pageItems\": 0,\n            \"nextPage\": null,\n            \"prevPage\": 110\n        }\n    },\n    \"data\": []\n}"
+						},
+						{
+							"name": "forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts?page=1&limit=100",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"accounts"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "100"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"53-aBxynALaglJvGmEIH1vrx9wM5zg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 07:52:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"the role you have does not have permission\"\n    }\n}"
+						},
+						{
+							"name": "token is not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts?page=1&limit=100",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"accounts"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "100"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 12:07:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
 						}
 					]
 				},
@@ -1711,14 +1562,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/2",
+							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/5",
 							"host": [
 								"{{LOCAL_BASE_URL}}"
 							],
 							"path": [
 								"{{VERSION}}",
 								"accounts",
-								"2"
+								"5"
 							]
 						}
 					},
@@ -1905,6 +1756,132 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"error\": {\n        \"statusCode\": 404,\n        \"message\": \"account with id 2222 is not found\"\n    }\n}"
+						},
+						{
+							"name": "forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/5",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"accounts",
+										"5"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"52-5uJy8r4tGERspybceMM9tmaUaD4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 07:54:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"you doesn't have an access for this data\"\n    }\n}"
+						},
+						{
+							"name": "token is not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/5",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"accounts",
+										"5"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3ADnNuu5M9meEF8FOXvOTiRR5ZWPmd5NwC.1x7jf94wLYeN0XY%2FRDdE016Q0xfsuZadY9tKlIS1Z0E; Path=/; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 12:07:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
 						}
 					]
 				},
@@ -1915,7 +1892,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"accountID\": 1,\n  \"bankAccountNumber\": \"111\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1923,26 +1900,26 @@
 							}
 						},
 						"url": {
-							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/1",
+							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/21",
 							"host": [
 								"{{LOCAL_BASE_URL}}"
 							],
 							"path": [
 								"{{VERSION}}",
 								"accounts",
-								"1"
+								"21"
 							]
 						}
 					},
 					"response": [
 						{
-							"name": "accountID is not found",
+							"name": "success",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"accountID\": 21\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1950,14 +1927,84 @@
 									}
 								},
 								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/11",
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/1",
 									"host": [
 										"{{LOCAL_BASE_URL}}"
 									],
 									"path": [
 										"{{VERSION}}",
 										"accounts",
-										"11"
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "171"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ab-YDwcIIqpl/44S+zr62YCSAfqa7c\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 13:57:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"statusCode\": 200,\n        \"message\": \"account data deleted successfully\"\n    },\n    \"data\": {\n        \"id\": 25,\n        \"bank_name\": \"PERMATA\",\n        \"bank_account_number\": \"11111\",\n        \"balance\": 10000,\n        \"user_id\": 11\n    }\n}"
+						},
+						{
+							"name": "accountID is not found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/1",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"accounts",
+										"1"
 									]
 								}
 							},
@@ -2012,7 +2059,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"accountID\": 21\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2020,14 +2067,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/22",
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/1",
 									"host": [
 										"{{LOCAL_BASE_URL}}"
 									],
 									"path": [
 										"{{VERSION}}",
 										"accounts",
-										"22"
+										"1"
 									]
 								}
 							},
@@ -2082,7 +2129,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"accountID\": 1\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2090,14 +2137,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/11",
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/1",
 									"host": [
 										"{{LOCAL_BASE_URL}}"
 									],
 									"path": [
 										"{{VERSION}}",
 										"accounts",
-										"11"
+										"1"
 									]
 								}
 							},
@@ -2146,153 +2193,13 @@
 							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"you doesn't have an access for account  with id 1\"\n    }\n}"
 						},
 						{
-							"name": "invalid body value",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"accountID\": 25,\n  \"bankAccountNumber\": 11111\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/11",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"accounts",
-										"11"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "75"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"4b-+9u6YXtWwERogNusMTfkWOzFH34\""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Oct 2024 13:49:25 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 400,\n        \"message\": \"bankAccountNumber must be a number\"\n    }\n}"
-						},
-						{
-							"name": "success",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"accountID\": 25,\n  \"bankAccountNumber\": \"11111\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/11",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"accounts",
-										"11"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "171"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"ab-YDwcIIqpl/44S+zr62YCSAfqa7c\""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Oct 2024 13:57:15 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"meta\": {\n        \"statusCode\": 200,\n        \"message\": \"account data deleted successfully\"\n    },\n    \"data\": {\n        \"id\": 25,\n        \"bank_name\": \"PERMATA\",\n        \"bank_account_number\": \"11111\",\n        \"balance\": 10000,\n        \"user_id\": 11\n    }\n}"
-						},
-						{
 							"name": "account cannot be deleted",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"accountID\": 1,\n  \"bankAccountNumber\": \"111\"\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2356,13 +2263,13 @@
 							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"account has transaction data, account cannot be deleted\"\n    }\n}"
 						},
 						{
-							"name": "invalid json",
+							"name": "token is not found",
 							"originalRequest": {
 								"method": "DELETE",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"accountID\": 1,\n//   \"bankAccountNumber\": \"111\"\n}",
+									"raw": "",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2370,19 +2277,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/1",
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/21",
 									"host": [
 										"{{LOCAL_BASE_URL}}"
 									],
 									"path": [
 										"{{VERSION}}",
 										"accounts",
-										"1"
+										"21"
 									]
 								}
 							},
-							"status": "Internal Server Error",
-							"code": 500,
+							"status": "Unauthorized",
+							"code": 401,
 							"_postman_previewlanguage": "json",
 							"header": [
 								{
@@ -2403,15 +2310,15 @@
 								},
 								{
 									"key": "Content-Length",
-									"value": "133"
+									"value": "73"
 								},
 								{
 									"key": "ETag",
-									"value": "W/\"85-tnSZdnCi8mQwl0udm2c18PNNrjI\""
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
 								},
 								{
 									"key": "Date",
-									"value": "Wed, 23 Oct 2024 14:00:59 GMT"
+									"value": "Sat, 26 Oct 2024 12:07:00 GMT"
 								},
 								{
 									"key": "Connection",
@@ -2423,77 +2330,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 500,\n        \"message\": \"something went wrong\",\n        \"details\": \"Expected double-quoted property name in JSON at position 21\"\n    }\n}"
-						},
-						{
-							"name": "field is required",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"accountID\": 1\n//   \"bankAccountNumber\": \"111\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/1",
-									"host": [
-										"{{LOCAL_BASE_URL}}"
-									],
-									"path": [
-										"{{VERSION}}",
-										"accounts",
-										"1"
-									]
-								}
-							},
-							"status": "Unprocessable Entity",
-							"code": 422,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "Access-Control-Allow-Origin",
-									"value": "*"
-								},
-								{
-									"key": "Access-Control-Expose-Headers",
-									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "74"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"4a-imOTmIe2OB4PxNVkV4sChUCrTd8\""
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 23 Oct 2024 14:01:17 GMT"
-								},
-								{
-									"key": "Connection",
-									"value": "keep-alive"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "timeout=5"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"error\": {\n        \"statusCode\": 422,\n        \"message\": \"\\\"bankAccountNumber\\\" is required\"\n    }\n}"
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
 						}
 					]
 				},
@@ -2512,7 +2349,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/deposit/1",
+							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/deposit/13",
 							"host": [
 								"{{LOCAL_BASE_URL}}"
 							],
@@ -2520,7 +2357,7 @@
 								"{{VERSION}}",
 								"accounts",
 								"deposit",
-								"1"
+								"13"
 							]
 						}
 					},
@@ -2879,6 +2716,148 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"error\": {\n        \"statusCode\": 422,\n        \"message\": \"\\\"amount\\\" is required\"\n    }\n}"
+						},
+						{
+							"name": "forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 3000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/deposit/13",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"accounts",
+										"deposit",
+										"13"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"52-5uJy8r4tGERspybceMM9tmaUaD4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 08:33:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"you doesn't have an access for this account\"\n    }\n}"
+						},
+						{
+							"name": "token is not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 3000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/deposit/13",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"accounts",
+										"deposit",
+										"13"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 12:06:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
 						}
 					]
 				},
@@ -2897,7 +2876,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/withdrawal/1",
+							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/withdrawal/13",
 							"host": [
 								"{{LOCAL_BASE_URL}}"
 							],
@@ -2905,7 +2884,7 @@
 								"{{VERSION}}",
 								"accounts",
 								"withdrawal",
-								"1"
+								"13"
 							]
 						}
 					},
@@ -3335,8 +3314,182 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"error\": {\n        \"statusCode\": 400,\n        \"message\": \"account remaining balance is insufficient\"\n    }\n}"
+						},
+						{
+							"name": "forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 3000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/withdrawal/13",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"accounts",
+										"withdrawal",
+										"13"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"52-5uJy8r4tGERspybceMM9tmaUaD4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 08:34:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"you doesn't have an access for this account\"\n    }\n}"
+						},
+						{
+							"name": "token is not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 3000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/accounts/withdrawal/13",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"accounts",
+										"withdrawal",
+										"13"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 12:06:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
 						}
 					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -3350,7 +3503,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"senderID\": 1,\n  \"receiverID\": 2,\n  \"amount\": 1000\n}",
+							"raw": "{\n  \"senderID\": 13,\n  \"receiverID\": 2,\n  \"amount\": 1000\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3644,6 +3797,152 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"error\": {\n        \"statusCode\": 400,\n        \"message\": \"account remaining balance is insufficient\"\n    }\n}"
+						},
+						{
+							"name": "forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"senderID\": 13,\n  \"receiverID\": 2,\n  \"amount\": 1000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/transactions",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"transactions"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "84"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"54-nroFkJc82BqDSnULj6IJglG+n74\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AXs0K1_A5KvlGaHjHdxtmBnAwLg-jrwk1.KEHWo%2FpSTNnrHiu9vqMTQlExXVoO%2BC%2FS3%2B0oS9cvfHc; Path=/; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 08:37:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"you doesn't have an access for this account\"\n    }\n}"
+						},
+						{
+							"name": "token is not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"senderID\": 13,\n  \"receiverID\": 2,\n  \"amount\": 1000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/transactions",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"transactions"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Asz36rr70ve-8Jd8DcZgLAf1IcTCaCXPi.npaMBxmZSt5Z6q%2F1fRnat%2BkRmcRwcvrsQVSUELJZ6vw; Path=/; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 12:06:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
 						}
 					]
 				},
@@ -3873,6 +4172,154 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"meta\": {\n        \"statusCode\": 200,\n        \"message\": \"transations data retrieved successfully\",\n        \"pagination\": {\n            \"totalPage\": 11,\n            \"currentPage\": 1,\n            \"pageItems\": 5,\n            \"nextPage\": 2,\n            \"prevPage\": null\n        }\n    },\n    \"data\": [\n        {\n            \"id\": 1,\n            \"source_account_id\": 19,\n            \"destination_account_id\": 2,\n            \"amount\": 276.38,\n            \"SourceBankAccounts\": {\n                \"id\": 19,\n                \"bank_name\": \"OTHERS\",\n                \"bank_account_number\": \"200000000\",\n                \"balance\": 2865.54,\n                \"user_id\": 10,\n                \"Users\": {\n                    \"id\": 10,\n                    \"name\": \"User 1\",\n                    \"email\": \"user1@example.com\",\n                    \"Profiles\": {\n                        \"id\": 10,\n                        \"identity_type\": \"GIRO\",\n                        \"identity_number\": \"100000000\",\n                        \"address\": \"Address 1\",\n                        \"user_id\": 10\n                    }\n                }\n            },\n            \"DestinationBankAccounts\": {\n                \"id\": 2,\n                \"bank_name\": \"BRI\",\n                \"bank_account_number\": \"300000001\",\n                \"balance\": 5705.98,\n                \"user_id\": 1,\n                \"Users\": {\n                    \"id\": 1,\n                    \"name\": \"User 2\",\n                    \"email\": \"user2@example.com\",\n                    \"Profiles\": {\n                        \"id\": 1,\n                        \"identity_type\": \"SAVING\",\n                        \"identity_number\": \"100000001\",\n                        \"address\": \"Address 2\",\n                        \"user_id\": 1\n                    }\n                }\n            }\n        },\n        {\n            \"id\": 2,\n            \"source_account_id\": 19,\n            \"destination_account_id\": 2,\n            \"amount\": 263.33,\n            \"SourceBankAccounts\": {\n                \"id\": 19,\n                \"bank_name\": \"OTHERS\",\n                \"bank_account_number\": \"200000000\",\n                \"balance\": 2865.54,\n                \"user_id\": 10,\n                \"Users\": {\n                    \"id\": 10,\n                    \"name\": \"User 1\",\n                    \"email\": \"user1@example.com\",\n                    \"Profiles\": {\n                        \"id\": 10,\n                        \"identity_type\": \"GIRO\",\n                        \"identity_number\": \"100000000\",\n                        \"address\": \"Address 1\",\n                        \"user_id\": 10\n                    }\n                }\n            },\n            \"DestinationBankAccounts\": {\n                \"id\": 2,\n                \"bank_name\": \"BRI\",\n                \"bank_account_number\": \"300000001\",\n                \"balance\": 5705.98,\n                \"user_id\": 1,\n                \"Users\": {\n                    \"id\": 1,\n                    \"name\": \"User 2\",\n                    \"email\": \"user2@example.com\",\n                    \"Profiles\": {\n                        \"id\": 1,\n                        \"identity_type\": \"SAVING\",\n                        \"identity_number\": \"100000001\",\n                        \"address\": \"Address 2\",\n                        \"user_id\": 1\n                    }\n                }\n            }\n        },\n        {\n            \"id\": 3,\n            \"source_account_id\": 19,\n            \"destination_account_id\": 2,\n            \"amount\": 209.33,\n            \"SourceBankAccounts\": {\n                \"id\": 19,\n                \"bank_name\": \"OTHERS\",\n                \"bank_account_number\": \"200000000\",\n                \"balance\": 2865.54,\n                \"user_id\": 10,\n                \"Users\": {\n                    \"id\": 10,\n                    \"name\": \"User 1\",\n                    \"email\": \"user1@example.com\",\n                    \"Profiles\": {\n                        \"id\": 10,\n                        \"identity_type\": \"GIRO\",\n                        \"identity_number\": \"100000000\",\n                        \"address\": \"Address 1\",\n                        \"user_id\": 10\n                    }\n                }\n            },\n            \"DestinationBankAccounts\": {\n                \"id\": 2,\n                \"bank_name\": \"BRI\",\n                \"bank_account_number\": \"300000001\",\n                \"balance\": 5705.98,\n                \"user_id\": 1,\n                \"Users\": {\n                    \"id\": 1,\n                    \"name\": \"User 2\",\n                    \"email\": \"user2@example.com\",\n                    \"Profiles\": {\n                        \"id\": 1,\n                        \"identity_type\": \"SAVING\",\n                        \"identity_number\": \"100000001\",\n                        \"address\": \"Address 2\",\n                        \"user_id\": 1\n                    }\n                }\n            }\n        },\n        {\n            \"id\": 4,\n            \"source_account_id\": 19,\n            \"destination_account_id\": 2,\n            \"amount\": 344.7,\n            \"SourceBankAccounts\": {\n                \"id\": 19,\n                \"bank_name\": \"OTHERS\",\n                \"bank_account_number\": \"200000000\",\n                \"balance\": 2865.54,\n                \"user_id\": 10,\n                \"Users\": {\n                    \"id\": 10,\n                    \"name\": \"User 1\",\n                    \"email\": \"user1@example.com\",\n                    \"Profiles\": {\n                        \"id\": 10,\n                        \"identity_type\": \"GIRO\",\n                        \"identity_number\": \"100000000\",\n                        \"address\": \"Address 1\",\n                        \"user_id\": 10\n                    }\n                }\n            },\n            \"DestinationBankAccounts\": {\n                \"id\": 2,\n                \"bank_name\": \"BRI\",\n                \"bank_account_number\": \"300000001\",\n                \"balance\": 5705.98,\n                \"user_id\": 1,\n                \"Users\": {\n                    \"id\": 1,\n                    \"name\": \"User 2\",\n                    \"email\": \"user2@example.com\",\n                    \"Profiles\": {\n                        \"id\": 1,\n                        \"identity_type\": \"SAVING\",\n                        \"identity_number\": \"100000001\",\n                        \"address\": \"Address 2\",\n                        \"user_id\": 1\n                    }\n                }\n            }\n        },\n        {\n            \"id\": 5,\n            \"source_account_id\": 19,\n            \"destination_account_id\": 2,\n            \"amount\": 289.29,\n            \"SourceBankAccounts\": {\n                \"id\": 19,\n                \"bank_name\": \"OTHERS\",\n                \"bank_account_number\": \"200000000\",\n                \"balance\": 2865.54,\n                \"user_id\": 10,\n                \"Users\": {\n                    \"id\": 10,\n                    \"name\": \"User 1\",\n                    \"email\": \"user1@example.com\",\n                    \"Profiles\": {\n                        \"id\": 10,\n                        \"identity_type\": \"GIRO\",\n                        \"identity_number\": \"100000000\",\n                        \"address\": \"Address 1\",\n                        \"user_id\": 10\n                    }\n                }\n            },\n            \"DestinationBankAccounts\": {\n                \"id\": 2,\n                \"bank_name\": \"BRI\",\n                \"bank_account_number\": \"300000001\",\n                \"balance\": 5705.98,\n                \"user_id\": 1,\n                \"Users\": {\n                    \"id\": 1,\n                    \"name\": \"User 2\",\n                    \"email\": \"user2@example.com\",\n                    \"Profiles\": {\n                        \"id\": 1,\n                        \"identity_type\": \"SAVING\",\n                        \"identity_number\": \"100000001\",\n                        \"address\": \"Address 2\",\n                        \"user_id\": 1\n                    }\n                }\n            }\n        }\n    ]\n}"
+						},
+						{
+							"name": "forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/transactions?page=4&limit=10",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"transactions"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "4"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"53-aBxynALaglJvGmEIH1vrx9wM5zg\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AZNfmXkPHUOCIvnmIg5BKXmruV-Btrqby.OGq%2F7ZljNg%2B0ljmtjAK92WhsseHUGcHQy9cwUQSyp9w; Path=/; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 08:05:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"the role you have does not have permission\"\n    }\n}"
+						},
+						{
+							"name": "token is not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/transactions?page=4&limit=10",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"transactions"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "4"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AW6z52ros9XaKihNP8RrAcZ5opVEgDNug.1%2BCjvLz9RggdVjXy5DOFba2cK8NGvKfn910o0bcpSMU; Path=/; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 12:02:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
 						}
 					]
 				},
@@ -3882,14 +4329,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/transactions/7",
+							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/transactions/1",
 							"host": [
 								"{{LOCAL_BASE_URL}}"
 							],
 							"path": [
 								"{{VERSION}}",
 								"transactions",
-								"7"
+								"1"
 							]
 						}
 					},
@@ -4076,6 +4523,1108 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"error\": {\n        \"statusCode\": 404,\n        \"message\": \"transaction with id 0 is not found\"\n    }\n}"
+						},
+						{
+							"name": "forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/transactions/1",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"transactions",
+										"1"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "82"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"52-5uJy8r4tGERspybceMM9tmaUaD4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 07:51:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"you doesn't have an access for this data\"\n    }\n}"
+						},
+						{
+							"name": "token is not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/transactions/1",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"transactions",
+										"1"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AI3V8oihqp7-coROfLC1MsntgdAKjnNyk.tDuPGo5xvRh%2FTUXoftsCFVolS33oZD824%2Bs99nkyYWY; Path=/; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 11:58:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{jwt_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"viery nugroho\",\n  \"email\": \"vierynugroho@gmail.com\",\n  \"password\": \"password\",\n  \"identity_type\": \"SAVING\",\n  \"identity_number\": \"6289516424305\",\n  \"address\": \"Blitar\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/auth/register",
+							"host": [
+								"{{LOCAL_BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "email has already been taken",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"viery nugroho\",\n  \"email\": \"viery15102002@gmail.com\",\n  \"password\": \"password\",\n  \"identity_type\": \"SAVING\",\n  \"identity_number\": \"6289516424305\",\n  \"address\": \"Blitar\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 409,\n        \"message\": \"Email has already been taken\"\n    }\n}"
+						},
+						{
+							"name": "field is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"viery nugroho\",\n  \"email\": \"viery15102002@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 422,\n        \"message\": \"\\\"password\\\" is required\"\n    }\n}"
+						},
+						{
+							"name": "invalid json",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"viery nugroho\",\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 500,\n        \"message\": \"something went wrong\",\n        \"details\": \"Expected double-quoted property name in JSON at position 34\"\n    }\n}"
+						},
+						{
+							"name": "invalid email",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"viery nugroho\",\n  \"email\": \"vieryngrho@gmail.co\",\n  \"password\": \"password\",\n  \"identity_type\": \"SAVING\",\n  \"identity_number\": \"6289516424305\",\n  \"address\": \"Blitar\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "98"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"62-8d+FU2rcltYNBV7DoEvkAx7+anA\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 13:23:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 422,\n        \"message\": \"must be a valid email & domain allowed: .com | .net | .id\"\n    }\n}"
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"viery nugroho\",\n  \"email\": \"vierynugroho@gmail.com\",\n  \"password\": \"password\",\n  \"identity_type\": \"SAVING\",\n  \"identity_number\": \"6289516424305\",\n  \"address\": \"Blitar\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "254"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"fe-YQjXYJGwHD9La2QxHsmRDKUrWaA\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 13:29:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"statusCode\": 200,\n        \"message\": \"register successfully\"\n    },\n    \"data\": {\n        \"user\": {\n            \"id\": 13,\n            \"name\": \"viery nugroho\",\n            \"email\": \"vierynugroho@gmail.com\"\n        },\n        \"profile\": {\n            \"id\": 13,\n            \"identity_type\": \"SAVING\",\n            \"identity_number\": \"6289516424305\",\n            \"address\": \"Blitar\",\n            \"user_id\": 13\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\":\"admin@example.com\",\n  \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/auth/login",
+							"host": [
+								"{{LOCAL_BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "invalid email",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\":\"viery15102002@gmail.co\",\n  \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/login",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "98"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"62-8d+FU2rcltYNBV7DoEvkAx7+anA\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 13:22:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 422,\n        \"message\": \"must be a valid email & domain allowed: .com | .net | .id\"\n    }\n}"
+						},
+						{
+							"name": "invalid json",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\":\"viery15102002@gmail.com\",\n//   \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/login",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "133"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"85-/X8VwL4PoPa6i16fwqoTCBaX6bE\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 13:23:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 500,\n        \"message\": \"something went wrong\",\n        \"details\": \"Expected double-quoted property name in JSON at position 40\"\n    }\n}"
+						},
+						{
+							"name": "field is required",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\":\"viery15102002@gmail.com\"\n//   \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/login",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"41-/DEmDSm49U7uFNYxhLMVXpK1J04\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 13:24:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 422,\n        \"message\": \"\\\"password\\\" is required\"\n    }\n}"
+						},
+						{
+							"name": "wrong credential",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\":\"viery15102002@gmail.com\",\n  \"password\": \"passwords\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/login",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"39-h0YS7dBNb95rhyuhmE2vHSJlpNk\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 13:24:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 403,\n        \"message\": \"wrong credential\"\n    }\n}"
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\":\"viery15102002@gmail.com\",\n  \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/users/login",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "244"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"f4-HR4xjr/ysVxUYdZ2wEQOU+6a0F0\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 23 Oct 2024 13:30:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"statusCode\": 200,\n        \"message\": \"login successfully\"\n    },\n    \"data\": {\n        \"id\": 11,\n        \"name\": \"viery nugroho\",\n        \"email\": \"viery15102002@gmail.com\",\n        \"Profiles\": {\n            \"id\": 11,\n            \"identity_type\": \"SAVING\",\n            \"identity_number\": \"6289516424305\",\n            \"address\": \"Blitar\",\n            \"user_id\": 11\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "get user LoggedIn",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/auth/authenticate",
+							"host": [
+								"{{LOCAL_BASE_URL}}"
+							],
+							"path": [
+								"{{VERSION}}",
+								"auth",
+								"authenticate"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/auth/authenticate",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"auth",
+										"authenticate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "266"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"10a-o8/Qudx4vJfoWAk+k8Lkfe8Kvb0\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3AUJi_EsPBjwdePqDwnftqIqVbt5LLfde5.iH5V3BDRqzdWa0%2F097UODtzElRbe7i5owRvhcLz4gb4; Path=/; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 11:46:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"meta\": {\n        \"statusCode\": 200,\n        \"message\": \"user logged in data retrieved successfully\"\n    },\n    \"data\": {\n        \"id\": 7,\n        \"name\": \"Admin\",\n        \"email\": \"admin@example.com\",\n        \"role\": \"ADMIN\",\n        \"Profiles\": {\n            \"id\": 7,\n            \"identity_type\": \"KTM\",\n            \"identity_number\": \"100000000\",\n            \"address\": \"Address 1\",\n            \"user_id\": 7\n        },\n        \"accounts\": [\n            {\n                \"id\": 14,\n                \"bank_name\": \"CIMB\",\n                \"bank_account_number\": \"300000000\",\n                \"balance\": 3574.75,\n                \"user_id\": 7,\n                \"Users\": {\n                    \"id\": 7,\n                    \"name\": \"Admin\",\n                    \"email\": \"admin@example.com\",\n                    \"role\": \"ADMIN\",\n                    \"Profiles\": {\n                        \"id\": 7,\n                        \"identity_type\": \"KTM\",\n                        \"identity_number\": \"100000000\",\n                        \"address\": \"Address 1\",\n                        \"user_id\": 7\n                    }\n                }\n            },\n            {\n                \"id\": 13,\n                \"bank_name\": \"BSI\",\n                \"bank_account_number\": \"200000000\",\n                \"balance\": 1837.05,\n                \"user_id\": 7,\n                \"Users\": {\n                    \"id\": 7,\n                    \"name\": \"Admin\",\n                    \"email\": \"admin@example.com\",\n                    \"role\": \"ADMIN\",\n                    \"Profiles\": {\n                        \"id\": 7,\n                        \"identity_type\": \"KTM\",\n                        \"identity_number\": \"100000000\",\n                        \"address\": \"Address 1\",\n                        \"user_id\": 7\n                    }\n                }\n            }\n        ]\n    }\n}"
+						},
+						{
+							"name": "expired",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/auth/authenticate",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"auth",
+										"authenticate"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "93"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5d-5hncSoZdB8IwxYwyVcdler6lz80\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 11:52:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"jwt expired, please re-login\",\n        \"details\": \"jwt expired\"\n    }\n}"
+						},
+						{
+							"name": "expired Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/auth/authenticate",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"auth",
+										"authenticate"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "93"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5d-5hncSoZdB8IwxYwyVcdler6lz80\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 11:52:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"jwt expired, please re-login\",\n        \"details\": \"jwt expired\"\n    }\n}"
+						},
+						{
+							"name": "token not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LOCAL_BASE_URL}}/{{VERSION}}/auth/authenticate",
+									"host": [
+										"{{LOCAL_BASE_URL}}"
+									],
+									"path": [
+										"{{VERSION}}",
+										"auth",
+										"authenticate"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Access-Control-Expose-Headers",
+									"value": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "73"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"49-vF6NfX71aqRVEH/3P0OLdgA6gcQ\""
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "connect.sid=s%3Ah8uzog4uR9I6Z2fSkqm4bRLmFs3yQm5O.Is5%2FvnseplKuVt4LtGwYVCWeE429MSdg8xfjPM90M80; Path=/; HttpOnly"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 26 Oct 2024 11:57:18 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": {\n        \"statusCode\": 401,\n        \"message\": \"unauthorized, token is not found\"\n    }\n}"
 						}
 					]
 				}
@@ -4112,6 +5661,8 @@
 							]
 						}
 					},
+					"status": "OK",
+					"code": 200,
 					"_postman_previewlanguage": "json",
 					"header": [
 						{
@@ -4223,6 +5774,11 @@
 		{
 			"key": "VERSION",
 			"value": "v1",
+			"type": "string"
+		},
+		{
+			"key": "jwt_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlVzZXIgMiIsImVtYWlsIjoidXNlcjJAZXhhbXBsZS5jb20iLCJhZGRyZXNzIjoiQWRkcmVzcyAyIiwiaWRlbnRpdHlfbnVtYmVyIjoiMTAwMDAwMDAxIiwiaWRlbnRpdHlfdHlwZSI6IktUUCIsImlhdCI6MTcyOTk0MzQ3MiwiZXhwIjoxNzI5OTQzNDczfQ.Z4PC7Cfzo3l6KFrF2XdRnYCnfz8kuTv_QTlsj_fSyb0",
 			"type": "string"
 		}
 	]

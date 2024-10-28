@@ -31,6 +31,57 @@ describe('Transaction Services', () => {
     },
   };
 
+  const pagination = { limit: 10, offset: 0 };
+
+  const mockTransactions = [
+    {
+      id: 31,
+      source_account_id: 7,
+      destination_account_id: 6,
+      amount: 799.83,
+      SourceBankAccounts: {
+        id: 7,
+        bank_name: 'MANDIRI',
+        bank_account_number: '200000006',
+        balance: 4442.11,
+        user_id: 4,
+        Users: {
+          id: 4,
+          name: 'User 7',
+          email: 'user7@example.com',
+          role: 'CUSTOMER',
+          Profiles: {
+            id: 4,
+            identity_type: 'SIM',
+            identity_number: '100000006',
+            address: 'Address 7',
+            user_id: 4,
+          },
+        },
+      },
+      DestinationBankAccounts: {
+        id: 6,
+        bank_name: 'PERMATA',
+        bank_account_number: '300000007',
+        balance: 4883.74,
+        user_id: 3,
+        Users: {
+          id: 3,
+          name: 'User 8',
+          email: 'user8@example.com',
+          role: 'CUSTOMER',
+          Profiles: {
+            id: 3,
+            identity_type: 'SIM',
+            identity_number: '100000007',
+            address: 'Address 8',
+            user_id: 3,
+          },
+        },
+      },
+    },
+  ];
+
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -63,7 +114,7 @@ describe('Transaction Services', () => {
       jest.clearAllMocks();
     });
 
-    it('throws an error if sender account is not found', async () => {
+    test('throws an error if sender account is not found', async () => {
       AccountsRepository.getAccountById.mockResolvedValueOnce(null);
 
       await expect(
@@ -71,7 +122,7 @@ describe('Transaction Services', () => {
       ).rejects.toThrow('account with ID: 1 is not found');
     });
 
-    it('throws an error if receiver account is not found', async () => {
+    test('throws an error if receiver account is not found', async () => {
       AccountsRepository.getAccountById
         .mockResolvedValueOnce(sender)
         .mockResolvedValueOnce(null);
@@ -81,7 +132,7 @@ describe('Transaction Services', () => {
       ).rejects.toThrow('account with ID: 2 is not found');
     });
 
-    it('throws an error if transferring between same accounts in the same bank', async () => {
+    test('throws an error if transferring between same accounts in the same bank', async () => {
       const sameAccount = {
         id: senderID,
         balance: 200000,
@@ -102,7 +153,7 @@ describe('Transaction Services', () => {
       );
     });
 
-    it('throws an error if the sender has insufficient funds', async () => {
+    test('throws an error if the sender has insufficient funds', async () => {
       AccountsRepository.getAccountById
         .mockResolvedValueOnce(sender)
         .mockResolvedValueOnce(receiver);
@@ -113,7 +164,7 @@ describe('Transaction Services', () => {
       ).rejects.toThrow('account remaining balance is insufficient');
     });
 
-    it('should transfer amount between accounts successfully', async () => {
+    test('should transfer amount between accounts successfully', async () => {
       const sender = {
         id: senderID,
         balance: senderInitialBalance,
@@ -169,6 +220,156 @@ describe('Transaction Services', () => {
         currentSenderBalance: `Rp${newSenderBalance}`,
         currentReceiverBalance: `Rp${newReceiverBalance}`,
       });
+    });
+  });
+
+  describe('get all transactions', () => {
+    test('should return transactions and total count with passwords removed', async () => {
+      TransactionsRepository.getTransactions.mockResolvedValueOnce(
+        mockTransactions,
+      );
+      TransactionsRepository.countTransactions.mockResolvedValueOnce(2);
+
+      const result = await TransactionsService.getAllTransactions(pagination);
+
+      expect(TransactionsRepository.getTransactions).toHaveBeenCalledWith(
+        pagination,
+      );
+      expect(TransactionsRepository.countTransactions).toHaveBeenCalled();
+
+      result.transactions.forEach((trx) => {
+        expect(trx.SourceBankAccounts.Users.password).toBeUndefined();
+        expect(trx.DestinationBankAccounts.Users.password).toBeUndefined();
+      });
+
+      expect(result).toEqual({
+        transactions: [
+          {
+            id: 31,
+            source_account_id: 7,
+            destination_account_id: 6,
+            amount: 799.83,
+            SourceBankAccounts: {
+              id: 7,
+              bank_name: 'MANDIRI',
+              bank_account_number: '200000006',
+              balance: 4442.11,
+              user_id: 4,
+              Users: {
+                id: 4,
+                name: 'User 7',
+                email: 'user7@example.com',
+                role: 'CUSTOMER',
+                Profiles: {
+                  id: 4,
+                  identity_type: 'SIM',
+                  identity_number: '100000006',
+                  address: 'Address 7',
+                  user_id: 4,
+                },
+              },
+            },
+            DestinationBankAccounts: {
+              id: 6,
+              bank_name: 'PERMATA',
+              bank_account_number: '300000007',
+              balance: 4883.74,
+              user_id: 3,
+              Users: {
+                id: 3,
+                name: 'User 8',
+                email: 'user8@example.com',
+                role: 'CUSTOMER',
+                Profiles: {
+                  id: 3,
+                  identity_type: 'SIM',
+                  identity_number: '100000007',
+                  address: 'Address 8',
+                  user_id: 3,
+                },
+              },
+            },
+          },
+        ],
+        totalTransactions: 2,
+      });
+    });
+  });
+
+  describe('get transaction by ID', () => {
+    const transactionID = 1;
+
+    test('should return a transaction with passwords removed if found', async () => {
+      TransactionsRepository.getTransaction.mockResolvedValueOnce(
+        mockTransactions[0],
+      );
+
+      const result = await TransactionsService.getTransaction(transactionID);
+
+      expect(TransactionsRepository.getTransaction).toHaveBeenCalledWith(
+        transactionID,
+      );
+      expect(result).toEqual({
+        id: 31,
+        source_account_id: 7,
+        destination_account_id: 6,
+        amount: 799.83,
+        SourceBankAccounts: {
+          id: 7,
+          bank_name: 'MANDIRI',
+          bank_account_number: '200000006',
+          balance: 4442.11,
+          user_id: 4,
+          Users: {
+            id: 4,
+            name: 'User 7',
+            email: 'user7@example.com',
+            role: 'CUSTOMER',
+            Profiles: {
+              id: 4,
+              identity_type: 'SIM',
+              identity_number: '100000006',
+              address: 'Address 7',
+              user_id: 4,
+            },
+          },
+        },
+        DestinationBankAccounts: {
+          id: 6,
+          bank_name: 'PERMATA',
+          bank_account_number: '300000007',
+          balance: 4883.74,
+          user_id: 3,
+          Users: {
+            id: 3,
+            name: 'User 8',
+            email: 'user8@example.com',
+            role: 'CUSTOMER',
+            Profiles: {
+              id: 3,
+              identity_type: 'SIM',
+              identity_number: '100000007',
+              address: 'Address 8',
+              user_id: 3,
+            },
+          },
+        },
+      });
+
+      expect(result.SourceBankAccounts.Users.password).toBeUndefined();
+      expect(result.DestinationBankAccounts.Users.password).toBeUndefined();
+    });
+
+    test('should throw an error if transaction is not found', async () => {
+      TransactionsRepository.getTransaction.mockResolvedValueOnce(null);
+
+      await expect(
+        TransactionsService.getTransaction(transactionID),
+      ).rejects.toThrow(`transaction with id ${transactionID} is not found`);
+
+      expect(TransactionsRepository.getTransaction).toHaveBeenCalledWith(
+        transactionID,
+      );
     });
   });
 });

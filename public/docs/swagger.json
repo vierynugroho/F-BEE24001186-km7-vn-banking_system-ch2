@@ -47,6 +47,11 @@
       "get": {
         "tags": ["users"],
         "summary": "get all users",
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "parameters": [
           {
             "name": "page",
@@ -63,14 +68,6 @@
               "type": "integer"
             },
             "example": "5"
-          },
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
           }
         ],
         "responses": {
@@ -465,6 +462,11 @@
     "/users/{userID}": {
       "get": {
         "tags": ["users"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "parameters": [
           {
             "name": "userID",
@@ -861,8 +863,13 @@
     },
     "/accounts": {
       "post": {
-        "tags": ["accounts"],
+        "tags": ["bank accounts"],
         "summary": "register",
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1322,8 +1329,14 @@
         }
       },
       "get": {
-        "tags": ["accounts"],
+        "tags": ["bank accounts"],
+
         "summary": "get all accounts",
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "parameters": [
           {
             "name": "page",
@@ -1340,14 +1353,6 @@
               "type": "integer"
             },
             "example": "100"
-          },
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
           }
         ],
         "responses": {
@@ -2134,7 +2139,7 @@
     },
     "/accounts/{accountID}": {
       "get": {
-        "tags": ["accounts"],
+        "tags": ["bank accounts"],
         "parameters": [
           {
             "name": "accountID",
@@ -2146,6 +2151,11 @@
           }
         ],
         "summary": "get account by id",
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
 
         "responses": {
           "200": {
@@ -2536,7 +2546,12 @@
         }
       },
       "delete": {
-        "tags": ["accounts"],
+        "tags": ["bank accounts"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "parameters": [
           {
             "name": "accountID",
@@ -2878,7 +2893,12 @@
     },
     "/accounts/deposit/{accountID}": {
       "put": {
-        "tags": ["accounts"],
+        "tags": ["bank accounts"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "parameters": [
           {
             "name": "accountID",
@@ -3314,7 +3334,12 @@
     },
     "/accounts/withdrawal/{accountID}": {
       "put": {
-        "tags": ["accounts"],
+        "tags": ["bank accounts"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "parameters": [
           {
             "name": "userID",
@@ -3765,6 +3790,11 @@
     "/transactions": {
       "post": {
         "tags": ["transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "transfer",
         "requestBody": {
           "content": {
@@ -4235,6 +4265,11 @@
       },
       "get": {
         "tags": ["transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "summary": "get all transactions",
         "parameters": [
           {
@@ -4252,14 +4287,6 @@
               "type": "integer"
             },
             "example": "10"
-          },
-          {
-            "name": "VERSION",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
           }
         ],
         "responses": {
@@ -5206,6 +5233,11 @@
     "/transactions/{transactionID}": {
       "get": {
         "tags": ["transactions"],
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
         "parameters": [
           {
             "name": "transactionID",

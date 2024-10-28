@@ -20,3 +20,5 @@ passport.use(
     passwordField: 'password',
   }),
 );
+
+export default passport;

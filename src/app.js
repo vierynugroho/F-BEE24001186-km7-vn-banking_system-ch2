@@ -40,6 +40,7 @@ app.use(errorMiddleware);
 
 // 404 Response Handler
 app.use((req, res) => {
+  console.log(req.session);
   const url = req.url;
   const method = req.method;
   res.status(404).json({

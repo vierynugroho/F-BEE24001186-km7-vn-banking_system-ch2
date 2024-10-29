@@ -160,7 +160,7 @@ describe('Users Controller', () => {
     };
 
     it('should parse page and limit as integers and default to 1 and 5 if not provided', async () => {
-      mockUsersData(50, 5); // Mock a response with 50 users, and we expect 5 per page by default.
+      mockUsersData(50, 5);
 
       await UsersController.getUsers(req, res, next);
 

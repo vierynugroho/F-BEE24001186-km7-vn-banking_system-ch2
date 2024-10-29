@@ -36,10 +36,6 @@ export class TransactionsController {
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 5;
 
-      if (isNaN(page) || isNaN(limit)) {
-        throw new ErrorHandler(400, 'page & limit must be a number');
-      }
-
       const offset = (page - 1) * limit;
       const pagination = {
         offset,

@@ -33,11 +33,11 @@ export class AccountsRepository {
     return totalAccounts;
   }
 
-  static async register(data) {
+  static async register(data, userLoggedIn) {
     const accountRegister = await prisma.$transaction(async (tx) => {
       const user = await tx.users.findUnique({
         where: {
-          id: data.userID,
+          id: userLoggedIn.id,
         },
       });
 
@@ -57,7 +57,7 @@ export class AccountsRepository {
   }
 
   static async getAccountById(accountID) {
-    const user = await prisma.bank_Accounts.findUnique({
+    const account = await prisma.bank_Accounts.findUnique({
       where: {
         id: accountID,
       },
@@ -70,7 +70,41 @@ export class AccountsRepository {
       },
     });
 
-    return user;
+    return account;
+  }
+
+  static async getAccountByUserID(userID) {
+    const accounts = await prisma.bank_Accounts.findMany({
+      where: {
+        user_id: userID,
+      },
+      include: {
+        Users: {
+          include: {
+            Profiles: true,
+          },
+        },
+      },
+    });
+
+    return accounts;
+  }
+
+  static async getAccountByNumber(bank_account_number) {
+    const account = await prisma.bank_Accounts.findFirst({
+      where: {
+        bank_account_number,
+      },
+      include: {
+        Users: {
+          include: {
+            Profiles: true,
+          },
+        },
+      },
+    });
+
+    return account;
   }
 
   static async getAccountByNumberAndBankName(bank_account_number, bank_name) {

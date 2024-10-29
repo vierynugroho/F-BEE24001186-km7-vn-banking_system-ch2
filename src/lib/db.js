@@ -6,9 +6,21 @@ const client = new Client({
   password: 'postgres',
   host: 'localhost',
   port: 5432,
-  database: 'ch3_challenge', // sesuai dengan database chapter 3
+  database: 'ch3_challenge',
 });
 
-await client.connect();
+// Function to initialize database connection
+async function connect() {
+  try {
+    await client.connect();
+    console.log('Database connected successfully');
+  } catch (error) {
+    console.error('Error connecting to the database:', error);
+    process.exit(1); // Exit if we can't connect to the database
+  }
+}
+
+// Initialize connection
+connect();
 
 export default client;

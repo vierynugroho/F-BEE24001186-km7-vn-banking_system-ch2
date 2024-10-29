@@ -5,7 +5,6 @@ import { formatRupiah } from '../utils/formatRupiah.js';
 
 export class TransactionsService {
   static async getBalance(accountID) {
-    Acc;
     const balance = await AccountsRepository.getBalance(accountID);
 
     return balance;

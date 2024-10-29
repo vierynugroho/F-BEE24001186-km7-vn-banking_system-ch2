@@ -1,0 +1,3 @@
+apis:
+  public/docs/swagger.json:
+    alias: api-documentation-banking-system

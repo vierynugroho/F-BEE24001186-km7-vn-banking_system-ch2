@@ -1,4 +1,5 @@
 import { ErrorHandler } from '../middlewares/error.js';
+import { AccountsService } from '../services/accounts.js';
 import { UsersService } from '../services/users.js';
 
 export class UsersController {
@@ -11,8 +12,10 @@ export class UsersController {
       delete userRegister.user.password;
 
       res.json({
-        statusCode: 200,
-        message: 'register successfully',
+        meta: {
+          statusCode: 200,
+          message: 'register successfully',
+        },
         data: userRegister,
       });
     } catch (error) {
@@ -24,14 +27,42 @@ export class UsersController {
     try {
       const data = req.body;
 
-      const user = await UsersService.login(data);
+      const { user, token } = await UsersService.login(data);
 
       delete user.password;
 
       res.json({
-        statusCode: 200,
-        message: 'login successfully',
-        data: user,
+        meta: {
+          statusCode: 200,
+          message: 'login successfully',
+        },
+        data: {
+          _token: token,
+        },
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getUserLoggedIn(req, res, next) {
+    try {
+      const userLoggedIn = req.user;
+      const accounts = await AccountsService.getAccountByUserID(
+        userLoggedIn.id,
+      );
+
+      const userLoggedInData = {
+        ...userLoggedIn,
+        accounts,
+      };
+
+      res.json({
+        meta: {
+          statusCode: 200,
+          message: 'user logged in data retrieved successfully',
+        },
+        data: userLoggedInData,
       });
     } catch (error) {
       next(error);
@@ -42,10 +73,6 @@ export class UsersController {
     try {
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 5;
-
-      if (isNaN(page) || isNaN(limit)) {
-        throw new ErrorHandler(400, 'page & limit must be a number');
-      }
 
       const offset = (page - 1) * limit;
       const pagination = {
@@ -60,14 +87,16 @@ export class UsersController {
       });
 
       res.json({
-        statusCode: 200,
-        message: 'users data retrieved successfully',
-        pagination: {
-          totalPage: Math.ceil(totalUser / limit),
-          currentPage: page,
-          pageItems: users.length,
-          nextPage: page < Math.ceil(totalUser / limit) ? page + 1 : null,
-          prevPage: page > 1 ? page - 1 : null,
+        meta: {
+          statusCode: 200,
+          message: 'users data retrieved successfully',
+          pagination: {
+            totalPage: Math.ceil(totalUser / limit),
+            currentPage: page,
+            pageItems: users.length,
+            nextPage: page < Math.ceil(totalUser / limit) ? page + 1 : null,
+            prevPage: page > 1 ? page - 1 : null,
+          },
         },
         data: users,
       });
@@ -79,9 +108,14 @@ export class UsersController {
   static async getUserById(req, res, next) {
     try {
       const userID = parseFloat(req.params.userId);
+      const userLoggedIn = req.user;
 
       if (isNaN(userID)) {
         throw new ErrorHandler(400, 'userID must be a number');
+      }
+
+      if (userLoggedIn.role != 'ADMIN' && userLoggedIn.id !== userID) {
+        throw new ErrorHandler(403, `you doesn't have an access for this data`);
       }
 
       const user = await UsersService.getUserById(userID);
@@ -93,8 +127,10 @@ export class UsersController {
       delete user.password;
 
       res.json({
-        statusCode: 200,
-        message: 'user data retrieved successfully',
+        meta: {
+          statusCode: 200,
+          message: 'user data retrieved successfully',
+        },
         data: user,
       });
     } catch (error) {

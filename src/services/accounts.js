@@ -5,7 +5,7 @@ import { UsersRepository } from '../repositories/users.js';
 import { formatRupiah } from '../utils/formatRupiah.js';
 
 export class AccountsService {
-  static async register(data) {
+  static async register(data, userLoggedIn) {
     const account = await AccountsRepository.getAccountByNumberAndBankName(
       data.bank_account_number,
       data.bank_name,
@@ -19,13 +19,19 @@ export class AccountsService {
       throw new ErrorHandler(409, 'Account has already registered');
     }
 
-    const user = await UsersRepository.getUserById(data.userID);
+    const user = await UsersRepository.getUserById(userLoggedIn.id);
 
     if (!user) {
-      throw new ErrorHandler(404, `Users with id ${data.userID} is not found`);
+      throw new ErrorHandler(
+        404,
+        `Users with id ${userLoggedIn.id} is not found`,
+      );
     }
 
-    const accountRegister = await AccountsRepository.register(data);
+    const accountRegister = await AccountsRepository.register(
+      data,
+      userLoggedIn,
+    );
 
     return accountRegister;
   }
@@ -53,13 +59,24 @@ export class AccountsService {
     return account;
   }
 
-  static async deleteAccount(userID, accountID) {
-    const user = await UsersRepository.getUserById(userID);
+  static async getAccountByUserID(userID) {
+    const accounts = await AccountsRepository.getAccountByUserID(userID);
 
-    if (!user) {
-      throw new ErrorHandler(404, `user with id ${userID} is not found`);
+    if (!accounts) {
+      throw new ErrorHandler(
+        404,
+        `there is no account owned by user with id ${userID}`,
+      );
     }
 
+    delete accounts.map((acc) => {
+      delete acc.Users.password;
+    });
+
+    return accounts;
+  }
+
+  static async deleteAccount(userID, accountID) {
     const account = await AccountsRepository.getAccountById(accountID);
 
     if (!account) {
@@ -74,7 +91,7 @@ export class AccountsService {
     if (!userAccount) {
       throw new ErrorHandler(
         403,
-        `you doesn't have an access for account  with id ${accountID}`,
+        `you doesn't have an access for account with id ${accountID}`,
       );
     }
 

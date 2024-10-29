@@ -5,6 +5,7 @@ import cors from 'cors';
 import {} from 'dotenv/config';
 import router from './routes/index.js';
 import { errorMiddleware } from './middlewares/error.js';
+import session from 'express-session';
 
 const app = express();
 
@@ -17,6 +18,14 @@ app.use(
     exposedHeaders:
       'Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding',
     maxAge: 3600,
+  }),
+);
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
   }),
 );
 

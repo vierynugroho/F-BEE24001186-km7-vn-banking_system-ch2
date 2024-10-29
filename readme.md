@@ -8,6 +8,12 @@
 <img src='./public/assets/erd.png' alt='erd' title='erd banking_system - Viery Nugroho'>
 </div>
 
+# Unit & Integration Testing Coverage
+
+<div id='image' align='center'>
+<img src='./public/assets/testing.png' alt='testing coverage' title='testing coverage banking_system - Viery Nugroho'>
+</div>
+
 # How to running this project?
 
 1. contents of the .env file according to example
@@ -15,6 +21,8 @@
 3. running this command to running this project `npm run start:dev`
 4. import thunder client collection
 5. running this command to seed the database `npm run prisma:seed`
+6. api documentation: `http://localhost:{PORT}/api/v1/docs`
+7. running this command to testing:`npm run test`
 
 # Tools Version
 

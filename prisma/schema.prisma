@@ -13,9 +13,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum USER_TYPE {
-  GIRO
-  SAVING
+enum USER_ROLE {
+  CUSTOMER
+  ADMIN
+}
+
+enum IDENTITY_TYPE {
+  KTP
+  SIM
+  KTM
+  NPWP
+  PASSPORT
+  OTHERS
 }
 
 enum BANK_NAME {
@@ -31,10 +40,11 @@ enum BANK_NAME {
 }
 
 model Users {
-  id       Int    @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   name     String
-  email    String @unique
+  email    String    @unique
   password String
+  role     USER_ROLE @default(CUSTOMER)
 
   Profiles      Profiles?
   Bank_Accounts Bank_Accounts[]
@@ -53,15 +63,15 @@ model Bank_Accounts {
   SourceBankAccounts      Transactions[] @relation("source_bank_account")
   DestinationBankAccounts Transactions[] @relation("destination_bank_account")
 
-  @@map("bank_accounts")
+  @@map("bankAccounts")
 }
 
 model Profiles {
-  id              Int       @id @default(autoincrement())
-  identity_type   USER_TYPE
+  id              Int           @id @default(autoincrement())
+  identity_type   IDENTITY_TYPE
   identity_number String
   address         String
-  user_id         Int       @unique
+  user_id         Int           @unique
 
   Users Users @relation(fields: [user_id], references: [id], onDelete: Cascade)
 

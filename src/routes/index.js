@@ -5,7 +5,8 @@ import usersRoute from './users.js';
 import accountsRoute from './accounts.js';
 import transactionsRoute from './transactions.js';
 import * as swaggerUI from 'swagger-ui-express';
-import swaggerDoc from '../../public/docs/swagger.json' with { type: 'json' };
+import { readFileSync } from 'fs';
+const swaggerDoc = JSON.parse(readFileSync('./public/docs/swagger.json'));
 
 const router = express.Router();
 

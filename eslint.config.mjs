@@ -2,18 +2,18 @@ import globals from 'globals';
 
 export default [
   {
+    files: ['**/*.js'],
+    languageOptions: {
+      globals: globals.browser,
+      sourceType: 'module',
+      ecmaVersion: 2020,
+      parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+      },
+    },
     rules: {
       'no-unused-vars': 'error',
-    },
-    parserOptions: {
-      ecmaVersion: 2020, // mendukung import/export dan dynamic imports
-      sourceType: 'module',
-    },
-    env: {
-      es6: true,
-      node: true,
-    },
-    rules: {
       'import/no-unresolved': 'off',
       'import/extensions': 'off',
     },
@@ -28,6 +28,4 @@ export default [
   {
     ignores: ['.config/*', 'node_modules/*', 'coverage/*'],
   },
-  { files: ['**/*.js'], languageOptions: { sourceType: 'module' } },
-  { languageOptions: { globals: globals.browser } },
 ];

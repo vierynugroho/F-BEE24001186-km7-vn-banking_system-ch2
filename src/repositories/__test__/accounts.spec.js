@@ -20,16 +20,6 @@ jest.mock('../../lib/prisma.js', () => ({
 }));
 
 describe('Accounts Repository', () => {
-  const mockAccount = {
-    id: 1,
-    balance: 1000,
-  };
-
-  const mockAccountWithNullBalance = {
-    id: 2,
-    balance: null,
-  };
-
   const mockAccounts = [
     {
       id: 1,

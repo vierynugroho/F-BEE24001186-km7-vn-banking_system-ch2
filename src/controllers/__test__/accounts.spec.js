@@ -1,4 +1,3 @@
-import { ErrorHandler } from '../../middlewares/error.js';
 import { AccountsService } from '../../services/accounts.js';
 import { AccountsController } from '../accounts.js';
 

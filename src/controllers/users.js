@@ -74,10 +74,6 @@ export class UsersController {
       const page = parseInt(req.query.page) || 1;
       const limit = parseInt(req.query.limit) || 5;
 
-      if (isNaN(page) || isNaN(limit)) {
-        throw new ErrorHandler(400, 'page & limit must be a number');
-      }
-
       const offset = (page - 1) * limit;
       const pagination = {
         offset,
@@ -119,10 +115,7 @@ export class UsersController {
       }
 
       if (userLoggedIn.role != 'ADMIN' && userLoggedIn.id !== userID) {
-        throw new ErrorHandler(
-          403,
-          `you doesn't have and access for this data`,
-        );
+        throw new ErrorHandler(403, `you doesn't have an access for this data`);
       }
 
       const user = await UsersService.getUserById(userID);

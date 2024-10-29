@@ -24,13 +24,13 @@ export class UsersService {
     const user = await UsersRepository.getUser(data.email);
 
     if (!user) {
-      throw new ErrorHandler(403, 'wrong credential');
+      throw new ErrorHandler(401, 'wrong credential');
     }
 
     const comparePassword = await argon.verify(user.password, data.password);
 
     if (!comparePassword) {
-      throw new ErrorHandler(403, 'wrong credential');
+      throw new ErrorHandler(401, 'wrong credential');
     }
 
     const payload = {

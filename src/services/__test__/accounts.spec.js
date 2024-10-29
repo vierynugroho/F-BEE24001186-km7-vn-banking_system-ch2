@@ -185,7 +185,6 @@ describe('Account Services', () => {
     });
 
     test('should return empty accounts and zero total if no accounts found', async () => {
-      // Set up mocks for no accounts
       AccountsRepository.getAccounts.mockResolvedValue([]);
       AccountsRepository.countAccounts.mockResolvedValue(0);
 
@@ -329,7 +328,6 @@ describe('Account Services', () => {
       const userID = 1;
       const accountID = 1;
 
-      // Mock account found with transactions
       AccountsRepository.getAccountById.mockResolvedValue({ id: accountID });
       AccountsRepository.getAccountByUserIDAndAcountID.mockResolvedValue({
         id: accountID,

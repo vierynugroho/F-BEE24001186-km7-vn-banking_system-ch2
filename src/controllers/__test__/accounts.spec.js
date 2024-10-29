@@ -37,7 +37,7 @@ describe('Accounts Controller', () => {
   });
 
   describe('register', () => {
-    it('should register an account successfully and return account data with status 200', async () => {
+    test('should register an account successfully and return account data with status 200', async () => {
       AccountsService.register.mockResolvedValueOnce(mockAccountResponse);
 
       await AccountsController.register(req, res, next);
@@ -53,7 +53,7 @@ describe('Accounts Controller', () => {
       expect(next).not.toHaveBeenCalled();
     });
 
-    it('should call next with an error when registration fails', async () => {
+    test('should call next with an error when registration fails', async () => {
       const error = new Error('Registration failed');
       AccountsService.register.mockRejectedValueOnce(error);
 
@@ -66,7 +66,7 @@ describe('Accounts Controller', () => {
   });
 
   describe('get accounts', () => {
-    it('should successfully retrieve accounts data with pagination', async () => {
+    test('should successfully retrieve accounts data with pagination', async () => {
       req.query.page = '1';
       req.query.limit = '5';
 
@@ -99,8 +99,8 @@ describe('Accounts Controller', () => {
       });
     });
 
-    it('should return nextPage as null when on the last page', async () => {
-      req.query.page = '2'; // halaman terakhir
+    test('should return nextPage as null when on the last page', async () => {
+      req.query.page = '2';
       req.query.limit = '5';
 
       const mockAccounts = [{ id: 6, Users: { password: 'secret' } }];
@@ -129,7 +129,7 @@ describe('Accounts Controller', () => {
       });
     });
 
-    it('should default to page 1 and limit 5 when they are not provided', async () => {
+    test('should default to page 1 and limit 5 when they are not provided', async () => {
       req.query = {};
 
       const mockAccounts = [{ id: 1, Users: { password: 'hidden' } }];
@@ -155,7 +155,7 @@ describe('Accounts Controller', () => {
       );
     });
 
-    it('should handle service errors gracefully', async () => {
+    test('should handle service errors gracefully', async () => {
       req.query.page = '1';
       req.query.limit = '5';
 
@@ -169,7 +169,7 @@ describe('Accounts Controller', () => {
   });
 
   describe('get account by ID', () => {
-    it('should return account data for a valid request by ADMIN', async () => {
+    test('should return account data for a valid request by ADMIN', async () => {
       req.params.accountID = '1';
       req.user = { role: 'ADMIN' };
 
@@ -188,7 +188,7 @@ describe('Accounts Controller', () => {
       });
     });
 
-    it('should return account data for a valid request by non-ADMIN user with matching user_id', async () => {
+    test('should return account data for a valid request by non-ADMIN user with matching user_id', async () => {
       req.params.accountID = '1';
       req.user = { role: 'USER', id: 1 };
 
@@ -207,7 +207,7 @@ describe('Accounts Controller', () => {
       });
     });
 
-    it('should throw a 403 error if a non-ADMIN user tries to access another user’s data', async () => {
+    test('should throw a 403 error if a non-ADMIN user tries to access another user’s data', async () => {
       req.params.accountID = '2';
       req.user = { role: 'USER', id: 1 };
 
@@ -225,7 +225,7 @@ describe('Accounts Controller', () => {
       );
     });
 
-    it('should throw a 400 error if accountID is not a number', async () => {
+    test('should throw a 400 error if accountID is not a number', async () => {
       req.params.accountID = 'invalid';
       req.user = { role: 'ADMIN' };
 
@@ -239,7 +239,7 @@ describe('Accounts Controller', () => {
       );
     });
 
-    it('should handle service errors gracefully', async () => {
+    test('should handle service errors gracefully', async () => {
       req.params.accountID = '1';
       req.user = { role: 'ADMIN' };
 
@@ -253,7 +253,7 @@ describe('Accounts Controller', () => {
   });
 
   describe('delete account', () => {
-    it('should delete account data successfully', async () => {
+    test('should delete account data successfully', async () => {
       req.user.id = '1';
       req.params.accountID = '1';
 
@@ -272,7 +272,7 @@ describe('Accounts Controller', () => {
       });
     });
 
-    it('should throw a 400 error if userID is not a number', async () => {
+    test('should throw a 400 error if userID is not a number', async () => {
       req.user.id = 'invalid';
       req.params.accountID = '1';
 
@@ -286,7 +286,7 @@ describe('Accounts Controller', () => {
       );
     });
 
-    it('should throw a 400 error if accountID is not a number', async () => {
+    test('should throw a 400 error if accountID is not a number', async () => {
       req.user.id = '1';
       req.params.accountID = 'invalid';
 
@@ -300,7 +300,7 @@ describe('Accounts Controller', () => {
       );
     });
 
-    it('should handle service errors gracefully', async () => {
+    test('should handle service errors gracefully', async () => {
       req.user.id = '1';
       req.params.accountID = '1';
 
@@ -314,7 +314,7 @@ describe('Accounts Controller', () => {
   });
 
   describe('deposit', () => {
-    it('should successfully deposit an amount into the account', async () => {
+    test('should successfully deposit an amount into the account', async () => {
       req.user.id = 1;
       req.params.accountID = '1';
       req.body.amount = 100;
@@ -336,7 +336,7 @@ describe('Accounts Controller', () => {
       });
     });
 
-    it('should throw a 400 error if accountID is not a number', async () => {
+    test('should throw a 400 error if accountID is not a number', async () => {
       req.params.accountID = 'invalid';
       req.user.id = 1;
       req.body.amount = 100;
@@ -351,12 +351,12 @@ describe('Accounts Controller', () => {
       );
     });
 
-    it('should throw a 403 error if user does not own the account', async () => {
+    test('should throw a 403 error if user does not own the account', async () => {
       req.user.id = 2;
       req.params.accountID = '1';
       req.body.amount = 100;
 
-      const mockAccount = { user_id: 1 }; // Account belongs to another user
+      const mockAccount = { user_id: 1 };
 
       AccountsService.getAccountById.mockResolvedValue(mockAccount);
 
@@ -370,7 +370,7 @@ describe('Accounts Controller', () => {
       );
     });
 
-    it('should handle service errors gracefully', async () => {
+    test('should handle service errors gracefully', async () => {
       req.user.id = 1;
       req.params.accountID = '1';
       req.body.amount = 100;
@@ -385,7 +385,7 @@ describe('Accounts Controller', () => {
   });
 
   describe('withdrawal', () => {
-    it('should successfully withdraw an amount from the account', async () => {
+    test('should successfully withdraw an amount from the account', async () => {
       req.user.id = 1;
       req.params.accountID = '1';
       req.body.amount = 50;
@@ -407,7 +407,7 @@ describe('Accounts Controller', () => {
       });
     });
 
-    it('should throw a 400 error if accountID is not a number', async () => {
+    test('should throw a 400 error if accountID is not a number', async () => {
       req.params.accountID = 'invalid';
       req.user.id = 1;
       req.body.amount = 50;
@@ -422,12 +422,12 @@ describe('Accounts Controller', () => {
       );
     });
 
-    it('should throw a 403 error if user does not own the account', async () => {
+    test('should throw a 403 error if user does not own the account', async () => {
       req.user.id = 2;
       req.params.accountID = '1';
       req.body.amount = 50;
 
-      const mockAccount = { user_id: 1 }; // Account belongs to another user
+      const mockAccount = { user_id: 1 };
 
       AccountsService.getAccountById.mockResolvedValue(mockAccount);
 
@@ -441,7 +441,7 @@ describe('Accounts Controller', () => {
       );
     });
 
-    it('should handle service errors gracefully', async () => {
+    test('should handle service errors gracefully', async () => {
       req.user.id = 1;
       req.params.accountID = '1';
       req.body.amount = 50;

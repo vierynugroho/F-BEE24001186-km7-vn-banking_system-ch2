@@ -68,7 +68,7 @@ describe('Accounts Repository', () => {
   });
 
   describe('get balance', () => {
-    it('should return the balance for the specified accountID', async () => {
+    test('should return the balance for the specified accountID', async () => {
       const accountID = 1;
       const mockAccount = {
         id: accountID,
@@ -84,7 +84,7 @@ describe('Accounts Repository', () => {
       expect(result).toBe(mockAccount.balance);
     });
 
-    it('should return null if account balance is null', async () => {
+    test('should return null if account balance is null', async () => {
       const accountID = 2;
       const mockAccountWithNullBalance = {
         id: accountID,
@@ -104,7 +104,7 @@ describe('Accounts Repository', () => {
   });
 
   describe('get accounts', () => {
-    it('should return a list of accounts with associated users and profiles based on pagination', async () => {
+    test('should return a list of accounts with associated users and profiles based on pagination', async () => {
       prisma.bank_Accounts.findMany.mockResolvedValueOnce(mockAccounts);
 
       const result = await AccountsRepository.getAccounts(pagination);
@@ -125,23 +125,19 @@ describe('Accounts Repository', () => {
   });
 
   describe('countAccounts', () => {
-    it('should return the total number of accounts', async () => {
-      // Arrange: mock the total count of accounts
+    test('should return the total number of accounts', async () => {
       const mockTotalAccounts = 42;
       prisma.bank_Accounts.count.mockResolvedValueOnce(mockTotalAccounts);
 
-      // Act: call the countAccounts function
       const result = await AccountsRepository.countAccounts();
 
-      // Assert: verify count is called and returns the expected total
       expect(prisma.bank_Accounts.count).toHaveBeenCalled();
       expect(result).toBe(mockTotalAccounts);
     });
   });
 
   describe('register', () => {
-    it('should create a new bank account for the logged-in user', async () => {
-      // Arrange: mock user and account data
+    test('should create a new bank account for the logged-in user', async () => {
       const userLoggedIn = { id: 1 };
       const data = {
         bank_name: 'Bank A',
@@ -179,7 +175,7 @@ describe('Accounts Repository', () => {
   });
 
   describe('get account by ID', () => {
-    it('should return the account with the specified accountID', async () => {
+    test('should return the account with the specified accountID', async () => {
       const accountID = 1;
       const mockAccount = {
         id: accountID,
@@ -215,7 +211,7 @@ describe('Accounts Repository', () => {
       expect(result).toEqual(mockAccount);
     });
 
-    it('should return null if account with given accountID does not exist', async () => {
+    test('should return null if account with given accountID does not exist', async () => {
       const accountID = 999;
       prisma.bank_Accounts.findUnique.mockResolvedValueOnce(null);
 
@@ -236,7 +232,7 @@ describe('Accounts Repository', () => {
   });
 
   describe('get account by userID', () => {
-    it('should return the accounts associated with the specified userID', async () => {
+    test('should return the accounts associated with the specified userID', async () => {
       const userID = 1;
       const mockAccounts = [
         {
@@ -292,7 +288,7 @@ describe('Accounts Repository', () => {
       expect(result).toEqual(mockAccounts);
     });
 
-    it('should return an empty array if no accounts are associated with the userID', async () => {
+    test('should return an empty array if no accounts are associated with the userID', async () => {
       const userID = 999;
       prisma.bank_Accounts.findMany.mockResolvedValueOnce([]);
 
@@ -313,7 +309,7 @@ describe('Accounts Repository', () => {
   });
 
   describe('get account by number', () => {
-    it('should return the account associated with the specified bank account number', async () => {
+    test('should return the account associated with the specified bank account number', async () => {
       const bankAccountNumber = '1234567890';
       const mockAccount = {
         id: 1,
@@ -350,7 +346,7 @@ describe('Accounts Repository', () => {
       expect(result).toEqual(mockAccount);
     });
 
-    it('should return null if no account is associated with the specified bank account number', async () => {
+    test('should return null if no account is associated with the specified bank account number', async () => {
       const bankAccountNumber = '9999999999';
       prisma.bank_Accounts.findFirst.mockResolvedValueOnce(null);
 
@@ -372,7 +368,7 @@ describe('Accounts Repository', () => {
   });
 
   describe('get account by number and bank name', () => {
-    it('should return the account that matches the specified bank account number and bank name', async () => {
+    test('should return the account that matches the specified bank account number and bank name', async () => {
       const bankAccountNumber = '1234567890';
       const bankName = 'Bank A';
       const mockAccount = {
@@ -417,7 +413,7 @@ describe('Accounts Repository', () => {
       expect(result).toEqual(mockAccount);
     });
 
-    it('should return null if no account matches the specified bank account number and bank name', async () => {
+    test('should return null if no account matches the specified bank account number and bank name', async () => {
       const bankAccountNumber = '9999999999';
       const bankName = 'NonExistent Bank';
       prisma.bank_Accounts.findFirst.mockResolvedValueOnce(null);
@@ -447,7 +443,7 @@ describe('Accounts Repository', () => {
   });
 
   describe('get account by userID and accountID', () => {
-    it('should return the account that matches the specified userID and accountID', async () => {
+    test('should return the account that matches the specified userID and accountID', async () => {
       const userID = 1;
       const accountID = 10;
       const mockAccount = {
@@ -490,7 +486,7 @@ describe('Accounts Repository', () => {
       expect(result).toEqual(mockAccount);
     });
 
-    it('should return null if no account matches the specified userID and accountID', async () => {
+    test('should return null if no account matches the specified userID and accountID', async () => {
       const userID = 2;
       const accountID = 20;
       prisma.bank_Accounts.findFirst.mockResolvedValueOnce(null);
@@ -517,7 +513,7 @@ describe('Accounts Repository', () => {
   });
 
   describe('delete account', () => {
-    it('should delete an account and return the deleted account data', async () => {
+    test('should delete an account and return the deleted account data', async () => {
       const accountID = 1;
       const mockDeletedAccount = {
         id: accountID,
@@ -537,7 +533,7 @@ describe('Accounts Repository', () => {
       expect(result).toEqual(mockDeletedAccount);
     });
 
-    it('should throw an error if the account does not exist', async () => {
+    test('should throw an error if the account does not exist', async () => {
       const accountID = 2;
       const error = new Error('Account not found');
       prisma.bank_Accounts.delete.mockRejectedValueOnce(error);
@@ -552,7 +548,7 @@ describe('Accounts Repository', () => {
   });
 
   describe('update balance', () => {
-    it('should update the balance of an existing account and return the updated account', async () => {
+    test('should update the balance of an existing account and return the updated account', async () => {
       const accountID = 1;
       const newBalance = 1500.0;
       const mockUpdatedAccount = {
@@ -594,7 +590,7 @@ describe('Accounts Repository', () => {
       expect(result).toEqual(mockUpdatedAccount);
     });
 
-    it('should throw an error if the account does not exist', async () => {
+    test('should throw an error if the account does not exist', async () => {
       const accountID = 2;
       const newBalance = 2000.0;
       const error = new Error('Account not found');
@@ -618,7 +614,7 @@ describe('Accounts Repository', () => {
   });
 
   describe('insufficient', () => {
-    it('should return false if the account balance is sufficient for the transaction amount', async () => {
+    test('should return false if the account balance is sufficient for the transaction amount', async () => {
       const accountID = 1;
       const balance = 1000;
       const amount = 500;
@@ -633,7 +629,7 @@ describe('Accounts Repository', () => {
       expect(result).toBe(false);
     });
 
-    it('should return true if the account balance is insufficient for the transaction amount', async () => {
+    test('should return true if the account balance is insufficient for the transaction amount', async () => {
       const accountID = 2;
       const balance = 300;
       const amount = 500;

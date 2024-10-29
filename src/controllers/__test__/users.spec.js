@@ -24,7 +24,7 @@ describe('Users Controller', () => {
   });
 
   describe('register', () => {
-    it('should register a user successfully and return response data without the password', async () => {
+    test('should register a user successfully and return response data without the password', async () => {
       const userRegister = {
         user: {
           username: 'testuser',
@@ -46,7 +46,7 @@ describe('Users Controller', () => {
       });
     });
 
-    it('should handle errors thrown by the service', async () => {
+    test('should handle errors thrown by the service', async () => {
       req.body = { username: 'testuser', password: 'secret' };
       UsersService.register.mockRejectedValue(
         new ErrorHandler('Registration error'),
@@ -62,7 +62,7 @@ describe('Users Controller', () => {
     req.body.email = 'testuser@example.com';
     req.body.password = 'testpassword';
 
-    it('should log in a user successfully and return a token without the password', async () => {
+    test('should log in a user successfully and return a token without the password', async () => {
       const user = {
         id: 1,
         username: 'testuser',
@@ -86,7 +86,7 @@ describe('Users Controller', () => {
       });
     });
 
-    it('should call next with an error if login fails', async () => {
+    test('should call next with an error if login fails', async () => {
       const error = new Error('Login failed');
 
       jest.spyOn(UsersService, 'login').mockRejectedValue(error);
@@ -105,7 +105,7 @@ describe('Users Controller', () => {
       email: 'testuser@example.com',
     };
 
-    it('should retrieve logged in user data successfully with associated accounts', async () => {
+    test('should retrieve logged in user data successfully with associated accounts', async () => {
       const accounts = [
         { id: 101, type: 'savings', balance: 5000 },
         { id: 102, type: 'checking', balance: 1500 },
@@ -132,7 +132,7 @@ describe('Users Controller', () => {
       });
     });
 
-    it('should call next with an error if retrieving user data fails', async () => {
+    test('should call next with an error if retrieving user data fails', async () => {
       const error = new ErrorHandler(401, 'Failed to retrieve accounts');
 
       jest
@@ -159,7 +159,7 @@ describe('Users Controller', () => {
       });
     };
 
-    it('should parse page and limit as integers and default to 1 and 5 if not provided', async () => {
+    test('should parse page and limit as integers and default to 1 and 5 if not provided', async () => {
       mockUsersData(50, 5);
 
       await UsersController.getUsers(req, res, next);
@@ -182,7 +182,7 @@ describe('Users Controller', () => {
       });
     });
 
-    it('should correctly parse and use valid page and limit values', async () => {
+    test('should correctly parse and use valid page and limit values', async () => {
       req.query.page = '2';
       req.query.limit = '10';
       mockUsersData(50, 10);
@@ -207,7 +207,7 @@ describe('Users Controller', () => {
       });
     });
 
-    it('should handle invalid page and limit inputs gracefully and fallback to defaults', async () => {
+    test('should handle invalid page and limit inputs gracefully and fallback to defaults', async () => {
       req.query.page = 'invalid';
       req.query.limit = 'invalid';
       mockUsersData(50, 5);
@@ -232,7 +232,7 @@ describe('Users Controller', () => {
       });
     });
 
-    it('should calculate nextPage and prevPage correctly', async () => {
+    test('should calculate nextPage and prevPage correctly', async () => {
       req.query.page = '3';
       req.query.limit = '10';
       mockUsersData(50, 10);
@@ -255,7 +255,7 @@ describe('Users Controller', () => {
       });
     });
 
-    it('should return nextPage as null on the last page', async () => {
+    test('should return nextPage as null on the last page', async () => {
       req.query.page = '5';
       req.query.limit = '10';
       mockUsersData(50, 10);
@@ -278,7 +278,7 @@ describe('Users Controller', () => {
       });
     });
 
-    it('should return prevPage as null on the first page', async () => {
+    test('should return prevPage as null on the first page', async () => {
       req.query.page = '1';
       req.query.limit = '10';
       mockUsersData(50, 10);
@@ -301,9 +301,9 @@ describe('Users Controller', () => {
       });
     });
 
-    it('should call next with an error if UsersService.getUsers throws an error', async () => {
+    test('should call next with an error if UsersService.getUsers throws an error', async () => {
       const mockError = new Error('Database connection error');
-      UsersService.getUsers.mockRejectedValue(mockError); // Simulate service error
+      UsersService.getUsers.mockRejectedValue(mockError);
 
       await UsersController.getUsers(req, res, next);
 
@@ -312,7 +312,7 @@ describe('Users Controller', () => {
   });
 
   describe('get user data by userID', () => {
-    it('should return user data successfully for ADMIN role', async () => {
+    test('should return user data successfully for ADMIN role', async () => {
       const userID = 1;
       req.params.userId = userID;
       req.user = { role: 'ADMIN', id: 2 };
@@ -331,11 +331,11 @@ describe('Users Controller', () => {
           statusCode: 200,
           message: 'user data retrieved successfully',
         },
-        data: { id: userID, name: 'John Doe' }, // password should be deleted
+        data: { id: userID, name: 'John Doe' },
       });
     });
 
-    it('should return user data successfully for the logged-in user', async () => {
+    test('should return user data successfully for the logged-in user', async () => {
       const userID = 1;
       req.params.userId = userID;
       req.user = { role: 'USER', id: userID };
@@ -354,11 +354,11 @@ describe('Users Controller', () => {
           statusCode: 200,
           message: 'user data retrieved successfully',
         },
-        data: { id: userID, name: 'John Doe' }, // password should be deleted
+        data: { id: userID, name: 'John Doe' },
       });
     });
 
-    it('should throw 400 error if userID is not a number', async () => {
+    test('should throw 400 error if userID is not a number', async () => {
       req.params.userId = 'invalid';
       req.user = { role: 'ADMIN', id: 2 };
 
@@ -369,7 +369,7 @@ describe('Users Controller', () => {
       );
     });
 
-    it('should throw 403 error if user does not have access', async () => {
+    test('should throw 403 error if user does not have access', async () => {
       const userID = 1;
       req.params.userId = userID;
       req.user = { role: 'USER', id: 2 };
@@ -381,7 +381,7 @@ describe('Users Controller', () => {
       );
     });
 
-    it('should throw 404 error if user is not found', async () => {
+    test('should throw 404 error if user is not found', async () => {
       const userID = 1;
       req.params.userId = userID;
       req.user = { role: 'ADMIN', id: 2 };

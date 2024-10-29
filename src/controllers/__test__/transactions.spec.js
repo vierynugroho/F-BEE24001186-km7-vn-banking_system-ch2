@@ -25,7 +25,7 @@ describe('Transactions Controller', () => {
   });
 
   describe('transfer', () => {
-    it('should successfully transfer funds if user has access to the account', async () => {
+    test('should successfully transfer funds if user has access to the account', async () => {
       req.user = { id: 1 };
       req.body = { senderID: 1, amount: 100 };
       const account = { user_id: 1 };
@@ -45,7 +45,7 @@ describe('Transactions Controller', () => {
       });
     });
 
-    it('should throw a 403 error if the user does not have access to the account', async () => {
+    test('should throw a 403 error if the user does not have access to the account', async () => {
       req.user = { id: 2 };
       req.body = { senderID: 1, amount: 100 };
       const account = { user_id: 1 };
@@ -59,7 +59,7 @@ describe('Transactions Controller', () => {
       );
     });
 
-    it('should handle errors thrown during account retrieval', async () => {
+    test('should handle errors thrown during account retrieval', async () => {
       req.user = { id: 1 };
       req.body = { senderID: 1, amount: 100 };
 
@@ -72,7 +72,7 @@ describe('Transactions Controller', () => {
       expect(next).toHaveBeenCalledWith(expect.any(Error));
     });
 
-    it('should handle errors thrown during the transfer', async () => {
+    test('should handle errors thrown during the transfer', async () => {
       req.user = { id: 1 };
       req.body = { senderID: 1, amount: 100 };
       const account = { user_id: 1 };
@@ -90,7 +90,6 @@ describe('Transactions Controller', () => {
 
   describe('get all transactions data', () => {
     test('should parse page and limit to integers and use defaults if not provided', async () => {
-      // Arrange
       const transactions = [{ id: 1, amount: 100 }];
       const totalTransactions = 1;
 
@@ -99,16 +98,14 @@ describe('Transactions Controller', () => {
         totalTransactions,
       });
 
-      req.query.page = undefined; // No page query
-      req.query.limit = undefined; // No limit query
+      req.query.page = undefined;
+      req.query.limit = undefined;
 
-      // Act
       await TransactionsController.getAllTransactions(req, res, next);
 
-      // Assert
       expect(TransactionsService.getAllTransactions).toHaveBeenCalledWith({
         offset: 0,
-        limit: 5, // Default limit
+        limit: 5,
       });
       expect(res.json).toHaveBeenCalledWith({
         meta: {
@@ -127,7 +124,6 @@ describe('Transactions Controller', () => {
     });
 
     test('should handle pagination correctly with multiple pages', async () => {
-      // Arrange
       const transactions = Array.from({ length: 5 }, (_, i) => ({
         id: i + 1,
         amount: (i + 1) * 100,
@@ -138,15 +134,13 @@ describe('Transactions Controller', () => {
         transactions,
         totalTransactions,
       });
-      req.query.page = '2'; // Second page
-      req.query.limit = '5'; // Five items per page
+      req.query.page = '2';
+      req.query.limit = '5';
 
-      // Act
       await TransactionsController.getAllTransactions(req, res, next);
 
-      // Assert
-      expect(parseInt(req.query.page)).toBe(2); // Check page is parsed
-      expect(parseInt(req.query.limit)).toBe(5); // Check limit is parsed
+      expect(parseInt(req.query.page)).toBe(2);
+      expect(parseInt(req.query.limit)).toBe(5);
       expect(res.json).toHaveBeenCalledWith({
         meta: {
           statusCode: 200,
@@ -164,7 +158,6 @@ describe('Transactions Controller', () => {
     });
 
     test('should set nextPage and prevPage correctly when on the last page', async () => {
-      // Arrange
       const transactions = [{ id: 6, amount: 600 }];
       const totalTransactions = 6;
 
@@ -175,10 +168,8 @@ describe('Transactions Controller', () => {
       req.query.page = '2';
       req.query.limit = '5';
 
-      // Act
       await TransactionsController.getAllTransactions(req, res, next);
 
-      // Assert
       expect(res.json).toHaveBeenCalledWith({
         meta: {
           statusCode: 200,
@@ -196,7 +187,6 @@ describe('Transactions Controller', () => {
     });
 
     test('should handle service error correctly and pass it to next middleware', async () => {
-      // Arrange
       const errorMessage = 'Error retrieving transactions';
       TransactionsService.getAllTransactions.mockRejectedValue(
         new Error(errorMessage),
@@ -204,25 +194,20 @@ describe('Transactions Controller', () => {
       req.query.page = '1';
       req.query.limit = '5';
 
-      // Act
       await TransactionsController.getAllTransactions(req, res, next);
 
-      // Assert
-      expect(next).toHaveBeenCalledWith(expect.any(Error)); // Check if next is called with an error
-      expect(next.mock.calls[0][0].message).toBe(errorMessage); // Check the error message
+      expect(next).toHaveBeenCalledWith(expect.any(Error));
+      expect(next.mock.calls[0][0].message).toBe(errorMessage);
     });
   });
 
   describe('get transaction data by transactionID', () => {
     test('should throw error if transactionID is not a number', async () => {
-      // Arrange
       req.params.transactionID = 'invalidID';
       req.user = { id: 1, role: 'CUSTOMER' };
 
-      // Act
       await TransactionsController.getTransaction(req, res, next);
 
-      // Assert
       expect(next).toHaveBeenCalledWith(expect.any(ErrorHandler));
       expect(next.mock.calls[0][0].statusCode).toBe(400);
       expect(next.mock.calls[0][0].message).toBe(
@@ -231,7 +216,6 @@ describe('Transactions Controller', () => {
     });
 
     test('should retrieve transaction data successfully for non-customer roles', async () => {
-      // Arrange
       const transactionID = 1;
       const transaction = {
         id: transactionID,
@@ -245,10 +229,8 @@ describe('Transactions Controller', () => {
       TransactionsService.getTransaction.mockResolvedValue(transaction);
       AccountsService.getAccountByUserID.mockResolvedValue([{ id: 1 }]);
 
-      // Act
       await TransactionsController.getTransaction(req, res, next);
 
-      // Assert
       expect(res.json).toHaveBeenCalledWith({
         meta: {
           statusCode: 200,
@@ -259,7 +241,6 @@ describe('Transactions Controller', () => {
     });
 
     test('should allow access if customer account matches source or destination account ID', async () => {
-      // Arrange
       const transactionID = 1;
       const transaction = {
         id: transactionID,
@@ -273,10 +254,8 @@ describe('Transactions Controller', () => {
       TransactionsService.getTransaction.mockResolvedValue(transaction);
       AccountsService.getAccountByUserID.mockResolvedValue([{ id: 1 }]);
 
-      // Act
       await TransactionsController.getTransaction(req, res, next);
 
-      // Assert
       expect(res.json).toHaveBeenCalledWith({
         meta: {
           statusCode: 200,
@@ -287,7 +266,6 @@ describe('Transactions Controller', () => {
     });
 
     test('should deny access if customer account does not match source or destination account ID', async () => {
-      // Arrange
       const transactionID = 1;
       const transaction = {
         id: transactionID,
@@ -301,10 +279,8 @@ describe('Transactions Controller', () => {
       TransactionsService.getTransaction.mockResolvedValue(transaction);
       AccountsService.getAccountByUserID.mockResolvedValue([{ id: 1 }]);
 
-      // Act
       await TransactionsController.getTransaction(req, res, next);
 
-      // Assert
       expect(next).toHaveBeenCalledWith(expect.any(ErrorHandler));
       expect(next.mock.calls[0][0].statusCode).toBe(403);
       expect(next.mock.calls[0][0].message).toBe(
@@ -313,7 +289,6 @@ describe('Transactions Controller', () => {
     });
 
     test('should handle error if AccountsService throws an error', async () => {
-      // Arrange
       req.params.transactionID = '1';
       req.user = { id: 1, role: 'CUSTOMER' };
       const errorMessage = 'Error retrieving account data';
@@ -322,16 +297,13 @@ describe('Transactions Controller', () => {
         new Error(errorMessage),
       );
 
-      // Act
       await TransactionsController.getTransaction(req, res, next);
 
-      // Assert
       expect(next).toHaveBeenCalledWith(expect.any(Error));
       expect(next.mock.calls[0][0].message).toBe(errorMessage);
     });
 
     test('should handle error if TransactionsService throws an error', async () => {
-      // Arrange
       const transactionID = 1;
       const errorMessage = 'Error retrieving transaction data';
 
@@ -343,10 +315,8 @@ describe('Transactions Controller', () => {
       );
       AccountsService.getAccountByUserID.mockResolvedValue([{ id: 1 }]);
 
-      // Act
       await TransactionsController.getTransaction(req, res, next);
 
-      // Assert
       expect(next).toHaveBeenCalledWith(expect.any(Error));
       expect(next.mock.calls[0][0].message).toBe(errorMessage);
     });

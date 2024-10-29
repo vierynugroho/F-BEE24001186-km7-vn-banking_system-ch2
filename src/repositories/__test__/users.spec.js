@@ -52,13 +52,10 @@ describe('Users Repository', () => {
 
   describe('get users', () => {
     test('should return a list of users with profiles based on pagination', async () => {
-      // Mock the findMany method to return mock users
       prisma.users.findMany.mockResolvedValueOnce(mockUsers);
 
-      // Call the function
       const result = await UsersRepository.getUsers(pagination);
 
-      // Assertions
       expect(prisma.users.findMany).toHaveBeenCalledWith({
         skip: pagination.offset,
         take: pagination.limit,

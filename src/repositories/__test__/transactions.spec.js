@@ -20,7 +20,7 @@ describe('Transactions Repository', () => {
     jest.clearAllMocks();
   });
   describe('add to transaction', () => {
-    it('should create a new transaction and return the transaction data', async () => {
+    test('should create a new transaction and return the transaction data', async () => {
       const senderID = 1;
       const receiverID = 2;
       const amount = 500;
@@ -31,7 +31,6 @@ describe('Transactions Repository', () => {
         amount,
       };
 
-      // Mock the create method to return the mock transaction
       prisma.transactions.create.mockResolvedValueOnce(mockTransaction);
 
       const result = await TransactionsRepository.addToTransaction(
@@ -50,7 +49,7 @@ describe('Transactions Repository', () => {
       expect(result).toEqual(mockTransaction);
     });
 
-    it('should throw an error if the transaction cannot be created', async () => {
+    test('should throw an error if the transaction cannot be created', async () => {
       const senderID = 1;
       const receiverID = 2;
       const amount = 500;
@@ -72,7 +71,7 @@ describe('Transactions Repository', () => {
   });
 
   describe('get transactions', () => {
-    it('should return a list of transactions with pagination', async () => {
+    test('should return a list of transactions with pagination', async () => {
       const pagination = { offset: 0, limit: 10 };
       const mockTransactions = [
         {
@@ -134,7 +133,7 @@ describe('Transactions Repository', () => {
       expect(result).toEqual(mockTransactions);
     });
 
-    it('should return an empty list if no transactions are found', async () => {
+    test('should return an empty list if no transactions are found', async () => {
       const pagination = { offset: 0, limit: 10 };
       const mockTransactions = [];
 
@@ -171,7 +170,7 @@ describe('Transactions Repository', () => {
   });
 
   describe('get transaction by ID', () => {
-    it('should return a transaction with related data when transaction is found', async () => {
+    test('should return a transaction with related data when transaction is found', async () => {
       const transactionID = 1;
       const mockTransaction = {
         id: transactionID,
@@ -230,7 +229,7 @@ describe('Transactions Repository', () => {
       expect(result).toEqual(mockTransaction);
     });
 
-    it('should return null if no transaction is found with the given ID', async () => {
+    test('should return null if no transaction is found with the given ID', async () => {
       const transactionID = 999;
       prisma.transactions.findUnique.mockResolvedValueOnce(null);
 
@@ -264,7 +263,7 @@ describe('Transactions Repository', () => {
   });
 
   describe('get an account that has transactions', () => {
-    it('should return true if transactions are found for the given accountID', async () => {
+    test('should return true if transactions are found for the given accountID', async () => {
       const accountID = 1;
       const mockTransactions = [
         {
@@ -296,7 +295,7 @@ describe('Transactions Repository', () => {
       expect(result).toBe(true);
     });
 
-    it('should return false if no transactions are found for the given accountID', async () => {
+    test('should return false if no transactions are found for the given accountID', async () => {
       const accountID = 1;
 
       prisma.transactions.findMany.mockResolvedValueOnce([]);
@@ -316,7 +315,7 @@ describe('Transactions Repository', () => {
   });
 
   describe('count transactions', () => {
-    it('should return the total number of transactions', async () => {
+    test('should return the total number of transactions', async () => {
       const mockTotalTransactions = 42;
       prisma.transactions.count.mockResolvedValueOnce(mockTotalTransactions);
 
@@ -326,7 +325,7 @@ describe('Transactions Repository', () => {
       expect(result).toBe(mockTotalTransactions);
     });
 
-    it('should handle the case where there are no transactions', async () => {
+    test('should handle the case where there are no transactions', async () => {
       prisma.transactions.count.mockResolvedValueOnce(0);
 
       const result = await TransactionsRepository.countTransactions();

@@ -69,4 +69,25 @@ export class UsersRepository {
 
     return userRegister;
   }
+
+  static async addUserData(data, userID) {
+    const userData = await prisma.userDatas.create({
+      data: {
+        file_type: '',
+        file_url: '',
+        file_id: data.file_id,
+        name,
+        description,
+        userId: userID,
+      },
+    });
+    return userData;
+  }
+
+  static async updateUserData(data, userID) {
+    return { data, userID };
+  }
+  static async deleteUserData(fileID, userID) {
+    return { data, userID };
+  }
 }

@@ -2,6 +2,7 @@ import * as argon from 'argon2';
 import { UsersRepository } from '../repositories/users.js';
 import { ErrorHandler } from '../middlewares/error.js';
 import generateJWT from '../utils/jwtGenerate.js';
+import handleUpload from '../utils/fileUpload.js';
 
 export class UsersService {
   static async register(data) {
@@ -64,5 +65,33 @@ export class UsersService {
     const user = await UsersRepository.getUserById(userID);
 
     return user;
+  }
+
+  static async uploadData(files) {
+    if (!files.length <= 0) {
+      throw new ErrorHandler(404, 'file is not found');
+    }
+
+    const uploaded = await handleUpload(files);
+    console.log(uploaded); // masukkan data ke db
+    /*
+    {
+      identity_type: {
+        fileId: '6724cae6e375273f60e92596',
+        name: 'identity_type-1730464484192_nwBCvVGUH.png',
+        size: 175596,
+        versionInfo: { id: '6724cae6e375273f60e92596', name: 'Version 1' },
+        filePath: '/users_data/identity_type-1730464484192_nwBCvVGUH.png',
+        url: 'https://ik.imagekit.io/vieryn/users_data/identity_type-1730464484192_nwBCvVGUH.png',
+        fileType: 'image',
+        height: 2000,
+        width: 2000,
+        thumbnailUrl: 'https://ik.imagekit.io/vieryn/tr:n-ik_ml_thumbnail/users_data/identity_type-1730464484192_nwBCvVGUH.png',
+        AITags: null
+      },
+      profile_picture: null
+    }
+    */
+    return uploaded;
   }
 }

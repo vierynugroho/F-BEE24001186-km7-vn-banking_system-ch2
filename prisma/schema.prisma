@@ -48,6 +48,7 @@ model Users {
 
   Profiles      Profiles?
   Bank_Accounts Bank_Accounts[]
+  UserDatas     UserDatas[]
 
   @@map("users")
 }
@@ -89,4 +90,16 @@ model Transactions {
 
   @@index(fields: [source_account_id])
   @@map("transactions")
+}
+
+model UserDatas {
+  id          Int    @id @default(autoincrement())
+  file_id     String @unique
+  file_url    String @unique
+  file_type   String
+  name        String
+  description String
+
+  userID  Users @relation(fields: [usersId], references: [id])
+  usersId Int
 }

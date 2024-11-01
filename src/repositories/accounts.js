@@ -1,4 +1,4 @@
-import { prisma } from '../lib/prisma.js';
+import { prisma } from '../libs/prisma.js';
 
 export class AccountsRepository {
   static async getBalance(accountID) {

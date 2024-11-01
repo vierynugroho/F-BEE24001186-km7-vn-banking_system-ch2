@@ -1,5 +1,5 @@
 import * as argon from 'argon2';
-import { prisma } from '../../src/lib/prisma.js';
+import { prisma } from '../../src/libs/prisma.js';
 
 // Helper function to generate random float numbers for transaction amounts
 function getRandomFloat(min, max) {

@@ -1,7 +1,7 @@
-import { prisma } from '../../lib/prisma.js';
+import { prisma } from '../../libs/prisma.js';
 import { AccountsRepository } from '../accounts.js';
 
-jest.mock('../../lib/prisma.js', () => ({
+jest.mock('../../libs/prisma.js', () => ({
   prisma: {
     $transaction: jest.fn(),
     users: {

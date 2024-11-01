@@ -137,4 +137,25 @@ export class UsersController {
       next(error);
     }
   }
+
+  static async updateUserData(req, res, next) {
+    try {
+      const files = req.files;
+
+      const uploaded = await UsersService.uploadData(files);
+
+      delete files.identity_type[0].size;
+      delete files.identity_type[0].buffer;
+
+      res.json({
+        meta: {
+          statusCode: 200,
+          message: 'user data updated successfully',
+        },
+        data: uploaded,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

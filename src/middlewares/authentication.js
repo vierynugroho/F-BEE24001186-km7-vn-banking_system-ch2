@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { prisma } from '../lib/prisma.js';
+import { prisma } from '../libs/prisma.js';
 import { ErrorHandler } from './error.js';
 
 export default async (req, res, next) => {
@@ -27,12 +27,6 @@ export default async (req, res, next) => {
 
     req.user = user;
 
-    if (req.user === null) {
-      throw new ErrorHandler(
-        401,
-        'unauthorized, session finished, please re-login',
-      );
-    }
     next();
   } catch (error) {
     next(error);

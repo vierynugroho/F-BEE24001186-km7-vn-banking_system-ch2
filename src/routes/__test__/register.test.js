@@ -1,11 +1,11 @@
 import request from 'supertest';
 import app from '../../app.js';
-import { prisma } from '../../lib/prisma.js';
+import { prisma } from '../../libs/prisma.js';
 
 jest.useRealTimers();
 
 // Mock Prisma
-jest.mock('../../lib/prisma.js', () => ({
+jest.mock('../../libs/prisma.js', () => ({
   prisma: {
     users: {
       findUnique: jest.fn(),

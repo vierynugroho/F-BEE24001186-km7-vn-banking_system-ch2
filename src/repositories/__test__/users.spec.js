@@ -1,7 +1,7 @@
-import { prisma } from '../../lib/prisma.js';
+import { prisma } from '../../libs/prisma.js';
 import { UsersRepository } from '../users.js';
 
-jest.mock('../../lib/prisma.js', () => ({
+jest.mock('../../libs/prisma.js', () => ({
   prisma: {
     users: {
       findMany: jest.fn(),

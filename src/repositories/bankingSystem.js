@@ -1,4 +1,4 @@
-import client from '../lib/db.js';
+import client from '../libs/db.js';
 
 export class BankingSystemRepository {
   static async getAccount(accountID) {

@@ -1,5 +1,6 @@
 import { Prisma } from '@prisma/client';
 import jwt from 'jsonwebtoken';
+import { MulterError } from 'multer';
 
 export class ErrorHandler extends Error {
   constructor(statusCode, message) {
@@ -86,6 +87,15 @@ export const errorMiddleware = (err, req, res, next) => {
         statusCode: 401,
         message: `token is expired, please re-login`,
         details: err.message,
+      },
+    });
+  } else if (err instanceof MulterError) {
+    res.status(400).json({
+      error: {
+        statusCode: 400,
+        title: `${err.code}: ${err.name}`,
+        message: `${err.name} - ${err.message}`,
+        fields: err.field,
       },
     });
   } else if (err instanceof ErrorHandler) {

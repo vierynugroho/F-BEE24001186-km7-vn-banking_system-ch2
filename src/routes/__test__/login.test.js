@@ -1,10 +1,10 @@
 import request from 'supertest';
 import app from '../../app.js';
-import { prisma } from '../../lib/prisma.js';
+import { prisma } from '../../libs/prisma.js';
 import * as argon from 'argon2';
 
 jest.useRealTimers();
-jest.mock('../../lib/prisma.js', () => ({
+jest.mock('../../libs/prisma.js', () => ({
   prisma: {
     users: {
       findUnique: jest.fn(),
@@ -65,7 +65,7 @@ describe('Auth - Login', () => {
     expect(response.body.meta).toHaveProperty('statusCode', 200);
     expect(response.body.meta).toHaveProperty('message', 'login successfully');
     expect(response.body).toHaveProperty('data');
-    expect(response.body.data).toHaveProperty('_token', expect.any(String)); // Expect a JWT token
+    expect(response.body.data).toHaveProperty('_token', expect.any(String));
   });
 
   test('should return a 401 error with invalid credentials', async () => {

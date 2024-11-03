@@ -100,6 +100,6 @@ model UserDatas {
   name        String
   description String
 
-  userID  Users @relation(fields: [usersId], references: [id])
-  usersId Int
+  userID Users @relation(fields: [userId], references: [id])
+  userId Int
 }

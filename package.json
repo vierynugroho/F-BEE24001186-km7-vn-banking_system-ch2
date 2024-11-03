@@ -11,6 +11,7 @@
     "prisma:reset": "npx prisma migrate reset",
     "prisma:seed": "node ./prisma/seeders/seeder.js",
     "prisma:studio": "npx prisma studio",
+    "prisma:refresh": "npm run prisma:reset && npm run prisma:migrate && npx prisma generate && npm run prisma:seed",
     "prepare": "husky",
     "lint": "eslint .",
     "swagger:generate": "node src/lib/swaggerGenerator.js",

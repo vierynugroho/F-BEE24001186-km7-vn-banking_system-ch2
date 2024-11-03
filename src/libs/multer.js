@@ -7,26 +7,28 @@ const fileTypes = {
   document: ['application/pdf'],
 };
 
+let fileSize = 5 * 1024 * 1024; // 5MB
+
 const multerConfig = multer({
   fileFilter: (req, file, cb) => {
     let allowedTypes;
-    switch (file.mimetype.split('/')[0]) {
-      case 'video':
-        allowedTypes = fileTypes.video;
-        break;
-      case 'image':
-        allowedTypes = fileTypes.image;
-        break;
-      case 'document':
-        allowedTypes = fileTypes.document;
-        break;
-      default:
-        return cb(
-          new ErrorHandler(
-            400,
-            'Invalid type. Please specify either video, image, or document.',
-          ),
-        );
+
+    if (file.mimetype.split('/')[0] == 'image') {
+      fileSize = 2 * 1024 * 1024;
+      allowedTypes = fileTypes.image;
+    } else if (file.mimetype.split('/')[0] == 'video') {
+      fileSize = 5 * 1024 * 1024;
+      allowedTypes = fileTypes.video;
+    } else if (file.mimetype == 'application/pdf') {
+      fileSize = 3 * 1024 * 1024;
+      allowedTypes = fileTypes.document;
+    } else {
+      return cb(
+        new ErrorHandler(
+          400,
+          'Invalid type. Please specify either video, image, or document.',
+        ),
+      );
     }
 
     if (allowedTypes.includes(file.mimetype)) {
@@ -41,7 +43,7 @@ const multerConfig = multer({
     }
   },
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB
+    fileSize,
   },
   dest: (req, file, cb) => {
     cb(null, '/public/files');

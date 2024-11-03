@@ -74,3 +74,11 @@ export const depositSchema = Joi.object({
 export const withdrawalSchema = Joi.object({
   amount: Joi.number().min(1).required(),
 });
+
+// profiles update
+export const profileUpdateSchema = Joi.object({
+  name: Joi.string()
+    .valid('KTP', 'KTM', 'SIM', 'PASSPORT', 'NPWP', 'OTHERS')
+    .required(),
+  description: Joi.string().optional().allow(null),
+});

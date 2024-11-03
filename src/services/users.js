@@ -68,30 +68,29 @@ export class UsersService {
   }
 
   static async uploadData(files) {
-    if (!files.length <= 0) {
-      throw new ErrorHandler(404, 'file is not found');
-    }
+    try {
+      if (!files.length <= 0) {
+        throw new ErrorHandler(404, 'file is not found');
+      }
 
-    const uploaded = await handleUpload(files);
-    console.log(uploaded); // masukkan data ke db
-    /*
-    {
-      identity_type: {
-        fileId: '6724cae6e375273f60e92596',
-        name: 'identity_type-1730464484192_nwBCvVGUH.png',
-        size: 175596,
-        versionInfo: { id: '6724cae6e375273f60e92596', name: 'Version 1' },
-        filePath: '/users_data/identity_type-1730464484192_nwBCvVGUH.png',
-        url: 'https://ik.imagekit.io/vieryn/users_data/identity_type-1730464484192_nwBCvVGUH.png',
-        fileType: 'image',
-        height: 2000,
-        width: 2000,
-        thumbnailUrl: 'https://ik.imagekit.io/vieryn/tr:n-ik_ml_thumbnail/users_data/identity_type-1730464484192_nwBCvVGUH.png',
-        AITags: null
-      },
-      profile_picture: null
+      const uploaded = await handleUpload(files);
+
+      return uploaded;
+    } catch (error) {
+      throw new ErrorHandler(500, error.message);
     }
-    */
-    return uploaded;
+  }
+
+  static async updateUserData(data, uploadedFile, userID) {
+    const file = uploadedFile;
+
+    console.log(userID);
+    const createUserData = await UsersRepository.addUserData(
+      data,
+      file,
+      userID,
+    );
+
+    return createUserData;
   }
 }

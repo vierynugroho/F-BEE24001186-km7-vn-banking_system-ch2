@@ -44,6 +44,15 @@ jobs:
         run: npm run test
         env:
           CI: true
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
+          IMAGEKIT_PUBLIC_KEY: ${{ secrets.IMAGEKIT_PUBLIC_KEY }}
+          IMAGEKIT_URL_ENDPOINT: ${{ secrets.IMAGEKIT_URL_ENDPOINT }}
+          JWT_EXPIRED: ${{ secrets.JWT_EXPIRED }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
 
       - name: Upload test coverage
         uses: codecov/codecov-action@v4

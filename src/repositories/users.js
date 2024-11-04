@@ -70,13 +70,44 @@ export class UsersRepository {
     return userRegister;
   }
 
-  static async addUserData(data, file, userID) {
-    console.log(file);
-    const userData = await prisma.userDatas.create({
-      data: {
-        file_type: file.fileType,
-        file_url: file.url,
-        file_id: file.fileId,
+  static async getDataUsers(userID) {
+    const userData = await prisma.dataUsers.findMany({
+      where: {
+        userId: userID,
+      },
+    });
+
+    return userData;
+  }
+
+  static async getUserData(fileID, userID) {
+    const userData = await prisma.dataUsers.findFirst({
+      where: {
+        AND: [{ userId: userID }, { file_id: fileID || null }],
+      },
+    });
+
+    return userData;
+  }
+
+  static async upsertUserData(data, uploadedFile, fileID, userID) {
+    const updateData = {};
+    if (uploadedFile.type) updateData.file_type = uploadedFile.type;
+    if (uploadedFile.url) updateData.file_url = uploadedFile.url;
+    if (uploadedFile.fileId) updateData.file_id = uploadedFile.fileId;
+    if (data.name) updateData.name = data.name;
+    if (data.description) updateData.description = data.description;
+
+    console.log(`userID: ${userID}`);
+    const userData = await prisma.dataUsers.upsert({
+      where: {
+        userId: userID,
+      },
+      update: updateData,
+      create: {
+        file_type: uploadedFile.type,
+        file_url: uploadedFile.url,
+        file_id: uploadedFile.fileId,
         name: data.name,
         description: data.description,
         userId: userID,
@@ -85,10 +116,13 @@ export class UsersRepository {
     return userData;
   }
 
-  static async updateUserData(data, userID) {
-    return { data, userID };
-  }
   static async deleteUserData(fileID, userID) {
-    return { data, userID };
+    const userData = await prisma.userDatas.delete({
+      where: {
+        AND: [{ userId: userID }, { file_id: fileID }],
+      },
+    });
+
+    return userData;
   }
 }

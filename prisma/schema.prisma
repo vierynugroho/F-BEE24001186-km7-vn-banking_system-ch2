@@ -48,7 +48,7 @@ model Users {
 
   Profiles      Profiles?
   Bank_Accounts Bank_Accounts[]
-  UserDatas     UserDatas[]
+  DataUsers     DataUsers?
 
   @@map("users")
 }
@@ -92,14 +92,14 @@ model Transactions {
   @@map("transactions")
 }
 
-model UserDatas {
+model DataUsers {
   id          Int    @id @default(autoincrement())
   file_id     String @unique
   file_url    String @unique
   file_type   String
   name        String
   description String
+  userId      Int    @unique
 
-  userID Users @relation(fields: [userId], references: [id])
-  userId Int
+  Users Users @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

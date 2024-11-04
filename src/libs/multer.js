@@ -57,7 +57,6 @@ const multerConfig = multer({
 
 const fileHandlerMiddleware = multerConfig.fields([
   { name: 'identity_type', maxCount: 1 },
-  { name: 'profile_picture', maxCount: 1 },
 ]);
 
 export default fileHandlerMiddleware;

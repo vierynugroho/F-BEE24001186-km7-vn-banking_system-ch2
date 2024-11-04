@@ -13,7 +13,7 @@ router
 router.route('/:userId').get(authentication, UsersController.getUserById);
 router
   .route('/:userId')
-  .patch(
+  .put(
     fileHandlerMiddleware,
     Validator(profileUpdateSchema),
     UsersController.updateProfile,

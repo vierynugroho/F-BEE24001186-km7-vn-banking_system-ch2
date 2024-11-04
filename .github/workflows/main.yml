@@ -1,26 +1,53 @@
 name: CI Checks
 
 on:
+  push:
+    branches:
+      - '**'
+      - '!main'
   pull_request:
     branches:
       - main
 
 jobs:
-  lint_check:
-    name: Lint
+  quality_checks:
+    name: Quality Checks
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20.10.0'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Run linter
         run: npm run lint
+
+      - name: Run tests
+        run: npm run test
+        env:
+          CI: true
+
+      - name: Upload test coverage
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true
+          verbose: true

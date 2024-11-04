@@ -143,6 +143,34 @@ export class UsersController {
       const userID = parseInt(req.params.userId);
       const files = req.files;
       const data = req.body;
+
+      if (isNaN(userID)) {
+        throw new ErrorHandler(400, 'userID must be a number');
+      }
+
+      const updateProfile = await UsersService.upsertUserData(
+        data,
+        files,
+        userID,
+      );
+
+      res.json({
+        meta: {
+          statusCode: 200,
+          message: 'user data updated successfully',
+        },
+        data: updateProfile,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async deleteProfileData(req, res, next) {
+    try {
+      const userID = parseInt(req.params.userId);
+      const files = req.files;
+      const data = req.body;
       let uploaded = null;
 
       if (isNaN(userID)) {

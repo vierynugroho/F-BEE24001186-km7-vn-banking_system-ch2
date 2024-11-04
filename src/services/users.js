@@ -2,7 +2,7 @@ import * as argon from 'argon2';
 import { UsersRepository } from '../repositories/users.js';
 import { ErrorHandler } from '../middlewares/error.js';
 import generateJWT from '../utils/jwtGenerate.js';
-import handleUpload from '../utils/fileUpload.js';
+import { ImageKitService } from './imageKit.js';
 
 export class UsersService {
   static async register(data) {
@@ -67,27 +67,19 @@ export class UsersService {
     return user;
   }
 
-  static async uploadData(files) {
-    try {
-      if (!files.length <= 0) {
-        throw new ErrorHandler(404, 'file is not found');
-      }
-
-      const uploaded = await handleUpload(files);
-
-      return uploaded;
-    } catch (error) {
-      throw new ErrorHandler(500, error.message);
+  static async upsertUserData(data, file, userID) {
+    let uploaded = null;
+    if (file) {
+      uploaded = await ImageKitService.upload(file, 'users_data', [
+        'user',
+        'identity',
+      ]);
     }
-  }
 
-  static async updateUserData(data, uploadedFile, userID) {
-    const file = uploadedFile;
-
-    console.log(userID);
-    const createUserData = await UsersRepository.addUserData(
+    const createUserData = await UsersRepository.upsertUserData(
       data,
-      file,
+      uploaded,
+      null,
       userID,
     );
 

@@ -15,7 +15,8 @@
     "prepare": "husky",
     "lint": "eslint .",
     "swagger:generate": "node src/lib/swaggerGenerator.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "test:ci": "jest --coverage --ci"
   },
   "husky": {
     "hooks": {

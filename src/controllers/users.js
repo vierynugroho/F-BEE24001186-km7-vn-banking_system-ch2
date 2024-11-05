@@ -169,23 +169,12 @@ export class UsersController {
   static async deleteProfileData(req, res, next) {
     try {
       const userID = parseInt(req.params.userId);
-      const files = req.files;
-      const data = req.body;
-      let uploaded = null;
 
       if (isNaN(userID)) {
         throw new ErrorHandler(400, 'userID must be a number');
       }
 
-      if (files) {
-        uploaded = await UsersService.uploadData(files);
-      }
-
-      const updateProfile = await UsersService.updateUserData(
-        data,
-        uploaded.identity_type,
-        userID,
-      );
+      const updateProfile = await UsersService.deleteUserData(userID);
 
       res.json({
         meta: {

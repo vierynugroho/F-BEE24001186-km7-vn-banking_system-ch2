@@ -18,5 +18,6 @@ router
     Validator(profileUpdateSchema),
     UsersController.updateProfile,
   );
+router.route('/:userId').delete(UsersController.deleteProfileData);
 
 export default router;

@@ -125,7 +125,7 @@ export class UsersRepository {
   }
 
   static async deleteUserData(userID) {
-    const userData = await prisma.userDatas.delete({
+    const userData = await prisma.dataUsers.delete({
       where: { userId: userID },
     });
 

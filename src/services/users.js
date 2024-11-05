@@ -97,4 +97,18 @@ export class UsersService {
 
     return createUserData;
   }
+
+  static async deleteUserData(userID) {
+    const userData = await UsersRepository.getUserDataByUserID(userID);
+
+    if (!userData) {
+      throw new ErrorHandler(404, 'user has not uploaded data');
+    }
+
+    await ImageKitService.delete(userData.file_id);
+
+    const deleteData = await UsersRepository.deleteUserData(userID);
+
+    return deleteData;
+  }
 }

@@ -14,10 +14,11 @@ router.route('/:userId').get(authentication, UsersController.getUserById);
 router
   .route('/:userId')
   .patch(
+    authentication,
     fileHandlerMiddleware,
     Validator(profileUpdateSchema),
     UsersController.updateProfile,
   );
-router.route('/:userId').delete(UsersController.deleteProfileData);
+router.route('/:userId').delete(authentication,UsersController.deleteProfileData);
 
 export default router;

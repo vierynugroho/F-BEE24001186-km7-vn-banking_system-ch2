@@ -33,6 +33,9 @@
       "name": "users"
     },
     {
+      "name": "users data"
+    },
+    {
       "name": "auth"
     },
     {
@@ -451,6 +454,495 @@
                   "error": {
                     "statusCode": 403,
                     "message": "the role you have does not have permission"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["users data"],
+        "summary": "update or insert user data",
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "identity_type": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "other": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "KTP"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "update banget"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "293"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"125-2QLLarEcF9EycTFcPO9a84WemD4\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Mon, 04 Nov 2024 17:57:07 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "user data updated successfully"
+                  },
+                  "data": {
+                    "id": 6,
+                    "file_id": "67290af1e375273f606b733e",
+                    "file_url": "https://ik.imagekit.io/vieryn/users_data/identity_type-1730743023768_TfkZ2Syny.png",
+                    "file_type": "image",
+                    "name": "KTP",
+                    "description": "update banget",
+                    "userId": 1
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "133"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"85-GQhpjA3Rcd6skSuDnmnRP9mG8f8\""
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "connect.sid=s%3A9crPe-QsxMMARLRUVH1WLv3kXx6A9xre.n8%2Fou7M3SOfLCaoIm4yDJRjnJEgNuFbsK0k%2Br4Ugyvg; Path=/; HttpOnly"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Fri, 01 Nov 2024 11:41:07 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "unexpected field",
+                    "value": {
+                      "error": {
+                        "statusCode": 400,
+                        "title": "LIMIT_UNEXPECTED_FILE: MulterError",
+                        "message": "MulterError - Unexpected field",
+                        "fields": "other"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "invalid mimetype",
+                    "value": {
+                      "error": {
+                        "statusCode": 400,
+                        "message": "Invalid type. Please specify either video, image, or document."
+                      }
+                    }
+                  },
+                  "example-2": {
+                    "summary": "limit file size",
+                    "value": {
+                      "error": {
+                        "statusCode": 400,
+                        "title": "LIMIT_FILE_SIZE: MulterError",
+                        "message": "MulterError - File too large",
+                        "fields": "identity_type"
+                      }
+                    }
+                  },
+                  "example-3": {
+                    "summary": "no file",
+                    "value": {
+                      "error": {
+                        "statusCode": 400,
+                        "message": "no file selected"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "104"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"68-5w0UGCnet1CQIFg5pGEGuCxSUUs\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Sat, 02 Nov 2024 08:04:55 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "examples": {
+                  "example-0": {
+                    "summary": "invalid name",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "\"name\" must be one of [KTP, KTM, SIM, PASSPORT, NPWP, OTHERS]"
+                      }
+                    }
+                  },
+                  "example-1": {
+                    "summary": "required field",
+                    "value": {
+                      "error": {
+                        "statusCode": 422,
+                        "message": "\"name\" is required"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["users data"],
+        "summary": "delete user data",
+        "security": [
+          {
+            "bearerToken": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "294"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"126-Y5KVW7GcDG7iHmIMXMPVRr4AzuQ\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Tue, 05 Nov 2024 03:07:42 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "user data updated successfully"
+                  },
+                  "data": {
+                    "id": 13,
+                    "file_id": "67298bf9e375273f60cf5e9e",
+                    "file_url": "https://ik.imagekit.io/vieryn/users_data/identity_type-1730776054966_52AG3Wkxb.png",
+                    "file_type": "image",
+                    "name": "KTP",
+                    "description": "update banget",
+                    "userId": 1
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "67"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"43-M3LrZDSd9oXuvNddSrJDcZDidBE\""
+                }
+              },
+              "Set-Cookie": {
+                "schema": {
+                  "type": "string",
+                  "example": "connect.sid=s%3AGZD_6TB7sKJ5FTMLAT1zXS8cDpR9FvYs.F1RP%2BkXc7Iu8o%2BuNJDSUPsnCO8KLyVzmzz52dFr2jmM; Path=/; HttpOnly"
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Tue, 05 Nov 2024 03:07:13 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 404,
+                    "message": "user has not uploaded data"
                   }
                 }
               }

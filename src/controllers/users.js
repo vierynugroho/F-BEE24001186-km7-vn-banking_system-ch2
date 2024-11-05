@@ -140,7 +140,8 @@ export class UsersController {
 
   static async updateProfile(req, res, next) {
     try {
-      const userID = parseInt(req.params.userId);
+      const userID = parseInt(req.user.id);
+      console.log(req.user);
       const files = req.files;
       const data = req.body;
 
@@ -168,7 +169,7 @@ export class UsersController {
 
   static async deleteProfileData(req, res, next) {
     try {
-      const userID = parseInt(req.params.userId);
+      const userID = parseInt(req.user.id);
 
       if (isNaN(userID)) {
         throw new ErrorHandler(400, 'userID must be a number');

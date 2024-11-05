@@ -69,7 +69,20 @@ export class UsersService {
 
   static async upsertUserData(data, file, userID) {
     let uploaded = null;
-    if (file) {
+
+    const userData = await UsersRepository.getUserDataByUserID(userID);
+
+    if (!userData) {
+      if (!('identity_type' in file)) {
+        throw new ErrorHandler(400, 'no file selected');
+      }
+    }
+
+    if ('identity_type' in file) {
+      if (userData !== null) {
+        await ImageKitService.delete(userData.file_id);
+      }
+
       uploaded = await ImageKitService.upload(file, 'users_data', [
         'user',
         'identity',
@@ -79,7 +92,6 @@ export class UsersService {
     const createUserData = await UsersRepository.upsertUserData(
       data,
       uploaded,
-      null,
       userID,
     );
 

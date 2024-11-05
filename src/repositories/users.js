@@ -70,8 +70,8 @@ export class UsersRepository {
     return userRegister;
   }
 
-  static async getDataUsers(userID) {
-    const userData = await prisma.dataUsers.findMany({
+  static async getUserDataByUserID(userID) {
+    const userData = await prisma.dataUsers.findFirst({
       where: {
         userId: userID,
       },
@@ -80,47 +80,53 @@ export class UsersRepository {
     return userData;
   }
 
-  static async getUserData(fileID, userID) {
-    const userData = await prisma.dataUsers.findFirst({
-      where: {
-        AND: [{ userId: userID }, { file_id: fileID || null }],
-      },
-    });
-
-    return userData;
-  }
-
-  static async upsertUserData(data, uploadedFile, fileID, userID) {
+  static async upsertUserData(data, uploadedFile, userID) {
     const updateData = {};
-    if (uploadedFile.type) updateData.file_type = uploadedFile.type;
-    if (uploadedFile.url) updateData.file_url = uploadedFile.url;
-    if (uploadedFile.fileId) updateData.file_id = uploadedFile.fileId;
+
+    if (!uploadedFile) {
+      const file = await this.getUserDataByUserID(userID);
+      if (file) {
+        uploadedFile = {
+          identity_type: {
+            fileType: file.file_type,
+            fileId: file.file_id,
+            url: file.file_url,
+          },
+        };
+      }
+    }
+
+    if (uploadedFile?.identity_type) {
+      updateData.file_type = uploadedFile.identity_type.fileType || null;
+      updateData.file_url = uploadedFile.identity_type.url || null;
+      updateData.file_id = uploadedFile.identity_type.fileId || null;
+    }
+
     if (data.name) updateData.name = data.name;
     if (data.description) updateData.description = data.description;
+    updateData.userId = userID;
 
-    console.log(`userID: ${userID}`);
     const userData = await prisma.dataUsers.upsert({
       where: {
         userId: userID,
       },
       update: updateData,
       create: {
-        file_type: uploadedFile.type,
-        file_url: uploadedFile.url,
-        file_id: uploadedFile.fileId,
-        name: data.name,
-        description: data.description,
+        file_type: uploadedFile?.identity_type?.fileType || null,
+        file_url: uploadedFile?.identity_type?.url || null,
+        file_id: uploadedFile?.identity_type?.fileId || null,
+        name: data.name || null,
+        description: data.description || null,
         userId: userID,
       },
     });
+
     return userData;
   }
 
-  static async deleteUserData(fileID, userID) {
+  static async deleteUserData(userID) {
     const userData = await prisma.userDatas.delete({
-      where: {
-        AND: [{ userId: userID }, { file_id: fileID }],
-      },
+      where: { userId: userID },
     });
 
     return userData;

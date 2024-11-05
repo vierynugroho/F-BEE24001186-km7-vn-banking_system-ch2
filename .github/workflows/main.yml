@@ -20,6 +20,12 @@ jobs:
           echo "Checking secrets..."
           [ -z "$IMAGEKIT_PUBLIC_KEY" ] && echo "IMAGEKIT_PUBLIC_KEY is missing!" || echo "IMAGEKIT_PUBLIC_KEY is set."
           [ -z "$IMAGEKIT_PRIVATE_KEY" ] && echo "IMAGEKIT_PRIVATE_KEY is missing!" || echo "IMAGEKIT_PRIVATE_KEY is set."
+          [ -z "$IMAGEKIT_URL_ENDPOINT" ] && echo "IMAGEKIT_URL_ENDPOINT is missing!" || echo "IMAGEKIT_URL_ENDPOINT is set."
+          [ -z "$CODECOV_TOKEN" ] && echo "CODECOV_TOKEN is missing!" || echo "CODECOV_TOKEN is set."
+          [ -z "$SESSION_SECRET" ] && echo "SESSION_SECRET is missing!" || echo "SESSION_SECRET is set."
+          [ -z "$JWT_SECRET" ] && echo "JWT_SECRET is missing!" || echo "JWT_SECRET is set."
+          [ -z "$JWT_EXPIRED" ] && echo "JWT_EXPIRED is missing!" || echo "JWT_EXPIRED is set."
+          [ -z "$DATABASE_URL" ] && echo "DATABASE_URL is missing!" || echo "DATABASE_URL is set."
 
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,10 +49,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Run linter
+      - name: Linter
         run: npm run lint
 
-      - name: Run tests
+      - name: Tests
         run: npm run test
         env:
           CI: true

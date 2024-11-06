@@ -1,11 +1,15 @@
-runtime: nodejs20
-env_variables:
-  PORT: 2000
-  NODE_ENV: production
-  JWT_SECRET: jwt_rahasiabanget
-  JWT_EXPIRED: 1d
-  SESSION_SECRET: session_rahasiabanget
-  DATABASE_URL: 'postgresql://postgres:postgres@localhost:5432/ch4_challenge?schema=public'
-  IMAGEKIT_PUBLIC_KEY: public_mK/myzDEnJqK3BjJhZ36GKfc58Y=
-  IMAGEKIT_PRIVATE_KEY: private_WHIirgTz4Z28JC9JqfQsT/45q5g=
-  IMAGEKIT_URL_ENDPOINT: https://ik.imagekit.io/vieryn/
+runtime: nodejs
+env: flex
+
+runtime_config:
+  operating_system: 'ubuntu22'
+  runtime_version: '20'
+
+manual_scaling:
+  instances: 1
+
+includes:
+  - env.yaml
+
+beta_settings:
+  cloud_sql_instances: euphoric-world-440804-k1:asia-southeast1:db-pg-bejskm7

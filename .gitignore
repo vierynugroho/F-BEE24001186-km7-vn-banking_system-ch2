@@ -3,7 +3,7 @@ node_modules
 .env
 coverage
 dist
-
+env.yaml
 # challenge 3 remove
 db
 src/lib/db.js

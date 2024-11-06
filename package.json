@@ -4,15 +4,22 @@
   "description": "BEJS chapter 4 - rest api",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
+    "start": "node src/index.js",
     "start:dev": "nodemon src/index.js",
+    "prisma:deploy": "npx prisma migrate deploy",
+    "gcloud:deploy": "gcloud app deploy",
+    "gcloud:logs": "gcloud app logs tail -s default",
     "prisma:migrate": "prisma migrate dev",
     "prisma:db": "npx prisma db push",
     "prisma:reset": "npx prisma migrate reset",
     "prisma:seed": "node ./prisma/seeders/seeder.js",
     "prisma:studio": "npx prisma studio",
     "prisma:refresh": "npm run prisma:reset && npm run prisma:migrate && npx prisma generate && npm run prisma:seed",
-    "prepare": "husky",
+    "prepare": "husky install",
     "lint": "eslint .",
     "swagger:generate": "node src/lib/swaggerGenerator.js",
     "test": "jest --coverage"
@@ -24,7 +31,8 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write"
+      "prettier --write",
+      "eslint — fix"
     ]
   },
   "keywords": [

@@ -8,6 +8,7 @@
     "node": "20.x"
   },
   "scripts": {
+    "postinstall": "prisma generate",
     "start": "node src/index.js",
     "start:dev": "nodemon src/index.js",
     "prisma:deploy": "npx prisma migrate deploy",
@@ -19,10 +20,11 @@
     "prisma:seed": "node ./prisma/seeders/seeder.js",
     "prisma:studio": "npx prisma studio",
     "prisma:refresh": "npm run prisma:reset && npm run prisma:migrate && npx prisma generate && npm run prisma:seed",
-    "prepare": "husky install",
+    "prepare": "npx husky",
     "lint": "eslint .",
     "swagger:generate": "node src/lib/swaggerGenerator.js",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "gcp-build": ""
   },
   "husky": {
     "hooks": {
@@ -32,7 +34,7 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write",
-      "eslint — fix"
+      "eslint  --fix"
     ]
   },
   "keywords": [
@@ -52,6 +54,7 @@
     "imagekit": "^5.2.0",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
@@ -69,7 +72,6 @@
     "husky": "^9.1.6",
     "jest": "^29.7.0",
     "lint-staged": "^15.2.10",
-    "morgan": "^1.10.0",
     "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
     "supertest": "^7.0.0",

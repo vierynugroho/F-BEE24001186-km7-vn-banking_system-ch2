@@ -24,18 +24,6 @@ jobs:
       - name: Install dependencies
         run: npm install --frozen-lockfile
 
-      - name: Setup Environment
-        run: touch .env
-          echo PORT='${{ secrets.PORT }}\n' >> .env
-          echo NODE_ENV='${{ secrets.NODE_ENV }}\n' >> .env
-          echo JWT_SECRET='${{ secrets.JWT_SECRET }}\n' >> .env
-          echo JWT_EXPIRED='${{ secrets.JWT_EXPIRED }}\n' >> .env
-          echo SESSION_SECRET='${{ secrets.SESSION_SECRET }}\n' >> .env
-          echo DATABASE_URL='${{ secrets.DATABASE_URL }}\n' >> .env
-          echo IMAGEKIT_PUBLIC_KEY='${{ secrets.IMAGEKIT_PUBLIC_KEY }}\n' >> .env
-          echo IMAGEKIT_PRIVATE_KEY='${{ secrets.IMAGEKIT_PRIVATE_KEY }}\n' >> .env
-          echo IMAGEKIT_URL_ENDPOINT='${{ secrets.IMAGEKIT_URL_ENDPOINT }}\n' >> .env
-
       - name: Google Cloud Auth
         uses: 'google-github-actions/auth@v2'
         with:

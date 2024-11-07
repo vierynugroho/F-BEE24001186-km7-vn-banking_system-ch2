@@ -1,0 +1,50 @@
+name: Deploy to Goggle App Engine (GAE)
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js and npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install --frozen-lockfile
+
+      - name: Setup Environment
+        run: touch .env
+          echo PORT='${{ secrets.PORT }}\n' >> .env
+          echo NODE_ENV='${{ secrets.NODE_ENV }}\n' >> .env
+          echo JWT_SECRET='${{ secrets.JWT_SECRET }}\n' >> .env
+          echo JWT_EXPIRED='${{ secrets.JWT_EXPIRED }}\n' >> .env
+          echo SESSION_SECRET='${{ secrets.SESSION_SECRET }}\n' >> .env
+          echo DATABASE_URL='${{ secrets.DATABASE_URL }}\n' >> .env
+          echo IMAGEKIT_PUBLIC_KEY='${{ secrets.IMAGEKIT_PUBLIC_KEY }}\n' >> .env
+          echo IMAGEKIT_PRIVATE_KEY='${{ secrets.IMAGEKIT_PRIVATE_KEY }}\n' >> .env
+          echo IMAGEKIT_URL_ENDPOINT='${{ secrets.IMAGEKIT_URL_ENDPOINT }}\n' >> .env
+
+      - name: Google Cloud Auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+          credentials_json: '${{ secrets.GCP_SA_KEY }}'
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Set up Cloud SDK
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: Deploy to Google App Engine
+        run: |
+          gcloud app deploy app.yaml --quiet

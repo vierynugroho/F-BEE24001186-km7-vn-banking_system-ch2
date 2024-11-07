@@ -17,6 +17,10 @@
     {
       "url": "http://localhost:2000/api/v1",
       "description": "local development - v1"
+    },
+    {
+      "url": "https://euphoric-world-440804-k1.et.r.appspot.com/api/v1",
+      "description": "production - v1"
     }
   ],
   "components": {

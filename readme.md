@@ -24,6 +24,10 @@
 6. api documentation: `http://localhost:{PORT}/api/v1/docs`
 7. running this command to testing:`npm run test`
 
+# Deployment API - Banking System
+
+[api documentation](https://euphoric-world-440804-k1.et.r.appspot.com/api/v1/docs/)
+
 # Tools Version
 
 1. Node: v20.10.0
@@ -47,11 +51,9 @@
 
 ### KM x Binar Academy Batch 7
 
-|                                                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------------------- |
-| **Notes**                                                                                                                             |
-| Banking_System.js using raw query implementation                                                                                      |
-| Banking_System using database chapter 3 (in folder /db)                                                                               |
-|                                                                                                                                       |
-| Thunder Client extention: [thunder_client_download](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) |
-| Challenge Chapter 4 BEJS                                                                                                              |
+|                                                                            |
+| -------------------------------------------------------------------------- |
+| **Notes**                                                                  |
+| Banking_System.js using raw query implementation                           |
+| Banking_System using database chapter 3 (in folder /db)                    |
+| API DOCS: (https://euphoric-world-440804-k1.et.r.appspot.com/api/v1/docs/) |

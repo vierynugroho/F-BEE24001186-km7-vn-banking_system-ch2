@@ -6480,16 +6480,7 @@
                     "message": "login successfully"
                   },
                   "data": {
-                    "id": 11,
-                    "name": "viery nugroho",
-                    "email": "viery15102002@gmail.com",
-                    "Profiles": {
-                      "id": 11,
-                      "identity_type": "KTP",
-                      "identity_number": "6289516424305",
-                      "address": "Blitar",
-                      "user_id": 11
-                    }
+                    "_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluIiwiZW1haWwiOiJhZG1pbkBleGFtcGxlLmNvbSIsImFkZHJlc3MiOiJBZGRyZXNzIDEiLCJpZGVudGl0eV9udW1iZXIiOiIxMDAwMDAwMDAiLCJpZGVudGl0eV90eXBlIjoiU0lNIiwiaWF0IjoxNzMxMDY5OTYzLCJleHAiOjE3MzExNTYzNjN9.H1M3XYI_05rtxwWRbIkyXFRBXW8QKddQ_M1vKi6WX9k"
                   }
                 }
               }

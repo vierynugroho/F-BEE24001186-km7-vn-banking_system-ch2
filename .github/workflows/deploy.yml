@@ -1,6 +1,10 @@
 name: Deploy to Goggle App Engine (GAE)
 
 on:
+  workflow_run:
+    workflows: ['Build and Test'] # Nama workflow dari file main.yml
+    types:
+      - completed
   push:
     branches:
       - main
@@ -10,6 +14,7 @@ on:
 
 jobs:
   build-and-deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} # Hanya berjalan jika main.yml berhasil
     runs-on: ubuntu-latest
 
     steps:

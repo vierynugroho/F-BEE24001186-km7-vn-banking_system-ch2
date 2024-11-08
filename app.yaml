@@ -8,15 +8,8 @@ runtime_config:
 manual_scaling:
   instances: 1
 
-env_variables:
-  NODE_ENV: 'projects/811443157641/secrets/NODE_ENV/versions/1'
-  JWT_SECRET: 'projects/811443157641/secrets/JWT_SECRET/versions/1'
-  JWT_EXPIRED: 'projects/811443157641/secrets/JWT_EXPIRED/versions/1'
-  SESSION_SECRET: 'projects/811443157641/secrets/SESSION_SECRET/versions/1'
-  DATABASE_URL: 'projects/811443157641/secrets/DATABASE_URL/versions/1'
-  IMAGEKIT_PUBLIC_KEY: 'projects/811443157641/secrets/IMAGEKIT_PUBLIC_KEY/versions/1'
-  IMAGEKIT_PRIVATE_KEY: 'projects/811443157641/secrets/IMAGEKIT_PRIVATE_KEY/versions/1'
-  IMAGEKIT_URL_ENDPOINT: 'projects/811443157641/secrets/IMAGEKIT_URL_ENDPOINT/versions/1'
+includes:
+  - env.yaml
 
 beta_settings:
   cloud_sql_instances: euphoric-world-440804-k1:asia-southeast1:db-pg-bejskm7

@@ -43,4 +43,4 @@ jobs:
           gcloud app deploy
 
       - name: Clean up files
-        run: rm app.yaml env.yaml
+        run: rm app.yaml

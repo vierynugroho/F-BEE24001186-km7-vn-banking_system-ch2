@@ -39,5 +39,14 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v2'
 
       - name: Deploy to Google App Engine
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
+          IMAGEKIT_PUBLIC_KEY: ${{ secrets.IMAGEKIT_PUBLIC_KEY }}
+          IMAGEKIT_URL_ENDPOINT: ${{ secrets.IMAGEKIT_URL_ENDPOINT }}
+          JWT_EXPIRED: ${{ secrets.JWT_EXPIRED }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          NODE_ENV: ${{ secrets.NODE_ENV }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
         run: |
           gcloud app deploy app.yaml

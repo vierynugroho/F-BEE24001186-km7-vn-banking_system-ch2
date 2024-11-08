@@ -1,8 +1,8 @@
-name: Deploy to Google App Engine (GAE)
+name: Deploy to Goggle App Engine (GAE)
 
 on:
   workflow_run:
-    workflows: ['🔎 CI Checks'] # Name of the workflow from main.yml
+    workflows: ['🔎 CI Checks'] # Nama workflow dari file main.yml
     types:
       - completed
   push:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   build-and-deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }} # Only runs if main.yml is successful
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} # Hanya berjalan jika main.yml berhasil
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +39,10 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v2'
 
       - name: Deploy to Google App Engine
+        run: |
+          gcloud app deploy app.yaml
         env:
+          CI: true
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
           IMAGEKIT_PUBLIC_KEY: ${{ secrets.IMAGEKIT_PUBLIC_KEY }}
@@ -48,6 +51,3 @@ jobs:
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           NODE_ENV: ${{ secrets.NODE_ENV }}
           SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
-        run: |
-          gcloud app deploy app.yaml --quiet \
-            --set-env-vars "DATABASE_URL=${{ secrets.DATABASE_URL }},IMAGEKIT_PRIVATE_KEY=${{ secrets.IMAGEKIT_PRIVATE_KEY }},IMAGEKIT_PUBLIC_KEY=${{ secrets.IMAGEKIT_PUBLIC_KEY }},IMAGEKIT_URL_ENDPOINT=${{ secrets.IMAGEKIT_URL_ENDPOINT }},JWT_EXPIRED=${{ secrets.JWT_EXPIRED }},JWT_SECRET=${{ secrets.JWT_SECRET }},NODE_ENV=${{ secrets.NODE_ENV }},SESSION_SECRET=${{ secrets.SESSION_SECRET }}"

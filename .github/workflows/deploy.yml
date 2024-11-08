@@ -40,28 +40,20 @@ jobs:
 
       - name: Create app.yaml with Secrets
         run: |
-          echo "runtime: nodejs" > app.yaml
-          echo "env: flex" >> app.yaml
-          echo "runtime_config:" >> app.yaml
-          echo "  operating_system: 'ubuntu22'" >> app.yaml
-          echo "  runtime_version: '20'" >> app.yaml
-          echo "manual_scaling:" >> app.yaml
-          echo "  instances: 1" >> app.yaml
-          echo "beta_settings:" >> app.yaml
-          echo "  cloud_sql_instances: euphoric-world-440804-k1:asia-southeast1:db-pg-bejskm7" >> app.yaml
-          echo "env_variables:" >> app.yaml
-          echo "  DATABASE_URL: '${{ secrets.DATABASE_URL }}'" >> app.yaml
-          echo "  IMAGEKIT_PRIVATE_KEY: '${{ secrets.IMAGEKIT_PRIVATE_KEY }}'" >> app.yaml
-          echo "  IMAGEKIT_PUBLIC_KEY: '${{ secrets.IMAGEKIT_PUBLIC_KEY }}'" >> app.yaml
-          echo "  IMAGEKIT_URL_ENDPOINT: '${{ secrets.IMAGEKIT_URL_ENDPOINT }}'" >> app.yaml
-          echo "  JWT_EXPIRED: '${{ secrets.JWT_EXPIRED }}'" >> app.yaml
-          echo "  JWT_SECRET: '${{ secrets.JWT_SECRET }}'" >> app.yaml
-          echo "  NODE_ENV: '${{ secrets.NODE_ENV }}'" >> app.yaml
-          echo "  SESSION_SECRET: '${{ secrets.SESSION_SECRET }}'" >> app.yaml
+          touch env.yaml
+          echo "env_variables:" >> env.yaml
+          echo "  DATABASE_URL: '${{ secrets.DATABASE_URL }}'" >> env.yaml
+          echo "  IMAGEKIT_PRIVATE_KEY: '${{ secrets.IMAGEKIT_PRIVATE_KEY }}'" >> env.yaml
+          echo "  IMAGEKIT_PUBLIC_KEY: '${{ secrets.IMAGEKIT_PUBLIC_KEY }}'" >> env.yaml
+          echo "  IMAGEKIT_URL_ENDPOINT: '${{ secrets.IMAGEKIT_URL_ENDPOINT }}'" >> env.yaml
+          echo "  JWT_EXPIRED: '${{ secrets.JWT_EXPIRED }}'" >> env.yaml
+          echo "  JWT_SECRET: '${{ secrets.JWT_SECRET }}'" >> env.yaml
+          echo "  NODE_ENV: '${{ secrets.NODE_ENV }}'" >> env.yaml
+          echo "  SESSION_SECRET: '${{ secrets.SESSION_SECRET }}'" >> env.yaml
 
       - name: Deploy to Google App Engine
         run: |
-          gcloud app deploy app.yaml --quiet
+          gcloud app deploy app.yaml env.yaml --quiet
 
-      - name: Clean up app.yaml
-        run: rm app.yaml
+      - name: Clean up files
+        run: rm app.yaml env.yaml

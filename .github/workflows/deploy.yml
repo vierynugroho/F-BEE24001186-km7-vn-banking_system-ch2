@@ -38,7 +38,7 @@ jobs:
       - name: Set up Cloud SDK
         uses: 'google-github-actions/setup-gcloud@v2'
 
-      - name: Create app.yaml with Secrets
+      - name: Create env.yaml with Secrets
         run: |
           touch env.yaml
           echo "env_variables:" >> env.yaml

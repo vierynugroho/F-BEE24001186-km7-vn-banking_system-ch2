@@ -8,5 +8,5 @@ runtime_config:
 manual_scaling:
   instances: 1
 
-env_variables:
+includes:
   - env.yaml

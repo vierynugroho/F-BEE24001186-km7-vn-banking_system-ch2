@@ -38,19 +38,6 @@ jobs:
       - name: Set up Cloud SDK
         uses: 'google-github-actions/setup-gcloud@v2'
 
-      - name: Create env.yaml with Secrets
-        run: |
-          touch env.yaml
-          echo "env_variables:" >> env.yaml
-          echo "  DATABASE_URL: '${{ secrets.DATABASE_URL }}'" >> env.yaml
-          echo "  IMAGEKIT_PRIVATE_KEY: '${{ secrets.IMAGEKIT_PRIVATE_KEY }}'" >> env.yaml
-          echo "  IMAGEKIT_PUBLIC_KEY: '${{ secrets.IMAGEKIT_PUBLIC_KEY }}'" >> env.yaml
-          echo "  IMAGEKIT_URL_ENDPOINT: '${{ secrets.IMAGEKIT_URL_ENDPOINT }}'" >> env.yaml
-          echo "  JWT_EXPIRED: '${{ secrets.JWT_EXPIRED }}'" >> env.yaml
-          echo "  JWT_SECRET: '${{ secrets.JWT_SECRET }}'" >> env.yaml
-          echo "  NODE_ENV: '${{ secrets.NODE_ENV }}'" >> env.yaml
-          echo "  SESSION_SECRET: '${{ secrets.SESSION_SECRET }}'" >> env.yaml
-
       - name: Deploy to Google App Engine
         run: |
           gcloud app deploy

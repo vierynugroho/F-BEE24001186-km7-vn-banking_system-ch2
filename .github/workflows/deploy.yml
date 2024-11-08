@@ -2,7 +2,7 @@ name: Deploy to Goggle App Engine (GAE)
 
 on:
   workflow_run:
-    workflows: ['Build and Test'] # Nama workflow dari file main.yml
+    workflows: ['🔎 CI Checks'] # Nama workflow dari file main.yml
     types:
       - completed
   push:

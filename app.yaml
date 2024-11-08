@@ -10,3 +10,6 @@ manual_scaling:
 
 includes:
   - env.yaml
+
+beta_settings:
+  cloud_sql_instances: euphoric-world-440804-k1:asia-southeast1:db-pg-bejskm7

@@ -1,8 +1,8 @@
-name: Deploy to Goggle App Engine (GAE)
+name: Deploy to Google App Engine (GAE)
 
 on:
   workflow_run:
-    workflows: ['🔎 CI Checks'] # Nama workflow dari file main.yml
+    workflows: ['🔎 CI Checks']
     types:
       - completed
   push:
@@ -14,7 +14,7 @@ on:
 
 jobs:
   build-and-deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }} # Hanya berjalan jika main.yml berhasil
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -38,16 +38,30 @@ jobs:
       - name: Set up Cloud SDK
         uses: 'google-github-actions/setup-gcloud@v2'
 
+      - name: Create app.yaml with Secrets
+        run: |
+          echo "runtime: nodejs" > app.yaml
+          echo "env: flex" >> app.yaml
+          echo "runtime_config:" >> app.yaml
+          echo "  operating_system: 'ubuntu22'" >> app.yaml
+          echo "  runtime_version: '20'" >> app.yaml
+          echo "manual_scaling:" >> app.yaml
+          echo "  instances: 1" >> app.yaml
+          echo "beta_settings:" >> app.yaml
+          echo "  cloud_sql_instances: euphoric-world-440804-k1:asia-southeast1:db-pg-bejskm7" >> app.yaml
+          echo "env_variables:" >> app.yaml
+          echo "  DATABASE_URL: '${{ secrets.DATABASE_URL }}'" >> app.yaml
+          echo "  IMAGEKIT_PRIVATE_KEY: '${{ secrets.IMAGEKIT_PRIVATE_KEY }}'" >> app.yaml
+          echo "  IMAGEKIT_PUBLIC_KEY: '${{ secrets.IMAGEKIT_PUBLIC_KEY }}'" >> app.yaml
+          echo "  IMAGEKIT_URL_ENDPOINT: '${{ secrets.IMAGEKIT_URL_ENDPOINT }}'" >> app.yaml
+          echo "  JWT_EXPIRED: '${{ secrets.JWT_EXPIRED }}'" >> app.yaml
+          echo "  JWT_SECRET: '${{ secrets.JWT_SECRET }}'" >> app.yaml
+          echo "  NODE_ENV: '${{ secrets.NODE_ENV }}'" >> app.yaml
+          echo "  SESSION_SECRET: '${{ secrets.SESSION_SECRET }}'" >> app.yaml
+
       - name: Deploy to Google App Engine
         run: |
-          gcloud app deploy app.yaml
-        env:
-          CI: true
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
-          IMAGEKIT_PUBLIC_KEY: ${{ secrets.IMAGEKIT_PUBLIC_KEY }}
-          IMAGEKIT_URL_ENDPOINT: ${{ secrets.IMAGEKIT_URL_ENDPOINT }}
-          JWT_EXPIRED: ${{ secrets.JWT_EXPIRED }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          NODE_ENV: ${{ secrets.NODE_ENV }}
-          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          gcloud app deploy app.yaml --quiet
+
+      - name: Clean up app.yaml
+        run: rm app.yaml

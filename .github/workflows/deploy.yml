@@ -53,7 +53,7 @@ jobs:
 
       - name: Deploy to Google App Engine
         run: |
-          gcloud app deploy app.yaml env.yaml --quiet
+          gcloud app deploy
 
       - name: Clean up files
         run: rm app.yaml env.yaml

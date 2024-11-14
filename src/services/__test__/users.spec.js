@@ -3,9 +3,12 @@ import { UsersService } from '../../services/users.js';
 import { UsersRepository } from '../../repositories/users.js';
 import { ErrorHandler } from '../../middlewares/error.js';
 import generateJWT from '../../utils/jwtGenerate.js';
+import { AuthService } from '../auth.js';
+import { AuthRepository } from '../../repositories/auth.js';
 
 jest.mock('argon2');
 jest.mock('../../repositories/users.js');
+jest.mock('../../repositories/auth.js');
 jest.mock('../../utils/jwtGenerate.js');
 
 describe('User Services', () => {
@@ -36,7 +39,7 @@ describe('User Services', () => {
     test('should throw an error if email is already taken', async () => {
       UsersRepository.getUser.mockResolvedValueOnce(mockUser.email);
 
-      await expect(UsersService.register(mockUser)).rejects.toThrow(
+      await expect(AuthService.register(mockUser)).rejects.toThrow(
         ErrorHandler,
       );
     });
@@ -44,20 +47,20 @@ describe('User Services', () => {
     test('should register a new user successfully', async () => {
       UsersRepository.getUser.mockResolvedValueOnce(null);
       jest.spyOn(argon, 'hash').mockResolvedValueOnce(mockUser.password);
-      UsersRepository.register.mockResolvedValueOnce({
+      AuthRepository.register.mockResolvedValueOnce({
         email: mockUser.email,
       });
 
       const hashedPassword = await argon.hash(mockUser.password);
       mockUser.password = hashedPassword;
 
-      const result = await UsersService.register(mockUser);
+      const result = await AuthService.register(mockUser);
 
       expect(result).toEqual({
         email: mockUser.email,
       });
       expect(UsersRepository.getUser).toHaveBeenCalledWith(mockUser.email);
-      expect(UsersRepository.register).toHaveBeenCalledWith(mockUser);
+      expect(AuthRepository.register).toHaveBeenCalledWith(mockUser);
     });
   });
 
@@ -66,7 +69,7 @@ describe('User Services', () => {
       UsersRepository.getUser.mockResolvedValueOnce(null);
 
       await expect(
-        UsersService.login({
+        AuthService.login({
           email: 'nonexistent@example.com',
           password: mockUser.password,
         }),
@@ -79,7 +82,7 @@ describe('User Services', () => {
       argon.verify.mockResolvedValueOnce(false);
 
       await expect(
-        UsersService.login({
+        AuthService.login({
           email: mockUser.email,
           password: 'wrongPassword',
         }),
@@ -97,7 +100,7 @@ describe('User Services', () => {
       argon.verify.mockResolvedValueOnce(false);
 
       await expect(
-        UsersService.login({
+        AuthService.login({
           email: mockUser.email,
           password: mockUser.password,
         }),
@@ -133,7 +136,7 @@ describe('User Services', () => {
       const mockToken = 'mock_jwt_token';
       generateJWT.mockReturnValue(mockToken);
 
-      const result = await UsersService.login(loginData);
+      const result = await AuthService.login(loginData);
 
       expect(result).toEqual({
         user: mockUser,

@@ -1,11 +1,13 @@
+import {} from 'dotenv/config';
+import './libs/sentry.js';
 import express from 'express';
 import logger_format from './config/logger.js';
 import logger from 'morgan';
 import cors from 'cors';
-import {} from 'dotenv/config';
 import router from './routes/index.js';
-import { errorMiddleware } from './middlewares/error.js';
+import { ErrorHandler, errorMiddleware } from './middlewares/error.js';
 import session from 'express-session';
+import * as Sentry from '@sentry/node';
 
 const app = express();
 
@@ -34,6 +36,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(router);
+
+app.get('/debug-sentry', function mainHandler() {
+  throw new ErrorHandler(500, 'My Awesome Sentry error!');
+});
+
+// sentry
+Sentry.setupExpressErrorHandler(app);
 
 // error response handler
 app.use(errorMiddleware);

@@ -11,3 +11,6 @@ src/controllers/bankingSystem.js
 src/services/bankingSystem.js
 src/repositories/bankingSystem.js
 src/routes/bankingSystem.js
+
+# Sentry Config File
+.sentryclirc

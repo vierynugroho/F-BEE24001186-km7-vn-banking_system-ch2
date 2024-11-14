@@ -111,6 +111,7 @@ export const errorMiddleware = (err, req, res, next) => {
         statusCode: 500,
         message: 'something went wrong',
         details: err.message,
+        sentry: res.sentry + '\n',
       },
     });
   }

@@ -10,6 +10,9 @@ router
   .route('/register')
   .post(Validator(registerSchema), AuthController.register);
 router.route('/login').post(Validator(loginSchema), AuthController.login);
+
+router.get('/google', AuthController.googleRedirectAuthorization);
+router.get('/google/callback', AuthController.googleLogin);
 router
   .route('/authenticate')
   .get(authentication, UsersController.getUserLoggedIn);

@@ -8,6 +8,7 @@ export class AuthRepository {
           name: data.name,
           email: data.email,
           password: data.password,
+          secretToken: data.secretToken,
         },
       });
 

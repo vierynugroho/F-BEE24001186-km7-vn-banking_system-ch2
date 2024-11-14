@@ -5,7 +5,7 @@ import logger_format from './config/logger.js';
 import logger from 'morgan';
 import cors from 'cors';
 import router from './routes/index.js';
-import { ErrorHandler, errorMiddleware } from './middlewares/error.js';
+import { errorMiddleware } from './middlewares/error.js';
 import session from 'express-session';
 import * as Sentry from '@sentry/node';
 
@@ -23,6 +23,9 @@ app.use(
   }),
 );
 
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views');
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -38,11 +41,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
 app.get('/debug-sentry', function mainHandler() {
-  throw new ErrorHandler(500, 'My Awesome Sentry error!');
+  throw new Error(500, 'My Awesome Sentry error!');
 });
 
 // sentry
 Sentry.setupExpressErrorHandler(app);
+
+// ErrorHandler -> custom error handler -> ga masuk sentry
+// Error -> bawaan JS -> masuk sentry
 
 // error response handler
 app.use(errorMiddleware);

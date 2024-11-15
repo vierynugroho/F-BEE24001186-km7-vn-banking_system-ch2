@@ -26,4 +26,33 @@ export class AuthRepository {
 
     return userRegister;
   }
+
+  static async googleSignIn(data) {
+    const googleDataSignIn = await prisma.users.upsert({
+      where: {
+        email: data.email,
+      },
+      update: {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        isVerified: data.isVerified,
+      },
+      create: {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        isVerified: data.isVerified,
+        Profiles: {
+          create: {
+            identity_number: data.identity_number,
+            identity_type: data.identity_type,
+            address: data.identity_number,
+          },
+        },
+      },
+    });
+
+    return googleDataSignIn;
+  }
 }

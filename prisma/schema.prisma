@@ -73,9 +73,9 @@ model Bank_Accounts {
 
 model Profiles {
   id              Int           @id @default(autoincrement())
-  identity_type   IDENTITY_TYPE
-  identity_number String
-  address         String
+  identity_type   IDENTITY_TYPE @default(KTP)
+  identity_number String?       @default("")
+  address         String        @default("Indonesia")
   user_id         Int           @unique
 
   Users Users @relation(fields: [user_id], references: [id], onDelete: Cascade)

@@ -43,21 +43,23 @@ export class AuthService {
   }
 
   static async googleLogin(data) {
-    console.log(data);
-    /*
-    {
-      id: '105469596566547305919',
-      email: 'viery15102002@gmail.com',
-      verified_email: true,
-      name: 'Viery Nugroho',
-      given_name: 'Viery',
-      family_name: 'Nugroho',
-      picture: 'https://lh3.googleusercontent.com/a/ACg8ocJS36Gjind39n6Xizvln21hRkhEnZgTG_DkC7ShlwbZOlesT6Oj=s96-c',
-      password: '$argon2id$v=19$m=65536,t=3,p=4$GTxXiPW96Kwpf1OPjixiLg$8sUt84rwMiaxb/94xghfkDvvayommQ0R8ZBBvXcTLv0'
-    }
-    */
-    // set user profiles default value
-    // insert into DB
+    const userInfo = await AuthRepository.googleSignIn(data);
+
+    const tokenPayload = {
+      id: userInfo.id,
+      name: userInfo.name,
+      role: userInfo.role,
+      email: userInfo.email,
+    };
+
+    const token = generateJWT(tokenPayload);
+
+    let googleLoginData = {
+      _token: token,
+      ...userInfo,
+    };
+
+    return googleLoginData;
   }
 
   static async login(data) {

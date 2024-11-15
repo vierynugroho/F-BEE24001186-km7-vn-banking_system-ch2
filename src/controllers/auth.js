@@ -68,16 +68,17 @@ export class AuthController {
       let registerData = {
         ...data,
         password: await argon.hash(data.id),
+        isVerified: true,
       };
 
-      const userRegister = await AuthService.googleLogin(registerData);
+      const userInfo = await AuthService.googleLogin(registerData);
 
       res.json({
         meta: {
           statusCode: 200,
-          message: 'register successfully',
+          message: 'authentication successfully',
         },
-        data: userRegister,
+        data: userInfo,
       });
     } catch (error) {
       next(error);

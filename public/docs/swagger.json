@@ -6253,16 +6253,20 @@
                   },
                   "data": {
                     "user": {
-                      "id": 13,
+                      "id": 27,
                       "name": "viery nugroho",
-                      "email": "vierynugroho@gmail.com"
+                      "email": "vierynugroho@gmail.com",
+                      "role": "CUSTOMER",
+                      "isVerified": false,
+                      "secretToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZpZXJ5bnVncm9ob0BnbWFpbC5jb20iLCJlbWFpbFRpdGxlIjoiRW1haWwgQWN0aXZhdGlvbiIsImlhdCI6MTczMTY4MDI5MSwiZXhwIjoxNzMxNzY2NjkxfQ.AAoUykieVjBeATHsZjOcDX02nVcfT5jIniy7Ol8V9_U",
+                      "OTPToken": "343058"
                     },
                     "profile": {
-                      "id": 13,
+                      "id": 27,
                       "identity_type": "KTP",
                       "identity_number": "6289516424305",
                       "address": "Blitar",
-                      "user_id": 13
+                      "user_id": 27
                     }
                   }
                 }

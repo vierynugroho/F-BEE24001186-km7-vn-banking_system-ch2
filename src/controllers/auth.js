@@ -95,7 +95,24 @@ export class AuthController {
 
   static async resendOTP() {}
 
-  static async verifyOTP() {}
+  static async verifyOTP(req, res, next) {
+    try {
+      const { token } = req.query;
+      const { otp } = req.body;
+
+      const verify = await AuthService.verifyOTP(token, otp);
+
+      res.json({
+        meta: {
+          statusCode: 200,
+          message: 'email activated successfully',
+        },
+        data: verify,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   static async sendReset() {}
 

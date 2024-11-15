@@ -56,4 +56,31 @@ export class AuthRepository {
 
     return googleDataSignIn;
   }
+
+  static async getUserByEmail(email) {
+    const user = await prisma.users.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    return user;
+  }
+
+  static async verify(email) {
+    const verify = await prisma.users.update({
+      where: {
+        email,
+      },
+      data: {
+        isVerified: true,
+        secretToken: null,
+        OTPToken: null,
+      },
+    });
+
+    return verify;
+  }
+
+  // static async updateOTP(email, secretToken) {}
 }

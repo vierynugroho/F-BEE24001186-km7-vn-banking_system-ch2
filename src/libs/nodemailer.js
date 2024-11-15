@@ -1,10 +1,8 @@
 import nodemailer from 'nodemailer';
 import * as ejs from 'ejs';
 import { ErrorHandler } from '../middlewares/error.js';
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = process.cwd();
 
 const APP_EMAIL = process.env.APP_EMAIL;
 const APP_PASS = process.env.APP_PASS;
@@ -27,7 +25,7 @@ export class EmailService {
 
   static async getTemplate(fileName, data) {
     try {
-      const path = `${__dirname}/../views/templates/${fileName}`;
+      const path = `${__dirname}/src/views/templates/${fileName}`;
       const html = await ejs.renderFile(path, data);
       return html;
     } catch (error) {

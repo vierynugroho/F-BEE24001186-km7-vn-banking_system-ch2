@@ -10,15 +10,16 @@ const router = express.Router();
 router
   .route('/')
   .get(authentication, CheckRole(['ADMIN']), UsersController.getUsers);
-router.route('/:userId').get(authentication, UsersController.getUserById);
+
 router
   .route('/:userId')
+  .get(authentication, UsersController.getUserById)
   .patch(
     authentication,
     fileHandlerMiddleware,
     Validator(profileUpdateSchema),
     UsersController.updateProfile,
-  );
-router.route('/:userId').delete(authentication,UsersController.deleteProfileData);
+  )
+  .delete(authentication, UsersController.deleteProfileData);
 
 export default router;

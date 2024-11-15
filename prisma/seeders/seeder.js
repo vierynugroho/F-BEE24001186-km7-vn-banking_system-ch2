@@ -44,6 +44,7 @@ async function main() {
               : `user${index + 1}@example.com`,
           role: index + 1 === 1 ? 'ADMIN' : 'CUSTOMER',
           password: hashedPassword,
+          isVerified: true,
           Profiles: {
             create: {
               identity_type: getRandomUserType(),

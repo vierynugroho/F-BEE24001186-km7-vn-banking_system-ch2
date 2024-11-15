@@ -8,12 +8,15 @@ import router from './routes/index.js';
 import { errorMiddleware } from './middlewares/error.js';
 import session from 'express-session';
 import * as Sentry from '@sentry/node';
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { Server } from 'socket.io';
+import { join } from 'node:path';
+import { createServer } from 'node:http';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = process.cwd();
 
 const app = express();
+const server = createServer(app);
+const io = new Server(server);
 
 app.use(
   cors({
@@ -28,7 +31,16 @@ app.use(
 );
 
 app.set('view engine', 'ejs');
-app.set('views', __dirname + 'src/views');
+app.set('views', __dirname + '/src/views');
+
+app.get('/notification', (req, res) => {
+  res.sendFile(join(__dirname, '/src/index.html'));
+});
+
+app.get('/register', (req, res) => {
+  io.emit('new-registration', { message: 'User berhasil terdaftar!' });
+  res.send('User berhasil terdaftar!');
+});
 
 app.use(
   session({
@@ -51,9 +63,6 @@ app.get('/debug-sentry', function mainHandler() {
 // sentry
 Sentry.setupExpressErrorHandler(app);
 
-// ErrorHandler -> custom error handler -> ga masuk sentry
-// Error -> bawaan JS -> masuk sentry
-
 // error response handler
 app.use(errorMiddleware);
 
@@ -69,4 +78,4 @@ app.use((req, res) => {
   });
 });
 
-export default app;
+export { app, server };

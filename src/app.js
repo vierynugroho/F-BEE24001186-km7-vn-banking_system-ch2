@@ -8,6 +8,10 @@ import router from './routes/index.js';
 import { errorMiddleware } from './middlewares/error.js';
 import session from 'express-session';
 import * as Sentry from '@sentry/node';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
@@ -24,7 +28,7 @@ app.use(
 );
 
 app.set('view engine', 'ejs');
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + 'src/views');
 
 app.use(
   session({

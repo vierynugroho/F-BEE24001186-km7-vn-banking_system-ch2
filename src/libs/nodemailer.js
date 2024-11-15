@@ -1,5 +1,10 @@
 import nodemailer from 'nodemailer';
+import * as ejs from 'ejs';
 import { ErrorHandler } from '../middlewares/error.js';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const APP_EMAIL = process.env.APP_EMAIL;
 const APP_PASS = process.env.APP_PASS;

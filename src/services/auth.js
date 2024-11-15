@@ -17,26 +17,32 @@ export class AuthService {
     const passwordHashed = await argon.hash(data.password);
 
     // [start] email verification
-    const verificationPayload = {
-      email: user.email,
-      id: user.id,
-      emailTitle: 'Email Activation',
-    };
-
-    const verificationToken = generateJWT(verificationPayload); // secret
+    //TODO: upsert into db
     const OTPToken = await OTP.generateOTP();
 
-    //TODO: upsert into db
+    const verificationPayload = {
+      email: data.email,
+      emailTitle: 'Email Activation',
+    };
+    const verificationToken = generateJWT(verificationPayload); // secret
 
     data.OTPToken = OTPToken;
     data.secretToken = verificationToken;
     data.password = passwordHashed;
+
     const userRegister = await AuthRepository.register(data);
+    const html = await EmailService.getTemplate('verify.ejs', {
+      email: userRegister.user.email,
+      OTPToken: userRegister.user.OTPToken,
+      urlTokenVerification: `${process.env.BASE_URL_FRONTEND}/otp?token=${userRegister.user.secretToken}`,
+    });
 
     //TODO: send email
-    if (userRegister) {
-      await EmailService.send('viery15102002@gmail.com', 'test', '<p>TEST</p>');
-    }
+    await EmailService.send(
+      'viery15102002@gmail.com',
+      verificationPayload.emailTitle,
+      html,
+    );
     // [end] email verification
 
     return userRegister;

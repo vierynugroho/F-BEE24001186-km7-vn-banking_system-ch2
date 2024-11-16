@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Notifications - Banking System</title>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <h1>Your Notifications</h1>
+    <div id="notification-container"></div>
+
+    <script>
+      var socket = io();
+
+      socket.on('notifications', function (data) {
+        var notificationContainer = document.getElementById(
+          'notification-container',
+        );
+        var notification = document.createElement('div');
+        notification.textContent = data.message;
+        notification.style.backgroundColor = '#4CAF50';
+        notification.style.color = 'white';
+        notification.style.padding = '10px';
+        notification.style.marginBottom = '10px';
+        notificationContainer.appendChild(notification);
+      });
+    </script>
+  </body>
+</html>

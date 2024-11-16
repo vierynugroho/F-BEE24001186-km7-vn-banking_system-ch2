@@ -1,4 +1,5 @@
 import { prisma } from '../../libs/prisma.js';
+import { AuthRepository } from '../auth.js';
 import { UsersRepository } from '../users.js';
 
 jest.mock('../../libs/prisma.js', () => ({
@@ -165,7 +166,7 @@ describe('Users Repository', () => {
         });
       });
 
-      const result = await UsersRepository.register(userData);
+      const result = await AuthRepository.register(userData);
 
       expect(prisma.$transaction).toHaveBeenCalled();
       expect(result).toEqual({ user: mockUser, profile: mockProfile });

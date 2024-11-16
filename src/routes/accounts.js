@@ -13,20 +13,18 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(authentication, CheckRole(['ADMIN']), AccountsController.getAccounts);
-router
-  .route('/:accountID')
-  .get(authentication, AccountsController.getAccountById);
-router
-  .route('/')
+  .get(authentication, CheckRole(['ADMIN']), AccountsController.getAccounts)
   .post(
     authentication,
     Validator(registerAccountSchema),
     AccountsController.register,
   );
+
 router
   .route('/:accountID')
+  .get(authentication, AccountsController.getAccountById)
   .delete(authentication, AccountsController.deleteAccount);
+
 router
   .route('/withdrawal/:accountID')
   .put(

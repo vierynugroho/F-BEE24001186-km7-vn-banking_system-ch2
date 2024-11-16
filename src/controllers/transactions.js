@@ -1,3 +1,4 @@
+import { Notification } from '../libs/socket.js';
 import { ErrorHandler } from '../middlewares/error.js';
 import { AccountsService } from '../services/accounts.js';
 import { TransactionsService } from '../services/transactions.js';
@@ -18,6 +19,8 @@ export class TransactionsController {
       }
 
       const transfer = await TransactionsService.transfer(data);
+
+      await Notification.push('transfer transaction successfully!');
 
       res.json({
         meta: {
@@ -44,6 +47,8 @@ export class TransactionsController {
 
       const { transactions, totalTransactions } =
         await TransactionsService.getAllTransactions(pagination);
+
+      await Notification.push('transactions data retrieved successfully!');
 
       res.json({
         meta: {
@@ -92,6 +97,8 @@ export class TransactionsController {
           );
         }
       }
+
+      await Notification.push('transaction data retrieved successfully!');
 
       res.json({
         meta: {

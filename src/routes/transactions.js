@@ -13,16 +13,15 @@ router
     authentication,
     CheckRole(['ADMIN']),
     TransactionsController.getAllTransactions,
-  );
-router
-  .route('/:transactionID')
-  .get(authentication, TransactionsController.getTransaction);
-router
-  .route('/')
+  )
   .post(
     authentication,
     Validator(transferSchema),
     TransactionsController.transfer,
   );
+
+router
+  .route('/:transactionID')
+  .get(authentication, TransactionsController.getTransaction);
 
 export default router;

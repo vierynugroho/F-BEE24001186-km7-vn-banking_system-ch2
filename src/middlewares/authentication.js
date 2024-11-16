@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
 import { prisma } from '../libs/prisma.js';
 import { ErrorHandler } from './error.js';
+import { JWT } from '../libs/jwt.js';
 
 export default async (req, res, next) => {
   try {
@@ -12,7 +12,7 @@ export default async (req, res, next) => {
 
     const token = bearerToken.split('Bearer ')[1];
 
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const payload = await JWT.verify(token);
 
     const user = await prisma.users.findUnique({
       where: {

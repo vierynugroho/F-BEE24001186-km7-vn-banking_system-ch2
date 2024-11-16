@@ -56,7 +56,14 @@ jobs:
           echo "  JWT_EXPIRED: '${{ secrets.JWT_EXPIRED }}'" >> env.yaml
           echo "  JWT_SECRET: '${{ secrets.JWT_SECRET }}'" >> env.yaml
           echo "  NODE_ENV: '${{ secrets.NODE_ENV }}'" >> env.yaml
+          echo "  APP_EMAIL: '${{ secrets.APP_EMAIL }}'" >> env.yaml
+          echo "  APP_PASS: '${{ secrets.APP_PASS }}'" >> env.yaml
           echo "  SESSION_SECRET: '${{ secrets.SESSION_SECRET }}'" >> env.yaml
+          echo "  GOOGLE_OAUTH_CLIENT_SECRET: '${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}'" >> env.yaml
+          echo "  GOOGLE_OAUTH_CLIENT_ID: '${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}'" >> env.yaml
+          echo "  GOOGLE_OAUTH_CALLBACK_URL: '${{ secrets.GOOGLE_OAUTH_CALLBACK_URL }}'" >> env.yaml
+          echo "  SENTRY_AUTH_TOKEN: '${{ secrets.SENTRY_AUTH_TOKEN}}'" >> env.yaml
+          echo "  SENTRY_DSN: '${{ secrets.SENTRY_DSN}}'" >> env.yaml
 
       - name: Deploy to Google App Engine
         run: |

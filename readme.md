@@ -28,6 +28,10 @@
 
 [api documentation](https://euphoric-world-440804-k1.et.r.appspot.com/api/v1/docs/)
 
+# Notifications page
+
+{base_url}/notifications
+
 # Tools Version
 
 1. Node: v20.10.0

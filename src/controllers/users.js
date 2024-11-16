@@ -1,50 +1,9 @@
+import { Notification } from '../libs/socket.js';
 import { ErrorHandler } from '../middlewares/error.js';
 import { AccountsService } from '../services/accounts.js';
 import { UsersService } from '../services/users.js';
 
 export class UsersController {
-  static async register(req, res, next) {
-    try {
-      const data = req.body;
-
-      const userRegister = await UsersService.register(data);
-
-      delete userRegister.user.password;
-
-      res.json({
-        meta: {
-          statusCode: 200,
-          message: 'register successfully',
-        },
-        data: userRegister,
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  static async login(req, res, next) {
-    try {
-      const data = req.body;
-
-      const { user, token } = await UsersService.login(data);
-
-      delete user.password;
-
-      res.json({
-        meta: {
-          statusCode: 200,
-          message: 'login successfully',
-        },
-        data: {
-          _token: token,
-        },
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
   static async getUserLoggedIn(req, res, next) {
     try {
       const userLoggedIn = req.user;
@@ -56,6 +15,8 @@ export class UsersController {
         ...userLoggedIn,
         accounts,
       };
+
+      await Notification.push('user logged in data retrieved successfully!');
 
       res.json({
         meta: {
@@ -85,6 +46,8 @@ export class UsersController {
       users.map((user) => {
         delete user.password;
       });
+
+      await Notification.push('users data retrieved successfully!');
 
       res.json({
         meta: {
@@ -126,6 +89,8 @@ export class UsersController {
 
       delete user.password;
 
+      await Notification.push('user data retrieved successfully!');
+
       res.json({
         meta: {
           statusCode: 200,
@@ -155,6 +120,8 @@ export class UsersController {
         userID,
       );
 
+      await Notification.push('user data updated successfully!');
+
       res.json({
         meta: {
           statusCode: 200,
@@ -176,6 +143,8 @@ export class UsersController {
       }
 
       const updateProfile = await UsersService.deleteUserData(userID);
+
+      await Notification.push('user data deleted successfully!');
 
       res.json({
         meta: {

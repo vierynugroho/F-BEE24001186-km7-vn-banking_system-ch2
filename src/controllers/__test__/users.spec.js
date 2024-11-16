@@ -2,8 +2,11 @@ import { ErrorHandler } from '../../middlewares/error.js';
 import { AccountsService } from '../../services/accounts.js';
 import { UsersService } from '../../services/users.js';
 import { UsersController } from '../users.js';
+import { AuthService } from '../../services/auth.js';
+import { AuthController } from '../auth.js';
 
 jest.mock('../../services/users.js');
+jest.mock('../../services/auth.js');
 
 describe('Users Controller', () => {
   let res, req, next;
@@ -32,15 +35,16 @@ describe('Users Controller', () => {
         },
       };
 
-      jest.spyOn(UsersService, 'register').mockResolvedValue(userRegister);
+      jest.spyOn(AuthService, 'register').mockResolvedValue(userRegister);
 
-      await UsersController.register(req, res, next);
+      await AuthController.register(req, res, next);
 
-      expect(UsersService.register).toHaveBeenCalledWith(req.body);
+      expect(AuthService.register).toHaveBeenCalledWith(req.body);
       expect(res.json).toHaveBeenCalledWith({
         meta: {
           statusCode: 200,
-          message: 'register successfully',
+          message:
+            'register successfully, Verification link has been sent, please check your email',
         },
         data: userRegister,
       });
@@ -48,11 +52,11 @@ describe('Users Controller', () => {
 
     test('should handle errors thrown by the service', async () => {
       req.body = { username: 'testuser', password: 'secret' };
-      UsersService.register.mockRejectedValue(
+      AuthService.register.mockRejectedValue(
         new ErrorHandler('Registration error'),
       );
 
-      await UsersController.register(req, res, next);
+      await AuthController.register(req, res, next);
 
       expect(next).toHaveBeenCalledWith(expect.any(ErrorHandler));
     });
@@ -70,11 +74,11 @@ describe('Users Controller', () => {
       };
       const token = 'mocked-jwt-token';
 
-      jest.spyOn(UsersService, 'login').mockResolvedValue({ user, token });
+      jest.spyOn(AuthService, 'login').mockResolvedValue({ user, token });
 
-      await UsersController.login(req, res, next);
+      await AuthController.login(req, res, next);
 
-      expect(UsersService.login).toHaveBeenCalledWith(req.body);
+      expect(AuthService.login).toHaveBeenCalledWith(req.body);
       expect(res.json).toHaveBeenCalledWith({
         meta: {
           statusCode: 200,
@@ -89,9 +93,9 @@ describe('Users Controller', () => {
     test('should call next with an error if login fails', async () => {
       const error = new Error('Login failed');
 
-      jest.spyOn(UsersService, 'login').mockRejectedValue(error);
+      jest.spyOn(AuthService, 'login').mockRejectedValue(error);
 
-      await UsersController.login(req, res, next);
+      await AuthController.login(req, res, next);
 
       expect(next).toHaveBeenCalledWith(error);
       expect(res.json).not.toHaveBeenCalled();

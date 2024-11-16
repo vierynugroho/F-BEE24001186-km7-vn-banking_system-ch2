@@ -1,13 +1,22 @@
+import {} from 'dotenv/config';
+import './libs/sentry.js';
 import express from 'express';
 import logger_format from './config/logger.js';
 import logger from 'morgan';
 import cors from 'cors';
-import {} from 'dotenv/config';
 import router from './routes/index.js';
 import { errorMiddleware } from './middlewares/error.js';
 import session from 'express-session';
+import * as Sentry from '@sentry/node';
+import { Server } from 'socket.io';
+import { join } from 'node:path';
+import { createServer } from 'node:http';
+
+const __dirname = process.cwd();
 
 const app = express();
+const server = createServer(app);
+export const io = new Server(server);
 
 app.use(
   cors({
@@ -20,6 +29,13 @@ app.use(
     maxAge: 3600,
   }),
 );
+
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/src/views');
+
+app.get('/notifications', (req, res) => {
+  res.sendFile(join(__dirname, '/src/index.html'));
+});
 
 app.use(
   session({
@@ -34,6 +50,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(router);
+
+app.get('/debug-sentry', function mainHandler() {
+  throw new Error(500, 'My Awesome Sentry error!');
+});
+
+// sentry
+Sentry.setupExpressErrorHandler(app);
 
 // error response handler
 app.use(errorMiddleware);
@@ -50,4 +73,4 @@ app.use((req, res) => {
   });
 });
 
-export default app;
+export { app, server };

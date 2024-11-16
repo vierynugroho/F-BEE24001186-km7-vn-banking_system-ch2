@@ -6988,10 +6988,9 @@
         "summary": "get user LoggedIn",
         "security": [
           {
-            "bearerAuth": []
+            "bearerToken": []
           }
         ],
-
         "responses": {
           "200": {
             "description": "OK",

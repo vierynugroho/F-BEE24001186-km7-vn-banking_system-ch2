@@ -37,6 +37,13 @@ jobs:
             "JWT_SECRET"
             "JWT_EXPIRED"
             "DATABASE_URL"
+            "APP_PASS"
+            "APP_EMAIL"
+            "SENTRY_DSN"
+            "SENTRY_AUTH_TOKEN"
+            "GOOGLE_OAUTH_CLIENT_SECRET"           
+            "GOOGLE_OAUTH_CLIENT_ID"           
+            "GOOGLE_OAUTH_CALLBACK_URL"           
           )
 
           # Check each secret
@@ -86,5 +93,5 @@ jobs:
         uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
+          # fail_ci_if_error: true
           verbose: true

@@ -87,3 +87,24 @@ export const profileUpdateSchema = Joi.object({
 export const verifySchema = Joi.object({
   otp: Joi.string().min(6).required(),
 });
+
+export const sendResetSchema = Joi.object({
+  email: Joi.string()
+    .email({
+      tlds: {
+        allow: ['com', 'net', 'id'],
+      },
+    })
+    .required()
+    .messages({
+      'string.email':
+        'must be a valid email & domain allowed: .com | .net | .id',
+    }),
+});
+
+export const resetPasswordSchema = Joi.object({
+  password: Joi.string().min(8).required(),
+  confirmPassword: Joi.any().valid(Joi.ref('password')).required().messages({
+    'any.only': 'Confirm password does not match password',
+  }),
+});

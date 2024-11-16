@@ -35,7 +35,7 @@ export class AuthService {
     const html = await EmailService.getTemplate('verify.ejs', {
       email: userRegister.user.email,
       OTPToken: userRegister.user.OTPToken,
-      urlTokenVerification: `${process.env.BASE_URL_FRONTEND}/otp?token=${userRegister.user.secretToken}`,
+      urlTokenVerification: `${process.env.BASE_URL_FRONTEND}?token=${userRegister.user.secretToken}`,
     });
 
     //TODO: send email
@@ -75,6 +75,7 @@ export class AuthService {
       throw new ErrorHandler(401, 'wrong credential');
     }
 
+    console.log(data.password);
     const comparePassword = await argon.verify(user.password, data.password);
 
     if (!comparePassword) {
@@ -109,7 +110,7 @@ export class AuthService {
     const html = await EmailService.getTemplate('verify.ejs', {
       email: user.email,
       OTPToken: user.OTPToken,
-      urlTokenVerification: `${process.env.BASE_URL_FRONTEND}/otp?token=${user.secretToken}`,
+      urlTokenVerification: `${process.env.BASE_URL_FRONTEND}?token=${user.secretToken}`,
     });
 
     //TODO: send email
@@ -151,8 +152,6 @@ export class AuthService {
       throw new ErrorHandler(403, 'OTP Token is expired');
     }
 
-    return;
-
     const verifyUser = await AuthRepository.verify(payload.email);
 
     delete verifyUser.password;
@@ -160,7 +159,48 @@ export class AuthService {
     return verifyUser;
   }
 
-  static async resetPassword() {}
+  static async sendReset(email) {
+    const user = await AuthRepository.getUserByEmail(email);
 
-  static async sendReset() {}
+    if (!user) {
+      throw new ErrorHandler(404, 'your email is not registered');
+    }
+
+    const payload = {
+      email: email,
+    };
+
+    const resetToken = await JWT.generate(payload);
+
+    const resetSecretToken = await AuthRepository.updateSecretToken(
+      email,
+      resetToken,
+    );
+
+    const html = await EmailService.getTemplate('password_reset.ejs', {
+      email: user.email,
+      urlTokenVerification: `${process.env.BASE_URL_FRONTEND}?token=${user.secretToken}`,
+    });
+
+    //TODO: send email
+    await EmailService.send(user.email, 'Reset Password', html);
+
+    delete resetSecretToken.password;
+
+    return resetSecretToken;
+  }
+
+  static async resetPassword(token, newPassword) {
+    const payload = await JWT.verify(token);
+
+    const passwordHashed = await argon.hash(newPassword);
+
+    const updatedPassword = await AuthRepository.updatePassword(
+      payload.email,
+      passwordHashed,
+    );
+
+    delete updatedPassword.password;
+    return updatedPassword;
+  }
 }

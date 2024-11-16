@@ -16,7 +16,8 @@ export class AuthController {
       res.json({
         meta: {
           statusCode: 200,
-          message: 'register successfully',
+          message:
+            'register successfully, Verification link has been sent, please check your email',
         },
         data: userRegister,
       });
@@ -137,7 +138,47 @@ export class AuthController {
     }
   }
 
-  static async sendReset() {}
+  static async sendReset(req, res, next) {
+    try {
+      const { email } = req.body;
 
-  static async resetPassword() {}
+      const resetPassword = await AuthService.sendReset(email);
+
+      res.json({
+        meta: {
+          statusCode: 200,
+          message: 'reset password link has been sent, please check your email',
+        },
+        data: resetPassword,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async resetPassword(req, res, next) {
+    try {
+      const { token } = req.query;
+      const { password } = req.body;
+
+      if (!token) {
+        throw new ErrorHandler(
+          404,
+          'secret token is invalid, check your email or send reset password again',
+        );
+      }
+
+      const reset = await AuthService.resetPassword(token, password);
+
+      res.json({
+        meta: {
+          statusCode: 200,
+          message: 'password reset successfully',
+        },
+        data: reset,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

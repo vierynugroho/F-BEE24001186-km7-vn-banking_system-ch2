@@ -3,6 +3,8 @@ import Validator from '../utils/validator.js';
 import {
   loginSchema,
   registerSchema,
+  resetPasswordSchema,
+  sendResetSchema,
   verifySchema,
 } from '../utils/validationSchema.js';
 import { UsersController } from '../controllers/users.js';
@@ -19,8 +21,16 @@ router.get('/google/callback', AuthController.googleLogin);
 router.put('/verify', Validator(verifySchema), AuthController.verifyOTP);
 router.post('/resend-otp', AuthController.resendOTP);
 
-router.post('/forget-password', AuthController.sendReset);
-router.put('/reset-password', AuthController.resetPassword);
+router.post(
+  '/forget-password',
+  Validator(sendResetSchema),
+  AuthController.sendReset,
+);
+router.put(
+  '/reset-password',
+  Validator(resetPasswordSchema),
+  AuthController.resetPassword,
+);
 
 router
   .route('/authenticate')

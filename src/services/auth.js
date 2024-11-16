@@ -23,7 +23,6 @@ export class AuthService {
 
     const verificationPayload = {
       email: data.email,
-      emailTitle: 'Email Activation',
     };
     const verificationToken = await JWT.generate(verificationPayload); // secret
 
@@ -42,7 +41,7 @@ export class AuthService {
     //TODO: send email
     await EmailService.send(
       'viery15102002@gmail.com',
-      verificationPayload.emailTitle,
+      'Email Activation',
       html,
     );
     // [end] email verification
@@ -100,7 +99,33 @@ export class AuthService {
     return { user, token };
   }
 
-  static async resendOTP() {}
+  static async resendOTP(token) {
+    const payload = await JWT.verify(token);
+    const newOTPToken = await OTP.generateOTP();
+
+    const user = await AuthRepository.getUserByEmail(payload.email);
+
+    const updateOTP = await AuthRepository.updateOTP(
+      payload.email,
+      newOTPToken,
+    );
+
+    const html = await EmailService.getTemplate('verify.ejs', {
+      email: user.email,
+      OTPToken: user.OTPToken,
+      urlTokenVerification: `${process.env.BASE_URL_FRONTEND}/otp?token=${user.secretToken}`,
+    });
+
+    //TODO: send email
+    await EmailService.send(
+      'viery15102002@gmail.com',
+      'Resend Email Verification',
+      html,
+    );
+
+    delete updateOTP.password;
+    return updateOTP;
+  }
 
   static async verifyOTP(token, OTPToken) {
     const payload = await JWT.verify(token);
@@ -118,20 +143,23 @@ export class AuthService {
 
     const user = await AuthRepository.getUserByEmail(payload.email);
     // check otp
-    if (OTPToken !== user.OTPToken) {
-      throw new ErrorHandler(403, 'wrong credential');
-    }
-
     if (user.isVerified) {
       throw new ErrorHandler(403, 'user is already verified');
     }
 
-    // validate otp token
-    let delta = OTP.validate(OTPToken);
+    if (OTPToken !== user.OTPToken) {
+      throw new ErrorHandler(403, 'wrong credential');
+    }
 
-    if (delta === null) {
+    // validate otp token
+    let delta = await OTP.validate(OTPToken);
+    console.log(delta);
+
+    if (delta !== 0) {
       throw new ErrorHandler(403, 'OTP Token is expired');
     }
+
+    return;
 
     const verifyUser = await AuthRepository.verify(payload.email);
 

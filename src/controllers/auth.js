@@ -93,19 +93,42 @@ export class AuthController {
     }
   }
 
-  static async resendOTP() {}
+  static async resendOTP(req, res, next) {
+    try {
+      const { token } = req.query;
+
+      const resendOTP = await AuthService.resendOTP(token);
+
+      res.json({
+        meta: {
+          statusCode: 200,
+          message: 'Verification link has been sent, please check your email',
+        },
+        data: resendOTP,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   static async verifyOTP(req, res, next) {
     try {
       const { token } = req.query;
       const { otp } = req.body;
 
+      if (!token) {
+        throw new ErrorHandler(
+          404,
+          'secret token is invalid, check your email or resend OTP',
+        );
+      }
+
       const verify = await AuthService.verifyOTP(token, otp);
 
       res.json({
         meta: {
           statusCode: 200,
-          message: 'email activated successfully',
+          message: 'email verification successfully',
         },
         data: verify,
       });

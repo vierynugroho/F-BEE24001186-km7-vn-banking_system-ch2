@@ -82,3 +82,8 @@ export const profileUpdateSchema = Joi.object({
     .required(),
   description: Joi.string().optional().allow(null),
 });
+
+// verify
+export const verifySchema = Joi.object({
+  otp: Joi.string().min(6).required(),
+});

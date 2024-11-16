@@ -82,5 +82,16 @@ export class AuthRepository {
     return verify;
   }
 
-  // static async updateOTP(email, secretToken) {}
+  static async updateOTP(email, OTPToken) {
+    const otpUpdate = await prisma.users.update({
+      where: {
+        email,
+      },
+      data: {
+        OTPToken,
+      },
+    });
+
+    return otpUpdate;
+  }
 }

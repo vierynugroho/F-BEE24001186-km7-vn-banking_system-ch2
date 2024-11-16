@@ -37,6 +37,9 @@
       "name": "users"
     },
     {
+      "name": "notifications"
+    },
+    {
       "name": "users data"
     },
     {
@@ -50,6 +53,25 @@
     }
   ],
   "paths": {
+    "/notifications": {
+      "get": {
+        "tags": ["notifications"],
+        "summary": "show notifications page",
+        "responses": {
+          "200": {
+            "description": "show notifications page",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string",
+                  "example": "html_page"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users": {
       "get": {
         "tags": ["users"],
@@ -7207,11 +7229,6 @@
     "/auth/verify": {
       "put": {
         "tags": ["auth"],
-        "security": [
-          {
-            "bearerToken": []
-          }
-        ],
         "parameters": [
           {
             "name": "token",
@@ -7539,11 +7556,6 @@
     "/auth/resend-otp": {
       "post": {
         "tags": ["auth"],
-        "security": [
-          {
-            "bearerToken": []
-          }
-        ],
         "parameters": [
           {
             "name": "token",
@@ -7704,6 +7716,432 @@
                   "error": {
                     "statusCode": 404,
                     "message": "secret token is invalid, check your email or resend OTP"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/forget-password": {
+      "post": {
+        "tags": ["auth"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "summary": "send reset password link via email",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "emaill": "123456@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "258"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"102-w+mpGyx20yxD/R4ZNm2W5AZg54c\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:32:03 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "reset password link has been sent, please check your email"
+                  },
+                  "data": {
+                    "id": 32,
+                    "name": "viery nugroho",
+                    "email": "viery15102002@gmail.com",
+                    "role": "CUSTOMER",
+                    "isVerified": false,
+                    "secretToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZpZXJ5MTUxMDIwMDJAZ21haWwuY29tIiwiaWF0IjoxNzMxNzMxOTQ0LCJleHAiOjE3MzE4MTgzNDR9.rOm2p7lhwGwIHj9NxQVGJOS8iIUm8ItgTP8w0vk_Vnk",
+                    "OTPToken": "234037"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Email Not Found",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "70"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"46-GyhZtq5XnVR6sr46s+bf2+CGBbk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:32:23 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 404,
+                    "message": "your email is not registered"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/reset-password": {
+      "put": {
+        "tags": ["auth"],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "summary": "reset password",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "258"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"102-w+mpGyx20yxD/R4ZNm2W5AZg54c\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:32:03 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "meta": {
+                    "statusCode": 200,
+                    "message": "password reset successfully"
+                  },
+                  "data": {
+                    "id": 32,
+                    "name": "viery nugroho",
+                    "email": "viery15102002@gmail.com",
+                    "role": "CUSTOMER",
+                    "isVerified": false,
+                    "secretToken": null,
+                    "OTPToken": null
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Email Not Found",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "70"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"46-GyhZtq5XnVR6sr46s+bf2+CGBbk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:32:23 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 404,
+                    "message": "your email is not registered"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Password doesn't not match",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "70"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"46-GyhZtq5XnVR6sr46s+bf2+CGBbk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:32:23 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 422,
+                    "message": "Confirm password does not match password"
                   }
                 }
               }

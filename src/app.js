@@ -37,11 +37,6 @@ app.get('/notifications', (req, res) => {
   res.sendFile(join(__dirname, '/src/index.html'));
 });
 
-app.get('/register', (req, res) => {
-  io.emit('notifications', { message: 'User berhasil terdaftar!' });
-  res.send('User berhasil terdaftar!');
-});
-
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

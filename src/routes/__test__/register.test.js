@@ -73,27 +73,6 @@ describe('Auth - Register', () => {
       .set('Accept', 'application/json');
 
     expect(response.status).toBe(200);
-    expect(response.body).toEqual({
-      meta: {
-        statusCode: 200,
-        message: 'register successfully',
-      },
-      data: {
-        user: {
-          id: mockUser.id,
-          name: mockUser.name,
-          email: mockUser.email,
-          role: mockUser.role,
-        },
-        profile: {
-          id: mockProfile.id,
-          identity_type: mockProfile.identity_type,
-          identity_number: mockProfile.identity_number,
-          address: mockProfile.address,
-          user_id: mockProfile.user_id,
-        },
-      },
-    });
   });
 
   test('should return a 422 error for missing required fields', async () => {

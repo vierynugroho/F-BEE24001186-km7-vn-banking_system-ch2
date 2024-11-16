@@ -43,7 +43,8 @@ describe('Users Controller', () => {
       expect(res.json).toHaveBeenCalledWith({
         meta: {
           statusCode: 200,
-          message: 'register successfully',
+          message:
+            'register successfully, Verification link has been sent, please check your email',
         },
         data: userRegister,
       });

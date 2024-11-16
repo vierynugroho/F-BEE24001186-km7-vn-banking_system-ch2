@@ -1,6 +1,7 @@
 import { Prisma } from '@prisma/client';
 import jwt from 'jsonwebtoken';
 import { MulterError } from 'multer';
+import { Notification } from '../libs/socket.js';
 
 export class ErrorHandler extends Error {
   constructor(statusCode, message) {
@@ -8,7 +9,16 @@ export class ErrorHandler extends Error {
     this.statusCode = statusCode;
     this.message = message;
 
+    this.notify();
     Error.captureStackTrace(this, this.constructor);
+  }
+
+  async notify() {
+    try {
+      await Notification.push(this.message);
+    } catch (error) {
+      console.error('Failed to send notification:', error);
+    }
   }
 }
 

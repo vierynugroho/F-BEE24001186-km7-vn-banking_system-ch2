@@ -15,6 +15,8 @@ export class UsersController {
         accounts,
       };
 
+      await Notification.push('user logged in data retrieved successfully!');
+
       res.json({
         meta: {
           statusCode: 200,
@@ -43,6 +45,8 @@ export class UsersController {
       users.map((user) => {
         delete user.password;
       });
+
+      await Notification.push('users data retrieved successfully!');
 
       res.json({
         meta: {
@@ -84,6 +88,8 @@ export class UsersController {
 
       delete user.password;
 
+      await Notification.push('user data retrieved successfully!');
+
       res.json({
         meta: {
           statusCode: 200,
@@ -113,6 +119,8 @@ export class UsersController {
         userID,
       );
 
+      await Notification.push('user data updated successfully!');
+
       res.json({
         meta: {
           statusCode: 200,
@@ -134,6 +142,8 @@ export class UsersController {
       }
 
       const updateProfile = await UsersService.deleteUserData(userID);
+
+      await Notification.push('user data deleted successfully!');
 
       res.json({
         meta: {

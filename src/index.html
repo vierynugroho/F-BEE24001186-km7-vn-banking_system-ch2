@@ -5,13 +5,13 @@
     <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
-    <h1>Halaman Utama</h1>
+    <h1>Your Notifications</h1>
     <div id="notification-container"></div>
 
     <script>
       var socket = io();
 
-      socket.on('new-registration', function (data) {
+      socket.on('notifications', function (data) {
         var notificationContainer = document.getElementById(
           'notification-container',
         );

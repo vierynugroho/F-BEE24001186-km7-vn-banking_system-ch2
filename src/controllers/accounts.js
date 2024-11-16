@@ -1,3 +1,4 @@
+import { Notification } from '../libs/socket.js';
 import { ErrorHandler } from '../middlewares/error.js';
 import { AccountsService } from '../services/accounts.js';
 
@@ -10,6 +11,8 @@ export class AccountsController {
         data,
         userLoggedIn,
       );
+
+      await Notification.push('bank account register successfully!');
 
       res.json({
         meta: {
@@ -40,6 +43,8 @@ export class AccountsController {
       accounts.map((account) => {
         delete account.Users.password;
       });
+
+      await Notification.push('bank account data retrieved successfully!');
 
       res.json({
         meta: {
@@ -75,6 +80,8 @@ export class AccountsController {
         throw new ErrorHandler(403, `you doesn't have an access for this data`);
       }
 
+      await Notification.push('bank account data retrieved successfully!');
+
       res.json({
         meta: {
           statusCode: 200,
@@ -104,6 +111,8 @@ export class AccountsController {
         userID,
         accountID,
       );
+
+      await Notification.push('bank account deleted successfully!');
 
       res.json({
         meta: {
@@ -138,6 +147,8 @@ export class AccountsController {
 
       const deposit = await AccountsService.deposit(accountID, amount);
 
+      await Notification.push('bank account deposit successfully!');
+
       res.json({
         meta: {
           statusCode: 200,
@@ -170,6 +181,8 @@ export class AccountsController {
       }
 
       const withdrawal = await AccountsService.withdrawal(accountID, amount);
+
+      await Notification.push('bank account withdrawal successfully!');
 
       res.json({
         meta: {

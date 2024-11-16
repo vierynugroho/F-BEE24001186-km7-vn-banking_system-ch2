@@ -3,6 +3,7 @@ import { authorizationUrl, oauthClient } from '../libs/google.js';
 import { AuthService } from '../services/auth.js';
 import { ErrorHandler } from '../middlewares/error.js';
 import * as argon from 'argon2';
+import { Notification } from '../libs/socket.js';
 
 export class AuthController {
   static async register(req, res, next) {
@@ -13,6 +14,9 @@ export class AuthController {
 
       delete userRegister.user.password;
 
+      await Notification.push(
+        'register successfully, Verification link has been sent, please check your email',
+      );
       res.json({
         meta: {
           statusCode: 200,
@@ -33,6 +37,8 @@ export class AuthController {
       const { user, token } = await AuthService.login(data);
 
       delete user.password;
+
+      await Notification.push('Login Successfully!');
 
       res.json({
         meta: {
@@ -74,6 +80,8 @@ export class AuthController {
 
       const userInfo = await AuthService.googleLogin(registerData);
 
+      await Notification.push('Login Successfully!');
+
       res.json({
         meta: {
           statusCode: 200,
@@ -99,6 +107,10 @@ export class AuthController {
       const { token } = req.query;
 
       const resendOTP = await AuthService.resendOTP(token);
+
+      await Notification.push(
+        'Verification link has been sent, please check your email!',
+      );
 
       res.json({
         meta: {
@@ -126,6 +138,10 @@ export class AuthController {
 
       const verify = await AuthService.verifyOTP(token, otp);
 
+      await Notification.push(
+        'secret token is invalid, check your email or resend OTP',
+      );
+
       res.json({
         meta: {
           statusCode: 200,
@@ -143,6 +159,10 @@ export class AuthController {
       const { email } = req.body;
 
       const resetPassword = await AuthService.sendReset(email);
+
+      await Notification.push(
+        'reset password link has been sent, please check your email',
+      );
 
       res.json({
         meta: {
@@ -169,6 +189,8 @@ export class AuthController {
       }
 
       const reset = await AuthService.resetPassword(token, password);
+
+      await Notification.push('password reset successfully');
 
       res.json({
         meta: {

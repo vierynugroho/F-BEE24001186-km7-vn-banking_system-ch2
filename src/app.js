@@ -16,7 +16,7 @@ const __dirname = process.cwd();
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+export const io = new Server(server);
 
 app.use(
   cors({
@@ -33,12 +33,12 @@ app.use(
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/src/views');
 
-app.get('/notification', (req, res) => {
+app.get('/notifications', (req, res) => {
   res.sendFile(join(__dirname, '/src/index.html'));
 });
 
 app.get('/register', (req, res) => {
-  io.emit('new-registration', { message: 'User berhasil terdaftar!' });
+  io.emit('notifications', { message: 'User berhasil terdaftar!' });
   res.send('User berhasil terdaftar!');
 });
 

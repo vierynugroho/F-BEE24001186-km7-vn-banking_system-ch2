@@ -5,7 +5,6 @@ import { ErrorHandler } from '../middlewares/error.js';
 import { OTP } from '../libs/totp.js';
 import { EmailService } from '../libs/nodemailer.js';
 import { JWT } from '../libs/jwt.js';
-// import { Notification } from '../libs/socket.js';
 
 export class AuthService {
   static async register(data) {
@@ -41,10 +40,6 @@ export class AuthService {
     //TODO: send email
     await EmailService.send(userRegister.user.email, 'Email Activation', html);
     // [end] email verification
-    // await Notification.push(
-    //   'register',
-    //   'Verification email sent to your email',
-    // );
     return userRegister;
   }
 
@@ -75,7 +70,6 @@ export class AuthService {
       throw new ErrorHandler(401, 'wrong credential');
     }
 
-    console.log(data.password);
     const comparePassword = await argon.verify(user.password, data.password);
 
     if (!comparePassword) {

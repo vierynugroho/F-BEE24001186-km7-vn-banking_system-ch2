@@ -39,11 +39,7 @@ export class AuthService {
     });
 
     //TODO: send email
-    await EmailService.send(
-      'viery15102002@gmail.com',
-      'Email Activation',
-      html,
-    );
+    await EmailService.send(userRegister.user.email, 'Email Activation', html);
     // [end] email verification
     // await Notification.push(
     //   'register',
@@ -117,11 +113,7 @@ export class AuthService {
     });
 
     //TODO: send email
-    await EmailService.send(
-      'viery15102002@gmail.com',
-      'Resend Email Verification',
-      html,
-    );
+    await EmailService.send(user.email, 'Resend Email Verification', html);
 
     delete updateOTP.password;
     return updateOTP;

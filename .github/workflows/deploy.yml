@@ -1,10 +1,6 @@
 name: Deploy to Google App Engine (GAE)
 
 on:
-  workflow_run:
-    workflows: ['🔎 CI Checks']
-    types:
-      - completed
   push:
     branches:
       - main

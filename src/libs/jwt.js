@@ -1,4 +1,5 @@
 import jsonwebtoken from 'jsonwebtoken';
+import { ErrorHandler } from '../middlewares/error.js';
 
 export class JWT {
   static async generate(payload) {
@@ -10,7 +11,12 @@ export class JWT {
   }
 
   static async verify(token) {
-    const payload = jsonwebtoken.verify(token, process.env.JWT_SECRET);
-    return payload;
+    try {
+      const payload = jsonwebtoken.verify(token, process.env.JWT_SECRET);
+
+      return payload;
+    } catch (err) {
+      throw new ErrorHandler(401, `invalid token, ${err.message}`);
+    }
   }
 }

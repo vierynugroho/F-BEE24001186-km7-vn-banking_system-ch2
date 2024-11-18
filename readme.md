@@ -8,6 +8,12 @@
 <img src='./public/assets/erd.png' alt='erd' title='erd banking_system - Viery Nugroho'>
 </div>
 
+# SENTRY - Logging & Debugging
+
+<div id='image' align='center'>
+<img src='./public/assets/sentry.png' alt='sentry' title='sentry banking_system - Viery Nugroho'>
+</div>
+
 # Unit & Integration Testing Coverage
 
 <div id='image' align='center'>

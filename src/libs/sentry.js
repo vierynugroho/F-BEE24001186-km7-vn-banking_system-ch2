@@ -3,8 +3,8 @@ import * as Sentry from '@sentry/node';
 import { nodeProfilingIntegration } from '@sentry/profiling-node';
 
 Sentry.init({
-  dsn: 'https://4b34e76fef3c8ff55c0971660791a3c2@o4504261249466368.ingest.us.sentry.io/4508294404440065',
-  integrations: [nodeProfilingIntegration()],
+  dsn: process.env.SENTRY_DSN,
+  integrations: [nodeProfilingIntegration(), Sentry.debugIntegration()],
   // Tracing
   tracesSampleRate: 1.0, //  Capture 100% of the transactions
 });

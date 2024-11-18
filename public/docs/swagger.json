@@ -7633,16 +7633,88 @@
                 "example": {
                   "meta": {
                     "statusCode": 200,
-                    "message": "email verification successfully"
+                    "message": "Verification link has been sent, please check your email"
                   },
                   "data": {
-                    "id": 28,
+                    "id": 12,
                     "name": "viery nugroho",
-                    "email": "viery15102002@gmail.com",
+                    "email": "vierynugroho@gmail.com",
                     "role": "CUSTOMER",
-                    "isVerified": true,
-                    "secretToken": null,
-                    "OTPToken": null
+                    "isVerified": false,
+                    "secretToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZpZXJ5bnVncm9ob0BnbWFpbC5jb20iLCJpYXQiOjE3MzE5MzY3NzksImV4cCI6MTczMjAyMzE3OX0.7X9sj8369NPqIKi2A3NS1NTWv4FGlMuJEUavJCH0wI0",
+                    "OTPToken": "328053"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid Token",
+            "headers": {
+              "X-Powered-By": {
+                "schema": {
+                  "type": "string",
+                  "example": "Express"
+                }
+              },
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "example": "*"
+                }
+              },
+              "Access-Control-Expose-Headers": {
+                "schema": {
+                  "type": "string",
+                  "example": "Content-Type, Authorization, Accept, Accept-Language, Accept-Encoding"
+                }
+              },
+              "Content-Type": {
+                "schema": {
+                  "type": "string",
+                  "example": "application/json; charset=utf-8"
+                }
+              },
+              "Content-Length": {
+                "schema": {
+                  "type": "integer",
+                  "example": "70"
+                }
+              },
+              "ETag": {
+                "schema": {
+                  "type": "string",
+                  "example": "W/\"46-GyhZtq5XnVR6sr46s+bf2+CGBbk\""
+                }
+              },
+              "Date": {
+                "schema": {
+                  "type": "string",
+                  "example": "Wed, 23 Oct 2024 13:32:23 GMT"
+                }
+              },
+              "Connection": {
+                "schema": {
+                  "type": "string",
+                  "example": "keep-alive"
+                }
+              },
+              "Keep-Alive": {
+                "schema": {
+                  "type": "string",
+                  "example": "timeout=5"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": {
+                    "statusCode": 401,
+                    "message": "Unexpected token 'q', ... is not valid JSON"
                   }
                 }
               }
@@ -7714,7 +7786,7 @@
                 "example": {
                   "error": {
                     "statusCode": 404,
-                    "message": "secret token is invalid, check your email or resend OTP"
+                    "message": "token is not found"
                   }
                 }
               }

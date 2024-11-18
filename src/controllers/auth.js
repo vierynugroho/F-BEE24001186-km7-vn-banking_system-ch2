@@ -106,6 +106,10 @@ export class AuthController {
     try {
       const { token } = req.query;
 
+      if (!token || token === '') {
+        throw new ErrorHandler(404, 'token is not found');
+      }
+
       const resendOTP = await AuthService.resendOTP(token);
 
       await Notification.push(
